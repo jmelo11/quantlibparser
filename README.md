@@ -1,29 +1,21 @@
-# README #
+# QuantLib String Parser #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Transforma string a objectos de QuantLib y viceversa.
 
-### What is this repository for? ###
+## Instalación ##
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+- CMAKE:
 
-### How do I get set up? ###
+    mkdir build 
+    cd build
+    cmake .. -DCMAKE_INSTALL_PREFIX='C:\Users\bloomberg\Desktop\Desarrollo\bankingItau\libs\quantlibparser\install' -DBoost_INCLUDE_DIR='C:\Users\bloomberg\Desktop\Desarrollo\boost'
+    cmake --build . --config Release --target install
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+## Uso ##
 
-### Contribution guidelines ###
+    project("SI-Example")
 
-* Writing tests
-* Code review
-* Other guidelines
+    find_package(SI CONFIG REQUIRED)
 
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+    add_executable(SI-example src/main.cc)
+    arget_link_libraries(SI-example SI::SI)
