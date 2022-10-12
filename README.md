@@ -4,7 +4,7 @@ Transforma string a objectos de QuantLib y viceversa.
 
 ## Instalación ##
 
-- CMAKE:
+Ejemplo de instalacion con cmake:
 
     mkdir build 
     cd build
