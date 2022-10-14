@@ -1,5 +1,4 @@
 cmake_minimum_required(VERSION 3.0)
-include(GNUInstallDirs)
 
 project(QuantLibParser VERSION 1.0.0)
 
@@ -8,8 +7,11 @@ find_package(QuantLib REQUIRED)
 
 add_library(QuantLibParser INTERFACE)
 
+include(GNUInstallDirs)
 #https://dominikberner.ch/cmake-interface-lib/
-target_include_directories(QuantLibParser INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
+target_include_directories(QuantLibParser INTERFACE 
+                                $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> 
+                                $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
 #create configs files to be used with find_package
 include(CMakePackageConfigHelpers)
@@ -21,6 +23,7 @@ configure_package_config_file("${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config
                               "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
                               INSTALL_DESTINATION
                               ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}/cmake)
+
 
 
 #install paths

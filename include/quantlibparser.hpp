@@ -1,13 +1,24 @@
 #pragma once
 
 #include <unordered_map>
-#include <boost/preprocessor.hpp>
-#include <qlconfig.hpp>
-#include <macros.hpp>
+#include <string>
+#include <detail/qldefinitions.hpp>
+#include <detail/macros.hpp>
+
+#include <ql/utilities/dataparsers.hpp>
+#include <ql/time/date.hpp>
+#include <ql/time/daycounters/actual360.hpp>
+#include <ql/time/daycounters/actual365Fixed.hpp>
+#include <ql/time/daycounters/thirty360.hpp>
+#include <ql/indexes/iborindex.hpp>
+#include <ql/indexes/all.hpp>
+#include <ql/time/calendars/all.hpp>
+#include <ql/currencies/all.hpp>
 
 namespace QuantLibParser
 {
-
+	using namespace QuantLib;
+	
 	SERIALIZE_ENUM_WITH_CONVERSIONS(Currencies, (CLP)(CLF)(USD)(EUR))
 	SERIALIZE_ENUM_WITH_CONVERSIONS(Compoundings, (SIMPLE)(COMPOUNDED)(CONTINUOUS))
 	SERIALIZE_ENUM_WITH_CONVERSIONS(DayCounters, (ACT360)(ACT365)(THIRTY360))
