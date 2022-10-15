@@ -1,10 +1,5 @@
 #include <boost/preprocessor.hpp>
-
-#define SETVARWPARSER(dict, dataType, name, def) dataType name = has(dict, #name) ? parse##dataType((std::string)params.at(#name)) : parse##dataType(def)
-#define SETDATE(dict, name, def) Date name = has(dict, #name) ? parseDate(dict.at(#name), DateFormat::MIXED) : def
-#define SETVAR(dict, dataType, name, def) dataType name = has(dict, #name) ? (dataType)dict.at(#name) : def
-#define CHEKNPARSE(dict, dataType, name) checkFor(dict, #name);  dataType name = parse##dataType(dict.at(#name))
-
+#include <unordered_map>
 
 #define SERIALIZE_ENUM_TO_CASES(r, data, elem) \
 	case elem:                                 \

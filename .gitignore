@@ -56,3 +56,6 @@ Thumbs.db
 /quantlibparser/x64/Debug/quantlibparser.tlog
 /.vs
 /out/build/x64-Debug
+/packages/Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.5
+/tests/x64/Debug
+/x64/Debug
