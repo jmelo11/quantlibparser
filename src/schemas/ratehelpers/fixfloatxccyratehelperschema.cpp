@@ -26,7 +26,7 @@ namespace QuantLibParser
         base["properties"]["FXSPOTTICKER"] = tickerSchema;
         base["properties"]["INDEX"] = curveNameSchema;
 		base["properties"]["CURRENCY"] = currencySchema;
-        base["properties"]["TYPE"] = typeSchema;
+        base["properties"]["TYPE"] = rateHelperTypeSchema;
         base["properties"]["TENOR"] = tenorSchema;
 		              
         mySchema_ = base;

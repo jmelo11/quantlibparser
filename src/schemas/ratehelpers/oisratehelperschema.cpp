@@ -27,7 +27,7 @@ namespace QuantLibParser
         base["properties"]["RATE"] = priceSchema;
         base["properties"]["RATETICKER"] = tickerSchema;
         base["properties"]["INDEX"] = curveNameSchema;
-        base["properties"]["TYPE"] = typeSchema;
+        base["properties"]["TYPE"] = rateHelperTypeSchema;
         base["properties"]["TENOR"] = tenorSchema;
         
         mySchema_ = base;

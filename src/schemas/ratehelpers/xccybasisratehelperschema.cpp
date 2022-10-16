@@ -31,7 +31,7 @@ namespace QuantLibParser
         base["properties"]["SPREADINDEX"] = curveNameSchema;
 		
         base["properties"]["TENOR"] = tenorSchema;
-        base["properties"]["TYPE"] = typeSchema;		
+        base["properties"]["TYPE"] = rateHelperTypeSchema;
         
         mySchema_ = base;
     }

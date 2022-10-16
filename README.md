@@ -8,7 +8,7 @@ Ejemplo de instalacion con cmake:
 
     mkdir build 
     cd build
-    cmake .. -DCMAKE_INSTALL_PREFIX='C:\Users\bloomberg\Desktop\Desarrollo\builds' -DBoost_INCLUDE_DIR='C:\Users\bloomberg\Desktop\Desarrollo\builds\boost'
+    cmake .. -DCMAKE_PREFIX_PATH='C:\Users\bloomberg\Desktop\Desarrollo\builds' -DCMAKE_INSTALL_PREFIX='C:\Users\bloomberg\Desktop\Desarrollo\builds\quantlibparser'
     cmake --build . --config Release --target install
 
 ## Uso ##

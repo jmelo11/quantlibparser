@@ -18,7 +18,7 @@ namespace QuantLibParser
         base["properties"]["FXPOINTSTICKER"] = tickerSchema;
 		base["properties"]["ENDDATE"] = dateSchema;
         base["properties"]["TENOR"] = tenorSchema;
-        base["properties"]["TYPE"] = typeSchema;
+        base["properties"]["TYPE"] = rateHelperTypeSchema;
         base["properties"]["ENDOFMONTH"] = eomSchema;
         base["properties"]["CONVENTION"] = conventionSchema;
         base["properties"]["CALENDAR"] = calendarSchema;

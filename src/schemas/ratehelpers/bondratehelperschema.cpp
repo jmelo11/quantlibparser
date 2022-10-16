@@ -14,7 +14,7 @@ namespace QuantLibParser
 
         base["properties"]["RATETICKER"] = tickerSchema;
         base["properties"]["TENOR"] = tenorSchema;
-        base["properties"]["TYPE"] = typeSchema;
+        base["properties"]["TYPE"] = rateHelperTypeSchema;
 
         base["properties"]["CALENDAR"] = calendarSchema;
         base["properties"]["COMPOUNDING"] = compoundingSchema;

@@ -19,7 +19,7 @@ namespace QuantLibParser
         base["properties"]["TENOR"] = tenorSchema;
         base["properties"]["SPREADONSHORT"] = eomSchema;
         base["properties"]["SHORTPAYTENOR"] = tenorSchema;
-        base["properties"]["TYPE"] = typeSchema;
+        base["properties"]["TYPE"] = rateHelperTypeSchema;
 		base["properties"]["DISCOUNTINGCURVE"] = curveNameSchema;
               
         mySchema_ = base;

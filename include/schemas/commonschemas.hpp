@@ -6,10 +6,39 @@ namespace QuantLibParser
 {
 	using json = nlohmann::json;
 
-	static json typeSchema = R"({
+	static json rateHelperTypeSchema = R"({
         "type": "string",
         "description": "Type of rate helper",
         "enum": ["DEPOSIT", "BOND", "FXSWAP", "XCCY","XCCYBASIS","SWAP","OIS","TENORBASIS"]
+    })"_json;
+
+	static json interpolationTypeSchema = R"({
+        "type": "string",
+        "description": "Type of interpolation",
+        "enum": ["LINEAR","CUBIC", "LOGLINEAR"]
+    })"_json;
+
+	static json curveTypeSchema = R"({
+        "type": "string",
+        "description": "Type of curve",
+        "enum": ["PIECEWISECURVE","DISCOUNTCURVE", "ZERORATECURVE", "FLATFORWARD"]
+    })"_json;
+
+	static json baseCurveSchema = R"({             
+		"NAME": {
+			"type":"string",
+			"description": "Curve name"
+				},
+		"ENABLEEXTRAPOLATION": {
+			"type": "boolean",
+			"description": "Enable extrapolation"						
+				}                
+    })"_json;
+
+	static json indexTypeSchema = R"({
+        "type": "string",
+        "description": "Type of interpolation",
+        "enum": ["IBOR", "OVERNIGHT"]
     })"_json;
 
 	static json curveNameSchema = R"({
