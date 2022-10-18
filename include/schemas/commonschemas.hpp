@@ -15,16 +15,15 @@ namespace QuantLibParser
 	static json interpolationTypeSchema = R"({
         "type": "string",
         "description": "Type of interpolation",
-        "enum": ["LINEAR","CUBIC", "LOGLINEAR"]
+        "enum": ["LINEAR", "CUBIC", "LOGLINEAR"]
     })"_json;
-
-	static json curveTypeSchema = R"({
-        "type": "string",
-        "description": "Type of curve",
-        "enum": ["PIECEWISECURVE","DISCOUNTCURVE", "ZERORATECURVE", "FLATFORWARD"]
-    })"_json;
-
+	
 	static json baseCurveSchema = R"({             
+        "TYPE": {
+            "type": "string",
+            "description": "Type of curve",
+            "enum": ["PIECEWISE", "DISCOUNT", "FLATFORWARD"]
+				},
 		"NAME": {
 			"type":"string",
 			"description": "Curve name"
@@ -34,13 +33,7 @@ namespace QuantLibParser
 			"description": "Enable extrapolation"						
 				}                
     })"_json;
-
-	static json indexTypeSchema = R"({
-        "type": "string",
-        "description": "Type of interpolation",
-        "enum": ["IBOR", "OVERNIGHT"]
-    })"_json;
-
+	
 	static json curveNameSchema = R"({
     "type": "string",
 		"description": "Name of the curve"
@@ -118,7 +111,8 @@ namespace QuantLibParser
     })"_json;
 
 	static json fixingDaysSchema = R"({
-        "anyOf": [{
+        "anyOf": [
+            {
                 "type": "integer",             
                 "minimum": 0,
                 "example": 2
@@ -157,5 +151,7 @@ namespace QuantLibParser
         "pattern": "^\\d+[YWDM]$",
         "example": "1Y"
         })"_json;
+
+
 
 }

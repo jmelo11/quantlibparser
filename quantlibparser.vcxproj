@@ -154,7 +154,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\detail\parsingmethods.cpp" />
-    <ClCompile Include="src\parser.cpp" />
     <ClCompile Include="src\schemas\ratehelpers\bondratehelperschema.cpp" />
     <ClCompile Include="src\schemas\ratehelpers\depositratehelperschema.cpp" />
     <ClCompile Include="src\schemas\ratehelpers\fixfloatxccyratehelperschema.cpp" />
@@ -163,8 +162,11 @@
     <ClCompile Include="src\schemas\ratehelpers\swapratehelperschema.cpp" />
     <ClCompile Include="src\schemas\ratehelpers\tenorbasisratehelperschema.cpp" />
     <ClCompile Include="src\schemas\ratehelpers\xccybasisratehelperschema.cpp" />
-    <ClCompile Include="src\termstructures\bootstrapcurveschema.cpp" />
-    <ClCompile Include="src\termstructures\discountcurveschema.cpp" />
+    <ClCompile Include="src\schemas\termstructures\bootstrapcurveschema.cpp" />
+    <ClCompile Include="src\schemas\termstructures\discountcurveschema.cpp" />
+    <ClCompile Include="src\schemas\termstructures\flatforwardcurveschema.cpp" />
+    <ClCompile Include="src\schemas\termstructures\rateindexschema.cpp" />
+    <ClCompile Include="src\schemas\termstructures\yieldtermstructureschema.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\detail\macros.hpp" />
@@ -182,6 +184,9 @@
     <ClInclude Include="include\schemas\schema.hpp" />
     <ClInclude Include="include\schemas\termstructures\bootstrapcurveschema.hpp" />
     <ClInclude Include="include\schemas\termstructures\discountcurveschema.hpp" />
+    <ClInclude Include="include\schemas\termstructures\flatforwardcurveschema.hpp" />
+    <ClInclude Include="include\schemas\termstructures\rateindexschema.hpp" />
+    <ClInclude Include="include\schemas\termstructures\yieldtermstructureschema.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -22,7 +22,7 @@ namespace QuantLibParser
 		json base = R"({
             "title": "Bootstrap Curve Schema",
             "properties": {},			
-            "required": ["NAME", "ENABLEEXTRAPOLATION", "RATEHELPERS"]
+            "required": ["NAME", "ENABLEEXTRAPOLATION", "RATEHELPERS", "TYPE"]
         })"_json;
 
 		json ratehelpers = R"({

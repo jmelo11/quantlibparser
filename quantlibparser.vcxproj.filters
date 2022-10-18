@@ -33,9 +33,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\parser.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\detail\parsingmethods.cpp">
       <Filter>src\detail</Filter>
     </ClCompile>
@@ -63,10 +60,19 @@
     <ClCompile Include="src\schemas\ratehelpers\xccybasisratehelperschema.cpp">
       <Filter>src\schemas\ratehelpers</Filter>
     </ClCompile>
-    <ClCompile Include="src\termstructures\bootstrapcurveschema.cpp">
+    <ClCompile Include="src\schemas\termstructures\flatforwardcurveschema.cpp">
       <Filter>src\schemas\termstructures</Filter>
     </ClCompile>
-    <ClCompile Include="src\termstructures\discountcurveschema.cpp">
+    <ClCompile Include="src\schemas\termstructures\bootstrapcurveschema.cpp">
+      <Filter>src\schemas\termstructures</Filter>
+    </ClCompile>
+    <ClCompile Include="src\schemas\termstructures\discountcurveschema.cpp">
+      <Filter>src\schemas\termstructures</Filter>
+    </ClCompile>
+    <ClCompile Include="src\schemas\termstructures\rateindexschema.cpp">
+      <Filter>src\schemas\termstructures</Filter>
+    </ClCompile>
+    <ClCompile Include="src\schemas\termstructures\yieldtermstructureschema.cpp">
       <Filter>src\schemas\termstructures</Filter>
     </ClCompile>
   </ItemGroup>
@@ -114,6 +120,15 @@
       <Filter>include\schemas\termstructures</Filter>
     </ClInclude>
     <ClInclude Include="include\schemas\termstructures\discountcurveschema.hpp">
+      <Filter>include\schemas\termstructures</Filter>
+    </ClInclude>
+    <ClInclude Include="include\schemas\termstructures\flatforwardcurveschema.hpp">
+      <Filter>include\schemas\termstructures</Filter>
+    </ClInclude>
+    <ClInclude Include="include\schemas\termstructures\rateindexschema.hpp">
+      <Filter>include\schemas\termstructures</Filter>
+    </ClInclude>
+    <ClInclude Include="include\schemas\termstructures\yieldtermstructureschema.hpp">
       <Filter>include\schemas\termstructures</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,15 +1,16 @@
+#pragma once
 #include <schemas/termstructures/discountcurveschema.hpp>
-#include <schemas/commonschemas.hpp>
+
 
 namespace QuantLibParser
 {
 	template <>
-	void Schema<QuantLib::DiscountCurve> ::initSchema()
+	void Schema<QuantLib::DiscountCurve>::initSchema()
 	{
 		json base = R"({
             "title": "Discount Curve Schema",
             "properties": {},			
-            "required": ["NAME", "ENABLEEXTRAPOLATION", "NODES"]
+            "required": ["TYPE", "NAME", "ENABLEEXTRAPOLATION", "NODES"]
         })"_json;
 
 		json nodes = R"({
@@ -25,17 +26,16 @@ namespace QuantLibParser
 		})"_json;
 
 		base["properties"] = baseCurveSchema;
-		
-			
+
 		nodes["items"]["properties"]["DATE"] = dateSchema;
 		nodes["items"]["properties"]["VALUE"] = priceSchema;
-		
+
 		base["properties"]["NODES"] = nodes;
 
 		mySchema_ = base;
 	}
-	
-	template<>
+
+	template <>
 	void Schema<QuantLib::DiscountCurve>::initDefaultValues()
 	{
 		myDefaultValues_["ENABLEEXTRAPOLATION"] = true;
