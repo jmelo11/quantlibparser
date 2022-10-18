@@ -1,9 +1,8 @@
-#include <schemas/schema.hpp>
+#pragma once
 
+#include <schemas/schema.hpp>
 #include <ql/termstructures/yieldtermstructure.hpp>
-#include <schemas/termstructures/bootstrapcurveschema.hpp>
-#include <schemas/termstructures/discountcurveschema.hpp>
-#include <schemas/termstructures/flatforwardcurveschema.hpp>
+
 
 namespace QuantLibParser
 {
@@ -13,3 +12,4 @@ namespace QuantLibParser
 	template <>
 	void Schema<QuantLib::YieldTermStructure>::initDefaultValues();
 }
+

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <schemas/termstructures/rateindexschema.hpp>
+#include <schemas/commonschemas.hpp>
 
 namespace QuantLibParser
 {

@@ -1,6 +1,9 @@
 #pragma once
-#include <schemas/termstructures/yieldtermstructureschema.hpp>
 
+#include <schemas/termstructures/yieldtermstructureschema.hpp>
+#include <schemas/termstructures/bootstrapcurveschema.hpp>
+#include <schemas/termstructures/discountcurveschema.hpp>
+#include <schemas/termstructures/flatforwardcurveschema.hpp>
 
 namespace QuantLibParser
 {

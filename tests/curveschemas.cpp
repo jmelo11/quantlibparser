@@ -5,8 +5,9 @@
 using namespace QuantLib;
 using namespace QuantLibParser;
 
-TEST(DiscountCurve, CurveSchemas) {
-	json data = R"({       
+TEST(DiscountCurveTest, CurveSchemas) {
+	json data = R"({   
+        "TYPE": "DISCOUNT",    
 		"NAME": "USD",
 		"DAYCOUNTER": "ACT360",
 		"ENABLEEXTRAPOLATION": true,
@@ -45,8 +46,9 @@ TEST(DiscountCurve, CurveSchemas) {
 	EXPECT_ANY_THROW(curveSchema.validate(data));
 
 }
-TEST(BootstrapCurve, CurveSchemas) {
+TEST(BootstrapCurveTest, CurveSchemas) {
 	json data = R"({
+            "TYPE": "PIECEWISE",
             "NAME": "CF_USD",
             "DAYCOUNTER": "ACT360",
             "ENABLEEXTRAPOLATION": true,

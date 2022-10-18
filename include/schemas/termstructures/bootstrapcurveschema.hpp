@@ -1,3 +1,5 @@
+#pragma once
+
 #include <schemas/schema.hpp>
 #include <ql/termstructures/yield/piecewiseyieldcurve.hpp>
 

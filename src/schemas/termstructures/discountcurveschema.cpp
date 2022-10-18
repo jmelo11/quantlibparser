@@ -1,6 +1,7 @@
 #pragma once
-#include <schemas/termstructures/discountcurveschema.hpp>
 
+#include <schemas/termstructures/discountcurveschema.hpp>
+#include <schemas/commonschemas.hpp>
 
 namespace QuantLibParser
 {

@@ -1,4 +1,6 @@
 #pragma once
+
+#include <schemas/commonschemas.hpp>
 #include <schemas/termstructures/flatforwardcurveschema.hpp>
 
 namespace QuantLibParser

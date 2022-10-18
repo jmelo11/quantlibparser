@@ -33,13 +33,13 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\bloomberg\Desktop\Desarrollo\builds\QuantLib\include;C:\Users\bloomberg\Desktop\Desarrollo\builds\nlohmann_json_schema_validator\include;C:\Users\bloomberg\Desktop\Desarrollo\builds\boost;C:\Users\bloomberg\Desktop\Desarrollo\builds\nlohmann_json\include;C:\Users\bloomberg\Desktop\Desarrollo\builds\QuantExt\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);C:\Users\bloomberg\Desktop\Desarrollo\builds\QuantLib\lib;C:\Users\bloomberg\Desktop\Desarrollo\builds\nlohmann_json_schema_validator\lib;$(SolutionDir)$(Platform)\$(Configuration);C:\Users\bloomberg\Desktop\Desarrollo\builds\QuantExt\lib;$(LibraryPath)</LibraryPath>
-    <SourcePath>$(VC_SourcePath);$(SolutionDir)src</SourcePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\bloomberg\Desktop\Desarrollo\builds\boost;C:\Users\bloomberg\Desktop\Desarrollo\builds\nlohmann_json\include;C:\Users\bloomberg\Desktop\Desarrollo\builds\nlohmann_json_schema_validator\include;C:\Users\bloomberg\Desktop\Desarrollo\builds\QuantLib\include;C:\Users\bloomberg\Desktop\Desarrollo\builds\QuantExt\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);C:\Users\bloomberg\Desktop\Desarrollo\builds\QuantLib\lib;C:\Users\bloomberg\Desktop\Desarrollo\builds\nlohmann_json_schema_validator\lib;C:\Users\bloomberg\Desktop\Desarrollo\builds\QuantExt\lib;$(SolutionDir)$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <SourcePath>$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\bloomberg\Desktop\Desarrollo\builds\QuantLib\include;C:\Users\bloomberg\Desktop\Desarrollo\builds\nlohmann_json_schema_validator\include;C:\Users\bloomberg\Desktop\Desarrollo\builds\boost;C:\Users\bloomberg\Desktop\Desarrollo\builds\nlohmann_json\include;C:\Users\bloomberg\Desktop\Desarrollo\builds\QuantExt\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);C:\Users\bloomberg\Desktop\Desarrollo\builds\QuantLib\lib;C:\Users\bloomberg\Desktop\Desarrollo\builds\nlohmann_json_schema_validator\lib;$(SolutionDir)$(Platform)\$(Configuration);C:\Users\bloomberg\Desktop\Desarrollo\builds\QuantExt\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);C:\Users\bloomberg\Desktop\Desarrollo\builds\QuantLib\lib;C:\Users\bloomberg\Desktop\Desarrollo\builds\nlohmann_json_schema_validator\lib;C:\Users\bloomberg\Desktop\Desarrollo\builds\QuantExt\lib;$(SolutionDir)$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -88,7 +88,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)include;%(AdditionalIncludeDirectories);$(SolutionDir)src;$(SolutionDir)include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)include;%(AdditionalIncludeDirectories);$(SolutionDir)include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -120,7 +120,7 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)include;%(AdditionalIncludeDirectories);$(SolutionDir)src;$(SolutionDir)include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)include;%(AdditionalIncludeDirectories);$(SolutionDir)include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
