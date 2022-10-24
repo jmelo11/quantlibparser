@@ -57,7 +57,5 @@ Thumbs.db
 /.vs
 /out/build/x64-Debug
 /packages/Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.5
-/tests/x64/Debug
-/x64/Debug
-/tests/x64/Release
-/x64/Release
+/tests/x64
+/x64
