@@ -14,6 +14,6 @@ Ejemplo de instalacion con cmake:
 ## Uso ##
 
     project("SI-Example")
-    find_package(SI CONFIG REQUIRED)
-    add_executable(SI-example src/main.cc)|
+    find_package(quantlibparser REQUIRED)
+    add_executable(SI-example src/main.cc)
     arget_link_libraries(SI-example SI::SI)
