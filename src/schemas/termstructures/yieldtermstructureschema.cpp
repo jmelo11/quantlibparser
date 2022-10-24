@@ -1,9 +1,9 @@
 #pragma once
 
-#include <schemas/termstructures/yieldtermstructureschema.hpp>
-#include <schemas/termstructures/bootstrapcurveschema.hpp>
-#include <schemas/termstructures/discountcurveschema.hpp>
-#include <schemas/termstructures/flatforwardcurveschema.hpp>
+#include <qlp/schemas/termstructures/yieldtermstructureschema.hpp>
+#include <qlp/schemas/termstructures/bootstrapcurveschema.hpp>
+#include <qlp/schemas/termstructures/discountcurveschema.hpp>
+#include <qlp/schemas/termstructures/flatforwardcurveschema.hpp>
 
 namespace QuantLibParser
 {
@@ -34,4 +34,5 @@ namespace QuantLibParser
 		
 	}
 
+	template class Schema<QuantLib::YieldTermStructure>;
 }

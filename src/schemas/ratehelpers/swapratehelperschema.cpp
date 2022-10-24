@@ -1,5 +1,5 @@
 #pragma once
-#include <schemas/ratehelpers/swapratehelperschema.hpp>
+#include <qlp/schemas/ratehelpers/swapratehelperschema.hpp>
 
 namespace QuantLibParser
 {
@@ -42,5 +42,6 @@ namespace QuantLibParser
         myDefaultValues_["FWDSTART"] = "0D";		
     }
 
+	template class Schema<QuantLib::SwapRateHelper>;
 
 }

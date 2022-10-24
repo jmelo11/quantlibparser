@@ -1,16 +1,16 @@
 #pragma once
 
-#include <schemas/termstructures/bootstrapcurveschema.hpp>
-#include <schemas/ratehelpers/depositratehelperschema.hpp>
-#include <schemas/ratehelpers/bondratehelperschema.hpp>
-#include <schemas/ratehelpers/fxswapratehelperschema.hpp>
-#include <schemas/ratehelpers/swapratehelperschema.hpp>
-#include <schemas/ratehelpers/oisratehelperschema.hpp>
-#include <schemas/ratehelpers/tenorbasisratehelperschema.hpp>
-#include <schemas/ratehelpers/fixfloatxccyratehelperschema.hpp>
-#include <schemas/ratehelpers/xccybasisratehelperschema.hpp>
-#include <schemas/commonschemas.hpp>
-
+#include <qlp/schemas/termstructures/bootstrapcurveschema.hpp>
+#include <qlp/schemas/ratehelpers/depositratehelperschema.hpp>
+#include <qlp/schemas/ratehelpers/bondratehelperschema.hpp>
+#include <qlp/schemas/ratehelpers/fxswapratehelperschema.hpp>
+#include <qlp/schemas/ratehelpers/swapratehelperschema.hpp>
+#include <qlp/schemas/ratehelpers/oisratehelperschema.hpp>
+#include <qlp/schemas/ratehelpers/tenorbasisratehelperschema.hpp>
+#include <qlp/schemas/ratehelpers/fixfloatxccyratehelperschema.hpp>
+#include <qlp/schemas/ratehelpers/xccybasisratehelperschema.hpp>
+#include <qlp/schemas/commonschemas.hpp>
+		  
 namespace QuantLibParser
 {
 	template <>
@@ -61,5 +61,7 @@ namespace QuantLibParser
 		myDefaultValues_["ENABLEEXTRAPOLATION"] = true;
 		myDefaultValues_["DAYCOUNTER"] = "ACT360";
 	}
+	
+	template class Schema<QuantLib::PiecewiseYieldCurve<QuantLib::LogLinear, QuantLib::Discount>>;
 
 }

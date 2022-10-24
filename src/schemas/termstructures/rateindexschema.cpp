@@ -1,7 +1,7 @@
 #pragma once
 
-#include <schemas/termstructures/rateindexschema.hpp>
-#include <schemas/commonschemas.hpp>
+#include <qlp/schemas/termstructures/rateindexschema.hpp>
+#include <qlp/schemas/commonschemas.hpp>
 
 namespace QuantLibParser
 {
@@ -9,17 +9,17 @@ namespace QuantLibParser
 	void Schema<QuantLib::InterestRateIndex>::initSchema()
 	{
 		json base = R"({
-            "title": "Flat Forward Curve Schema",
+            "title": "Index Schema",
             "properties": {},			
-            "required": ["TYPE", "NAME", "ENABLEEXTRAPOLATION", "RATE"]
+            "required": ["TYPE","NAME","TENOR","DAYCOUNTER","CURRENCY","CALENDAR"]
         })"_json;
-		
-		base["properties"] = baseCurveSchema;
-		base["properties"]["RATE"] = priceSchema;
 
+		base["properties"]["TYPE"] = indexTypesSchema;
+		base["properties"]["NAME"] = curveNameSchema;
+		base["properties"]["TENOR"] = tenorSchema;
 		base["properties"]["DAYCOUNTER"] = dayCounterSchema;
-		base["properties"]["COMPOUNDING"] = compoundingSchema;
-		base["properties"]["FREQUENCY"] = frequencySchema;
+		base["properties"]["CURRENCY"] = currencySchema;
+		base["properties"]["CALENDAR"] = calendarSchema;
 
 		mySchema_ = base;
 	}
@@ -27,9 +27,8 @@ namespace QuantLibParser
 	template<>
 	void Schema<QuantLib::InterestRateIndex>::initDefaultValues()
 	{
-		myDefaultValues_["ENABLEEXTRAPOLATION"] = true;
 		myDefaultValues_["DAYCOUNTER"] = "ACT360";
-		myDefaultValues_["COMPOUNDING"] = "SIMPLE";
-		myDefaultValues_["FREQUENCY"] = "ANNUAL";
 	}
+
+	template class Schema<QuantLib::InterestRateIndex>;
 }

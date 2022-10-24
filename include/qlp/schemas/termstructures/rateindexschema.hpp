@@ -1,6 +1,6 @@
 #pragma once
 
-#include <schemas/schema.hpp>
+#include <qlp/schemas/schema.hpp>
 #include <ql/indexes/interestrateindex.hpp>
 
 namespace QuantLibParser

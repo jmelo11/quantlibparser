@@ -1,5 +1,5 @@
 #pragma once
-#include <schemas/ratehelpers/tenorbasisratehelperschema.hpp>
+#include <qlp/schemas/ratehelpers/tenorbasisratehelperschema.hpp>
 
 namespace QuantLibParser
 {
@@ -31,5 +31,5 @@ namespace QuantLibParser
         myDefaultValues_["SPREADONSHORT"] = true;       
     }
 
-
+	template class Schema<QuantExt::TenorBasisSwapHelper>;
 }

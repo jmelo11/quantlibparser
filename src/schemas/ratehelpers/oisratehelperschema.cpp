@@ -1,5 +1,5 @@
 #pragma once
-#include <schemas/ratehelpers/oisratehelperschema.hpp>
+#include <qlp/schemas/ratehelpers/oisratehelperschema.hpp>
 
 namespace QuantLibParser
 {
@@ -46,4 +46,6 @@ namespace QuantLibParser
         myDefaultValues_["TELESCOPICVALUEDATES"] = true;
         myDefaultValues_["PAYMENTLAG"] = 0;
     }
+
+	template class Schema<QuantLib::OISRateHelper>;
 }

@@ -1,5 +1,5 @@
 #pragma once
-#include <schemas/ratehelpers/fxswapratehelperschema.hpp>
+#include <qlp/schemas/ratehelpers/fxswapratehelperschema.hpp>
 
 namespace QuantLibParser
 {
@@ -38,6 +38,6 @@ namespace QuantLibParser
         myDefaultValues_["DAYCOUNTER"] = "ACT360";
         myDefaultValues_["CONVENTION"] = "UNADJUSTED";
     }
-
-
+	
+    template class Schema<QuantLib::FxSwapRateHelper>;
 }

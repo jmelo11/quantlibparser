@@ -1,5 +1,5 @@
 
-#include <schemas/ratehelpers/fixfloatxccyratehelperschema.hpp>
+#include <qlp/schemas/ratehelpers/fixfloatxccyratehelperschema.hpp>
 
 namespace QuantLibParser
 {
@@ -43,4 +43,6 @@ namespace QuantLibParser
         myDefaultValues_["FREQUENCY"] = "SEMIANNUAL";
 		myDefaultValues_["SPREAD"] = 0.0;				
     }
+
+	template class Schema<QuantExt::CrossCcyFixFloatSwapHelper>;
 }

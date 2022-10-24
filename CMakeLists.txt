@@ -3,12 +3,25 @@ cmake_minimum_required(VERSION 3.10)
 project(QuantLibParser VERSION 1.0.0 LANGUAGES CXX)
 include(GNUInstallDirs)
 
-file(GLOB SOURCES "src/*.cpp" "src/schemas/*.cpp" "src/schemas/ratehelpers/*.cpp")
-file(GLOB INCLUDES "include/*.hpp" "include/schemas/*.hpp" "include/schemas/ratehelpers/*.hpp")
+file(GLOB SOURCES "src/*.cpp" 
+                  "src/schemas/*.cpp" 
+                  "src/schemas/ratehelpers/*.cpp" 
+                  "src/schemas/requests/*.cpp"
+                  "src/schemas/termstructures/*.cpp")
+
+file(GLOB INCLUDES "include/qle/*.hpp" 
+                   "include/qle/schemas/*.hpp" 
+                   "include/qle/schemas/ratehelpers/*.hpp" 
+                   "include/qle/schemas/requests/*.hpp" 
+                   "include/qle/schemas/termstructures/*.hpp")
 
 add_library(QuantLibParser STATIC ${INCLUDES} ${SOURCES})
 
-target_include_directories(QuantLibParser PRIVATE "src" "include" )
+
+target_include_directories(QuantLibParser PUBLIC  
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>  
+    $<INSTALL_INTERFACE:include> 
+)
 
 set(Boost_INCLUDE_DIR "C:/Users/bloomberg/Desktop/Desarrollo/builds/boost")
 find_package(Boost REQUIRED)

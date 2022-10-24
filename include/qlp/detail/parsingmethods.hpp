@@ -1,7 +1,36 @@
-#include <detail/parsingmethods.hpp>
+#pragma once
 
-namespace QuantLibParser {
-	
+#include <qlp/detail/macros.hpp>
+
+#include <ql/utilities/dataparsers.hpp>
+#include <ql/time/date.hpp>
+#include <ql/time/daycounters/actual360.hpp>
+#include <ql/time/daycounters/actual365Fixed.hpp>
+#include <ql/time/daycounters/thirty360.hpp>
+#include <ql/indexes/iborindex.hpp>
+#include <ql/indexes/all.hpp>
+#include <ql/time/calendars/all.hpp>
+#include <ql/currencies/all.hpp>
+
+namespace QuantLibParser
+{
+	using namespace QuantLib;
+
+	SERIALIZE_ENUM_WITH_CONVERSIONS(Currencies, (CLP)(CLF)(USD)(EUR))
+	SERIALIZE_ENUM_WITH_CONVERSIONS(Compoundings, (SIMPLE)(COMPOUNDED)(CONTINUOUS))
+	SERIALIZE_ENUM_WITH_CONVERSIONS(DayCounters, (ACT360)(ACT365)(THIRTY360))
+	SERIALIZE_ENUM_WITH_CONVERSIONS(Calendars, (CHILE)(NULLCALENDAR)(USA)(JOINT))
+	SERIALIZE_ENUM_WITH_CONVERSIONS(TimeUnits, (DAYS)(WEEKS)(MONTHS)(YEARS))
+	SERIALIZE_ENUM_WITH_CONVERSIONS(BDConventions, (FOLLOWING)(UNADJUSTED)(MODIFIEDFOLLOWING))
+	SERIALIZE_ENUM_WITH_CONVERSIONS(Frequencies, (ONCE)(ANNUAL)(SEMIANNUAL)(MONTHLY)(QUARTERLY)(NOFREQUENCY))
+
+	enum DateFormat
+	{
+		MIXED,
+		SLASH,
+		HYPHEN
+	};
+		
 	static std::string parseDate(const Date& date, DateFormat format)
 	{
 		std::string day = date.dayOfMonth() < 10 ? "0" + std::to_string(date.dayOfMonth()) : std::to_string(date.dayOfMonth());
@@ -19,7 +48,7 @@ namespace QuantLibParser {
 		}
 	};
 
-	static Date parseDate(const std::string& date, DateFormat format)
+	static Date parseDate(const std::string& date, DateFormat format = DateFormat::MIXED)
 	{
 		int day, month, year;
 		if (format == DateFormat::MIXED)
@@ -221,5 +250,4 @@ namespace QuantLibParser {
 			throw std::runtime_error("Unknown convention: " + convention);
 		}
 	};
-
 }

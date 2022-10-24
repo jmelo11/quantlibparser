@@ -1,4 +1,4 @@
-#include <detail/parsingmethods.hpp>
+#include <qlp/detail/parsingmethods.hpp>
 
 namespace QuantLibParser {
 	

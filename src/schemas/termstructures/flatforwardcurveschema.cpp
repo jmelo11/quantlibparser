@@ -1,7 +1,7 @@
 #pragma once
 
-#include <schemas/commonschemas.hpp>
-#include <schemas/termstructures/flatforwardcurveschema.hpp>
+#include <qlp/schemas/commonschemas.hpp>
+#include <qlp/schemas/termstructures/flatforwardcurveschema.hpp>
 
 namespace QuantLibParser
 {
@@ -34,5 +34,6 @@ namespace QuantLibParser
 		myDefaultValues_["COMPOUNDING"] = "SIMPLE";
 		myDefaultValues_["FREQUENCY"] = "ANNUAL";		
 	}
-
+	
+	template class Schema<QuantLib::FlatForward>;
 }

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <schemas/commonschemas.hpp>
-#include <schemas/schema.hpp>
+#include <qlp/schemas/commonschemas.hpp>
+#include <qlp/schemas/schema.hpp>
 #include <ql/termstructures/yield/bondhelpers.hpp>
 
 namespace QuantLibParser

@@ -162,6 +162,8 @@
     <ClCompile Include="src\schemas\ratehelpers\swapratehelperschema.cpp" />
     <ClCompile Include="src\schemas\ratehelpers\tenorbasisratehelperschema.cpp" />
     <ClCompile Include="src\schemas\ratehelpers\xccybasisratehelperschema.cpp" />
+    <ClCompile Include="src\schemas\requests\curvebuilderrequest.cpp" />
+    <ClCompile Include="src\schemas\requests\updatequoterequest.cpp" />
     <ClCompile Include="src\schemas\termstructures\bootstrapcurveschema.cpp" />
     <ClCompile Include="src\schemas\termstructures\discountcurveschema.cpp" />
     <ClCompile Include="src\schemas\termstructures\flatforwardcurveschema.cpp" />
@@ -169,24 +171,26 @@
     <ClCompile Include="src\schemas\termstructures\yieldtermstructureschema.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\detail\macros.hpp" />
-    <ClInclude Include="include\detail\parsingmethods.hpp" />
-    <ClInclude Include="include\parser.hpp" />
-    <ClInclude Include="include\schemas\commonschemas.hpp" />
-    <ClInclude Include="include\schemas\ratehelpers\bondratehelperschema.hpp" />
-    <ClInclude Include="include\schemas\ratehelpers\depositratehelperschema.hpp" />
-    <ClInclude Include="include\schemas\ratehelpers\fixfloatxccyratehelperschema.hpp" />
-    <ClInclude Include="include\schemas\ratehelpers\fxswapratehelperschema.hpp" />
-    <ClInclude Include="include\schemas\ratehelpers\oisratehelperschema.hpp" />
-    <ClInclude Include="include\schemas\ratehelpers\swapratehelperschema.hpp" />
-    <ClInclude Include="include\schemas\ratehelpers\tenorbasisratehelperschema.hpp" />
-    <ClInclude Include="include\schemas\ratehelpers\xccybasisratehelperschema.hpp" />
-    <ClInclude Include="include\schemas\schema.hpp" />
-    <ClInclude Include="include\schemas\termstructures\bootstrapcurveschema.hpp" />
-    <ClInclude Include="include\schemas\termstructures\discountcurveschema.hpp" />
-    <ClInclude Include="include\schemas\termstructures\flatforwardcurveschema.hpp" />
-    <ClInclude Include="include\schemas\termstructures\rateindexschema.hpp" />
-    <ClInclude Include="include\schemas\termstructures\yieldtermstructureschema.hpp" />
+    <ClInclude Include="include\qlp\detail\macros.hpp" />
+    <ClInclude Include="include\qlp\detail\parsingmethods.hpp" />
+    <ClInclude Include="include\qlp\parser.hpp" />
+    <ClInclude Include="include\qlp\schemas\commonschemas.hpp" />
+    <ClInclude Include="include\qlp\schemas\ratehelpers\bondratehelperschema.hpp" />
+    <ClInclude Include="include\qlp\schemas\ratehelpers\depositratehelperschema.hpp" />
+    <ClInclude Include="include\qlp\schemas\ratehelpers\fixfloatxccyratehelperschema.hpp" />
+    <ClInclude Include="include\qlp\schemas\ratehelpers\fxswapratehelperschema.hpp" />
+    <ClInclude Include="include\qlp\schemas\ratehelpers\oisratehelperschema.hpp" />
+    <ClInclude Include="include\qlp\schemas\ratehelpers\swapratehelperschema.hpp" />
+    <ClInclude Include="include\qlp\schemas\ratehelpers\tenorbasisratehelperschema.hpp" />
+    <ClInclude Include="include\qlp\schemas\ratehelpers\xccybasisratehelperschema.hpp" />
+    <ClInclude Include="include\qlp\schemas\requests\curvebuilderrequest.hpp" />
+    <ClInclude Include="include\qlp\schemas\requests\updatequoterequest.hpp" />
+    <ClInclude Include="include\qlp\schemas\schema.hpp" />
+    <ClInclude Include="include\qlp\schemas\termstructures\bootstrapcurveschema.hpp" />
+    <ClInclude Include="include\qlp\schemas\termstructures\discountcurveschema.hpp" />
+    <ClInclude Include="include\qlp\schemas\termstructures\flatforwardcurveschema.hpp" />
+    <ClInclude Include="include\qlp\schemas\termstructures\rateindexschema.hpp" />
+    <ClInclude Include="include\qlp\schemas\termstructures\yieldtermstructureschema.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

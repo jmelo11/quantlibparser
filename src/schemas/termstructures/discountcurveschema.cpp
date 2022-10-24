@@ -1,7 +1,7 @@
 #pragma once
 
-#include <schemas/termstructures/discountcurveschema.hpp>
-#include <schemas/commonschemas.hpp>
+#include <qlp/schemas/termstructures/discountcurveschema.hpp>
+#include <qlp/schemas/commonschemas.hpp>
 
 namespace QuantLibParser
 {
@@ -42,5 +42,7 @@ namespace QuantLibParser
 		myDefaultValues_["ENABLEEXTRAPOLATION"] = true;
 		myDefaultValues_["DAYCOUNTER"] = "ACT360";
 	}
+
+	template class Schema<QuantLib::DiscountCurve>;
 
 }

@@ -7,20 +7,11 @@
     <Filter Include="src">
       <UniqueIdentifier>{5eac6f35-52d0-4db7-8c30-a28e5f6de73f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\detail">
-      <UniqueIdentifier>{b5679648-147c-4e44-87b2-1074ec8fe296}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\schemas">
-      <UniqueIdentifier>{0f5ddac5-d207-43ea-bff4-8082f97be7ba}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\schemas">
       <UniqueIdentifier>{adf6de5f-895c-4c24-9907-bfd2ea644111}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\detail">
       <UniqueIdentifier>{f7ad156e-3c43-4ffa-9f25-3d5e75d0cdd4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\schemas\ratehelpers">
-      <UniqueIdentifier>{a4b6c8a0-aff8-4489-9c95-a39273504c58}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\schemas\ratehelpers">
       <UniqueIdentifier>{02de40de-e0dc-4e07-b97d-dd3e63c1b457}</UniqueIdentifier>
@@ -28,8 +19,26 @@
     <Filter Include="src\schemas\termstructures">
       <UniqueIdentifier>{0bae1fd5-9ae8-401f-b669-e840bfff6679}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\schemas\termstructures">
+    <Filter Include="include\qlp">
+      <UniqueIdentifier>{9a20b5a1-82b1-420c-9392-23239f9d7a72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\qlp\detail">
+      <UniqueIdentifier>{b5679648-147c-4e44-87b2-1074ec8fe296}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\qlp\schemas">
+      <UniqueIdentifier>{0f5ddac5-d207-43ea-bff4-8082f97be7ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\qlp\schemas\ratehelpers">
+      <UniqueIdentifier>{a4b6c8a0-aff8-4489-9c95-a39273504c58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\qlp\schemas\termstructures">
       <UniqueIdentifier>{b21e6df4-999e-4f30-8168-d9b47e5358fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\qlp\schemas\requests">
+      <UniqueIdentifier>{b23e6d63-69e4-440f-8f5b-e9ba517e976f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\schemas\requests">
+      <UniqueIdentifier>{5b98c2cf-336d-4da7-9aea-f4b4f73114ba}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -75,61 +84,73 @@
     <ClCompile Include="src\schemas\termstructures\yieldtermstructureschema.cpp">
       <Filter>src\schemas\termstructures</Filter>
     </ClCompile>
+    <ClCompile Include="src\schemas\requests\curvebuilderrequest.cpp">
+      <Filter>src\schemas\requests</Filter>
+    </ClCompile>
+    <ClCompile Include="src\schemas\requests\updatequoterequest.cpp">
+      <Filter>src\schemas\requests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\detail\macros.hpp">
-      <Filter>include\detail</Filter>
+    <ClInclude Include="include\qlp\schemas\termstructures\bootstrapcurveschema.hpp">
+      <Filter>include\qlp\schemas\termstructures</Filter>
     </ClInclude>
-    <ClInclude Include="include\schemas\schema.hpp">
-      <Filter>include\schemas</Filter>
+    <ClInclude Include="include\qlp\schemas\termstructures\discountcurveschema.hpp">
+      <Filter>include\qlp\schemas\termstructures</Filter>
     </ClInclude>
-    <ClInclude Include="include\parser.hpp">
-      <Filter>include</Filter>
+    <ClInclude Include="include\qlp\schemas\termstructures\flatforwardcurveschema.hpp">
+      <Filter>include\qlp\schemas\termstructures</Filter>
     </ClInclude>
-    <ClInclude Include="include\detail\parsingmethods.hpp">
-      <Filter>include\detail</Filter>
+    <ClInclude Include="include\qlp\schemas\termstructures\rateindexschema.hpp">
+      <Filter>include\qlp\schemas\termstructures</Filter>
     </ClInclude>
-    <ClInclude Include="include\schemas\commonschemas.hpp">
-      <Filter>include\schemas</Filter>
+    <ClInclude Include="include\qlp\schemas\termstructures\yieldtermstructureschema.hpp">
+      <Filter>include\qlp\schemas\termstructures</Filter>
     </ClInclude>
-    <ClInclude Include="include\schemas\ratehelpers\bondratehelperschema.hpp">
-      <Filter>include\schemas\ratehelpers</Filter>
+    <ClInclude Include="include\qlp\schemas\ratehelpers\bondratehelperschema.hpp">
+      <Filter>include\qlp\schemas\ratehelpers</Filter>
     </ClInclude>
-    <ClInclude Include="include\schemas\ratehelpers\depositratehelperschema.hpp">
-      <Filter>include\schemas\ratehelpers</Filter>
+    <ClInclude Include="include\qlp\schemas\ratehelpers\depositratehelperschema.hpp">
+      <Filter>include\qlp\schemas\ratehelpers</Filter>
     </ClInclude>
-    <ClInclude Include="include\schemas\ratehelpers\fixfloatxccyratehelperschema.hpp">
-      <Filter>include\schemas\ratehelpers</Filter>
+    <ClInclude Include="include\qlp\schemas\ratehelpers\fixfloatxccyratehelperschema.hpp">
+      <Filter>include\qlp\schemas\ratehelpers</Filter>
     </ClInclude>
-    <ClInclude Include="include\schemas\ratehelpers\fxswapratehelperschema.hpp">
-      <Filter>include\schemas\ratehelpers</Filter>
+    <ClInclude Include="include\qlp\schemas\ratehelpers\fxswapratehelperschema.hpp">
+      <Filter>include\qlp\schemas\ratehelpers</Filter>
     </ClInclude>
-    <ClInclude Include="include\schemas\ratehelpers\oisratehelperschema.hpp">
-      <Filter>include\schemas\ratehelpers</Filter>
+    <ClInclude Include="include\qlp\schemas\ratehelpers\oisratehelperschema.hpp">
+      <Filter>include\qlp\schemas\ratehelpers</Filter>
     </ClInclude>
-    <ClInclude Include="include\schemas\ratehelpers\swapratehelperschema.hpp">
-      <Filter>include\schemas\ratehelpers</Filter>
+    <ClInclude Include="include\qlp\schemas\ratehelpers\swapratehelperschema.hpp">
+      <Filter>include\qlp\schemas\ratehelpers</Filter>
     </ClInclude>
-    <ClInclude Include="include\schemas\ratehelpers\tenorbasisratehelperschema.hpp">
-      <Filter>include\schemas\ratehelpers</Filter>
+    <ClInclude Include="include\qlp\schemas\ratehelpers\tenorbasisratehelperschema.hpp">
+      <Filter>include\qlp\schemas\ratehelpers</Filter>
     </ClInclude>
-    <ClInclude Include="include\schemas\ratehelpers\xccybasisratehelperschema.hpp">
-      <Filter>include\schemas\ratehelpers</Filter>
+    <ClInclude Include="include\qlp\schemas\ratehelpers\xccybasisratehelperschema.hpp">
+      <Filter>include\qlp\schemas\ratehelpers</Filter>
     </ClInclude>
-    <ClInclude Include="include\schemas\termstructures\bootstrapcurveschema.hpp">
-      <Filter>include\schemas\termstructures</Filter>
+    <ClInclude Include="include\qlp\detail\macros.hpp">
+      <Filter>include\qlp\detail</Filter>
     </ClInclude>
-    <ClInclude Include="include\schemas\termstructures\discountcurveschema.hpp">
-      <Filter>include\schemas\termstructures</Filter>
+    <ClInclude Include="include\qlp\detail\parsingmethods.hpp">
+      <Filter>include\qlp\detail</Filter>
     </ClInclude>
-    <ClInclude Include="include\schemas\termstructures\flatforwardcurveschema.hpp">
-      <Filter>include\schemas\termstructures</Filter>
+    <ClInclude Include="include\qlp\parser.hpp">
+      <Filter>include\qlp</Filter>
     </ClInclude>
-    <ClInclude Include="include\schemas\termstructures\rateindexschema.hpp">
-      <Filter>include\schemas\termstructures</Filter>
+    <ClInclude Include="include\qlp\schemas\commonschemas.hpp">
+      <Filter>include\qlp\schemas</Filter>
     </ClInclude>
-    <ClInclude Include="include\schemas\termstructures\yieldtermstructureschema.hpp">
-      <Filter>include\schemas\termstructures</Filter>
+    <ClInclude Include="include\qlp\schemas\schema.hpp">
+      <Filter>include\qlp\schemas</Filter>
+    </ClInclude>
+    <ClInclude Include="include\qlp\schemas\requests\curvebuilderrequest.hpp">
+      <Filter>include\qlp\schemas\requests</Filter>
+    </ClInclude>
+    <ClInclude Include="include\qlp\schemas\requests\updatequoterequest.hpp">
+      <Filter>include\qlp\schemas\requests</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

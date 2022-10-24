@@ -1,5 +1,5 @@
 #pragma once
-#include <schemas/ratehelpers/depositratehelperschema.hpp>
+#include <qlp/schemas/ratehelpers/depositratehelperschema.hpp>
 
 namespace QuantLibParser
 {
@@ -19,7 +19,7 @@ namespace QuantLibParser
         base["properties"]["ENDOFMONTH"] = eomSchema;
         base["properties"]["CONVENTION"] = conventionSchema;
         base["properties"]["CALENDAR"] = calendarSchema;
-        base["properties"]["FIXINGDATS"] = fixingDaysSchema;
+        base["properties"]["FIXINGDAYS"] = fixingDaysSchema;
 
         mySchema_ = base;
     }
@@ -33,5 +33,7 @@ namespace QuantLibParser
         myDefaultValues_["DAYCOUNTER"] = "ACT360";
         myDefaultValues_["CONVENTION"] = "UNADJUSTED";
     }
+
+	template class Schema<QuantLib::DepositRateHelper>;
 
 }

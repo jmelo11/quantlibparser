@@ -1,5 +1,5 @@
 #pragma once
-#include <schemas/ratehelpers/xccybasisratehelperschema.hpp>
+#include <qlp/schemas/ratehelpers/xccybasisratehelperschema.hpp>
 
 namespace QuantLibParser
 {
@@ -46,4 +46,6 @@ namespace QuantLibParser
         myDefaultValues_["SETTLEMENTDAYS"] = 0;
    
     }
+
+	template class Schema<QuantExt::CrossCcyBasisSwapHelper>;
 }

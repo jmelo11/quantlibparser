@@ -1,13 +1,13 @@
 #include "pch.h"
 #include <nlohmann/json-schema.hpp>
 
-#include <schemas/ratehelpers/bondratehelperschema.hpp>
-#include <schemas/ratehelpers/depositratehelperschema.hpp>
-#include <schemas/ratehelpers/fixfloatxccyratehelperschema.hpp>
-#include <schemas/ratehelpers/oisratehelperschema.hpp>
-#include <schemas/ratehelpers/swapratehelperschema.hpp>
-#include <schemas/ratehelpers/tenorbasisratehelperschema.hpp>
-#include <schemas/ratehelpers/xccybasisratehelperschema.hpp>
+#include <qlp/schemas/ratehelpers/bondratehelperschema.hpp>
+#include <qlp/schemas/ratehelpers/depositratehelperschema.hpp>
+#include <qlp/schemas/ratehelpers/fixfloatxccyratehelperschema.hpp>
+#include <qlp/schemas/ratehelpers/oisratehelperschema.hpp>
+#include <qlp/schemas/ratehelpers/swapratehelperschema.hpp>
+#include <qlp/schemas/ratehelpers/tenorbasisratehelperschema.hpp>
+#include <qlp/schemas/ratehelpers/xccybasisratehelperschema.hpp>
 
 using nlohmann::json_schema::json_validator;
 using json = nlohmann::json;
@@ -26,6 +26,20 @@ TEST(DepositSchema, RateHelperSchemas) {
 
 	Schema<DepositRateHelper> depositSchema;		
     EXPECT_NO_THROW(depositSchema.validate(testSchema));	
+
+    testSchema = R"(  {
+            "RATE": 0.0227,
+            "DAYCOUNTER": "ACT360",
+            "TENOR": "1D",
+            "CALENDAR": "USA",
+            "FIXINGDAYS": 0.0,
+            "ENDOFMONTH": true,
+            "CONVENTION": "MODIFIEDFOLLOWING",
+            "TYPE": "DEPOSIT",
+            "RATETICKER": "SOFRRATE CURNCY"
+          })";
+	
+    EXPECT_NO_THROW(depositSchema.validate(testSchema));
 }
 
 TEST(BondSchema, RateHelperSchemas) {

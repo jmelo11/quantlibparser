@@ -18,6 +18,12 @@ namespace QuantLibParser
         "enum": ["LINEAR", "CUBIC", "LOGLINEAR"]
     })"_json;
 	
+    static json indexTypesSchema = R"({
+        "type":"string",
+        "description": "Index types",
+        "enum": ["OVERNIGHT", "IBOR"]
+    })"_json;
+
 	static json baseCurveSchema = R"({             
         "TYPE": {
             "type": "string",
@@ -151,7 +157,5 @@ namespace QuantLibParser
         "pattern": "^\\d+[YWDM]$",
         "example": "1Y"
         })"_json;
-
-
 
 }

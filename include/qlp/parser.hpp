@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
-#include <detail/parsingmethods.hpp>
 #include <boost/algorithm/string.hpp>
+#include <qlp/detail/parsingmethods.hpp>
 
 namespace QuantLibParser {
 

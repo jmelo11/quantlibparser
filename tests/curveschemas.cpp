@@ -1,6 +1,8 @@
 #include "pch.h"
-#include <schemas/termstructures/discountcurveschema.hpp>
-#include <schemas/termstructures/bootstrapcurveschema.hpp>
+#include <qlp/schemas/termstructures/discountcurveschema.hpp>
+#include <qlp/schemas/termstructures/bootstrapcurveschema.hpp>
+#include <qlp/schemas/termstructures/yieldtermstructureschema.hpp>
+#include <qlp/schemas/termstructures/rateindexschema.hpp>
 
 using namespace QuantLib;
 using namespace QuantLibParser;
@@ -320,4 +322,304 @@ TEST(BootstrapCurveTest, CurveSchemas) {
     }
 	
     EXPECT_NO_THROW(curveSchema.validate(data));
+
+    data = R"(
+        {
+            "NAME": "SOFR",
+            "DAYCOUNTER": "ACT360",
+            "ENABLEEXTRAPOLATION": true,
+            "RATEHELPERS": [
+                {
+                    "RATE": 0.0227,
+                    "DAYCOUNTER": "ACT360",
+                    "TENOR": "1D",
+                    "CALENDAR": "USA",
+                    "FIXINGDAYS": 0.0,
+                    "ENDOFMONTH": true,
+                    "CONVENTION": "MODIFIEDFOLLOWING",
+                    "TYPE": "DEPOSIT",
+                    "RATETICKER": "SOFRRATE CURNCY"
+                },
+                {
+                    "RATE": 0.022930000000000002,
+                    "TENOR": "1W",
+                    "DAYCOUNTER": "ACT360",
+                    "CALENDAR": "USA",
+                    "CONVENTION": "FOLLOWING",
+                    "ENDOFMONTH": true,
+                    "FREQUENCY": "ANNUAL",
+                    "SETTLEMENTDAYS": 2.0,
+                    "PAYMENTLAG": 2.0,
+                    "TELESCOPICVALUEDATES": true,
+                    "INDEX": "SOFR",
+                    "TYPE": "OIS",
+                    "RATETICKER": "USOSFR1Z CURNCY"
+                },
+                {
+                    "RATE": 0.022886000000000004,
+                    "TENOR": "2W",
+                    "DAYCOUNTER": "ACT360",
+                    "CALENDAR": "USA",
+                    "CONVENTION": "FOLLOWING",
+                    "ENDOFMONTH": true,
+                    "FREQUENCY": "ANNUAL",
+                    "SETTLEMENTDAYS": 2.0,
+                    "PAYMENTLAG": 2.0,
+                    "TELESCOPICVALUEDATES": true,
+                    "INDEX": "SOFR",
+                    "TYPE": "OIS",
+                    "RATETICKER": "USOSFR2Z CURNCY"
+                },
+                {
+                    "RATE": 0.022895,
+                    "TENOR": "3W",
+                    "DAYCOUNTER": "ACT360",
+                    "CALENDAR": "USA",
+                    "CONVENTION": "FOLLOWING",
+                    "ENDOFMONTH": true,
+                    "FREQUENCY": "ANNUAL",
+                    "SETTLEMENTDAYS": 2.0,
+                    "PAYMENTLAG": 2.0,
+                    "TELESCOPICVALUEDATES": true,
+                    "INDEX": "SOFR",
+                    "TYPE": "OIS",
+                    "RATETICKER": "USOSFR3Z CURNCY"
+                },
+                {
+                    "RATE": 0.024350999999999998,
+                    "TENOR": "1M",
+                    "DAYCOUNTER": "ACT360",
+                    "CALENDAR": "USA",
+                    "CONVENTION": "FOLLOWING",
+                    "ENDOFMONTH": true,
+                    "FREQUENCY": "ANNUAL",
+                    "SETTLEMENTDAYS": 2.0,
+                    "PAYMENTLAG": 2.0,
+                    "TELESCOPICVALUEDATES": true,
+                    "INDEX": "SOFR",
+                    "TYPE": "OIS",
+                    "RATETICKER": "USOSFRA CURNCY"
+                },
+                {
+                    "RATE": 0.02697,
+                    "TENOR": "2M",
+                    "DAYCOUNTER": "ACT360",
+                    "CALENDAR": "USA",
+                    "CONVENTION": "FOLLOWING",
+                    "ENDOFMONTH": true,
+                    "FREQUENCY": "ANNUAL",
+                    "SETTLEMENTDAYS": 2.0,
+                    "PAYMENTLAG": 2.0,
+                    "TELESCOPICVALUEDATES": true,
+                    "INDEX": "SOFR",
+                    "TYPE": "OIS",
+                    "RATETICKER": "USOSFRB CURNCY"
+                },
+                {
+                    "RATE": 0.028994,
+                    "TENOR": "3M",
+                    "DAYCOUNTER": "ACT360",
+                    "CALENDAR": "USA",
+                    "CONVENTION": "FOLLOWING",
+                    "ENDOFMONTH": true,
+                    "FREQUENCY": "ANNUAL",
+                    "SETTLEMENTDAYS": 2.0,
+                    "PAYMENTLAG": 2.0,
+                    "TELESCOPICVALUEDATES": true,
+                    "INDEX": "SOFR",
+                    "TYPE": "OIS",
+                    "RATETICKER": "USOSFRC CURNCY"
+                },
+                {
+                    "RATE": 0.030594,
+                    "TENOR": "4M",
+                    "DAYCOUNTER": "ACT360",
+                    "CALENDAR": "USA",
+                    "CONVENTION": "FOLLOWING",
+                    "ENDOFMONTH": true,
+                    "FREQUENCY": "ANNUAL",
+                    "SETTLEMENTDAYS": 2.0,
+                    "PAYMENTLAG": 2.0,
+                    "TELESCOPICVALUEDATES": true,
+                    "INDEX": "SOFR",
+                    "TYPE": "OIS",
+                    "RATETICKER": "USOSFRD CURNCY"
+                },
+                {
+                    "RATE": 0.03167,
+                    "TENOR": "5M",
+                    "DAYCOUNTER": "ACT360",
+                    "CALENDAR": "USA",
+                    "CONVENTION": "FOLLOWING",
+                    "ENDOFMONTH": true,
+                    "FREQUENCY": "ANNUAL",
+                    "SETTLEMENTDAYS": 2.0,
+                    "PAYMENTLAG": 2.0,
+                    "TELESCOPICVALUEDATES": true,
+                    "INDEX": "SOFR",
+                    "TYPE": "OIS",
+                    "RATETICKER": "USOSFRE CURNCY"
+                },
+                {
+                    "RATE": 0.03261,
+                    "TENOR": "6M",
+                    "DAYCOUNTER": "ACT360",
+                    "CALENDAR": "USA",
+                    "CONVENTION": "FOLLOWING",
+                    "ENDOFMONTH": true,
+                    "FREQUENCY": "ANNUAL",
+                    "SETTLEMENTDAYS": 2.0,
+                    "PAYMENTLAG": 2.0,
+                    "TELESCOPICVALUEDATES": true,
+                    "INDEX": "SOFR",
+                    "TYPE": "OIS",
+                    "RATETICKER": "USOSFRF CURNCY"
+                },
+                {
+                    "RATE": 0.03323,
+                    "TENOR": "7M",
+                    "DAYCOUNTER": "ACT360",
+                    "CALENDAR": "USA",
+                    "CONVENTION": "FOLLOWING",
+                    "ENDOFMONTH": true,
+                    "FREQUENCY": "ANNUAL",
+                    "SETTLEMENTDAYS": 2.0,
+                    "PAYMENTLAG": 2.0,
+                    "TELESCOPICVALUEDATES": true,
+                    "INDEX": "SOFR",
+                    "TYPE": "OIS",
+                    "RATETICKER": "USOSFRG CURNCY"
+                },
+                {
+                    "RATE": 0.033854999999999996,
+                    "TENOR": "8M",
+                    "DAYCOUNTER": "ACT360",
+                    "CALENDAR": "USA",
+                    "CONVENTION": "FOLLOWING",
+                    "ENDOFMONTH": true,
+                    "FREQUENCY": "ANNUAL",
+                    "SETTLEMENTDAYS": 2.0,
+                    "PAYMENTLAG": 2.0,
+                    "TELESCOPICVALUEDATES": true,
+                    "INDEX": "SOFR",
+                    "TYPE": "OIS",
+                    "RATETICKER": "USOSFRH CURNCY"
+                },
+                {
+                    "RATE": 0.034390000000000004,
+                    "TENOR": "9M",
+                    "DAYCOUNTER": "ACT360",
+                    "CALENDAR": "USA",
+                    "CONVENTION": "FOLLOWING",
+                    "ENDOFMONTH": true,
+                    "FREQUENCY": "ANNUAL",
+                    "SETTLEMENTDAYS": 2.0,
+                    "PAYMENTLAG": 2.0,
+                    "TELESCOPICVALUEDATES": true,
+                    "INDEX": "SOFR",
+                    "TYPE": "OIS",
+                    "RATETICKER": "USOSFRI CURNCY"
+                },
+                {
+                    "RATE": 0.034755,
+                    "TENOR": "10M",
+                    "DAYCOUNTER": "ACT360",
+                    "CALENDAR": "USA",
+                    "CONVENTION": "FOLLOWING",
+                    "ENDOFMONTH": true,
+                    "FREQUENCY": "ANNUAL",
+                    "SETTLEMENTDAYS": 2.0,
+                    "PAYMENTLAG": 2.0,
+                    "TELESCOPICVALUEDATES": true,
+                    "INDEX": "SOFR",
+                    "TYPE": "OIS",
+                    "RATETICKER": "USOSFRJ CURNCY"
+                },
+                {
+                    "RATE": 0.035055,
+                    "TENOR": "11M",
+                    "DAYCOUNTER": "ACT360",
+                    "CALENDAR": "USA",
+                    "CONVENTION": "FOLLOWING",
+                    "ENDOFMONTH": true,
+                    "FREQUENCY": "ANNUAL",
+                    "SETTLEMENTDAYS": 2.0,
+                    "PAYMENTLAG": 2.0,
+                    "TELESCOPICVALUEDATES": true,
+                    "INDEX": "SOFR",
+                    "TYPE": "OIS",
+                    "RATETICKER": "USOSFRK CURNCY"
+                },
+                {
+                    "RATE": 0.035293,
+                    "TENOR": "12M",
+                    "DAYCOUNTER": "ACT360",
+                    "CALENDAR": "USA",
+                    "CONVENTION": "FOLLOWING",
+                    "ENDOFMONTH": true,
+                    "FREQUENCY": "ANNUAL",
+                    "SETTLEMENTDAYS": 2.0,
+                    "PAYMENTLAG": 2.0,
+                    "TELESCOPICVALUEDATES": true,
+                    "INDEX": "SOFR",
+                    "TYPE": "OIS",
+                    "RATETICKER": "USOSFR1 CURNCY"
+                },
+                {
+                    "RATE": 0.03508,
+                    "TENOR": "18M",
+                    "DAYCOUNTER": "ACT360",
+                    "CALENDAR": "USA",
+                    "CONVENTION": "FOLLOWING",
+                    "ENDOFMONTH": true,
+                    "FREQUENCY": "ANNUAL",
+                    "SETTLEMENTDAYS": 2.0,
+                    "PAYMENTLAG": 2.0,
+                    "TELESCOPICVALUEDATES": true,
+                    "INDEX": "SOFR",
+                    "TYPE": "OIS",
+                    "RATETICKER": "USOSFR1F CURNCY"
+                },
+                {
+                    "RATE": 0.034296,
+                    "TENOR": "2Y",
+                    "DAYCOUNTER": "ACT360",
+                    "CALENDAR": "USA",
+                    "CONVENTION": "FOLLOWING",
+                    "ENDOFMONTH": true,
+                    "FREQUENCY": "ANNUAL",
+                    "SETTLEMENTDAYS": 2.0,
+                    "PAYMENTLAG": 2.0,
+                    "TELESCOPICVALUEDATES": true,
+                    "INDEX": "SOFR",
+                    "TYPE": "OIS",
+                    "RATETICKER": "USOSFR2 CURNCY"
+                }
+            ]
+        }
+    )"_json;
+        
+       
+        EXPECT_ANY_THROW(curveSchema.validate(data));
+					
+}
+TEST(YieldCurveTest, CurveSchemas) {
+    Schema<YieldTermStructure> curveSchema;
+    EXPECT_TRUE(true);
+}
+TEST(IndexTest, CurveSchemas) {
+    json data = R"({
+            "NAME": "SOFR",
+            "TYPE": "OVERNIGHT",
+            "TENOR": "1D",
+            "DAYCOUNTER": "ACT360",
+            "CURRENCY": "USD",
+            "FIXINGDAYS": 0.0,
+            "CALENDAR": "USA"
+        })"_json;
+	
+	Schema<InterestRateIndex> indexSchema;
+    
+	EXPECT_NO_THROW(indexSchema.validate(data));
+
 }

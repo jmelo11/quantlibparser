@@ -1,5 +1,5 @@
 #pragma once
-#include <schemas/ratehelpers/bondratehelperschema.hpp>
+#include <qlp/schemas/ratehelpers/bondratehelperschema.hpp>
 
 namespace QuantLibParser
 {
@@ -44,4 +44,6 @@ namespace QuantLibParser
         myDefaultValues_["FREQUENCY"] = "SEMIANNUAL";
         myDefaultValues_["CONVENTION"] = "UNADJUSTED";
     };
+
+	template class Schema<QuantLib::FixedRateBondHelper>;
 }
