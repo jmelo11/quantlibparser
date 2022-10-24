@@ -56,3 +56,6 @@ Thumbs.db
 /quantlibparser/x64/Debug/quantlibparser.tlog
 /.vs
 /out/build/x64-Debug
+/x64
+/tests/x64
+/packages
