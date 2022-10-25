@@ -1,4 +1,3 @@
-#pragma once
 #include <qlp/schemas/requests/updatequoterequest.hpp>
 
 

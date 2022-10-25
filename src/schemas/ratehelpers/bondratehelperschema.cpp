@@ -1,4 +1,3 @@
-#pragma once
 #include <qlp/schemas/ratehelpers/bondratehelperschema.hpp>
 
 namespace QuantLibParser

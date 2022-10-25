@@ -1,4 +1,3 @@
-#pragma once
 #include <qlp/schemas/ratehelpers/tenorbasisratehelperschema.hpp>
 
 namespace QuantLibParser

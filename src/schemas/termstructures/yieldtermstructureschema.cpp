@@ -1,4 +1,3 @@
-#pragma once
 
 #include <qlp/schemas/termstructures/yieldtermstructureschema.hpp>
 #include <qlp/schemas/termstructures/bootstrapcurveschema.hpp>

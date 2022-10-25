@@ -1,4 +1,3 @@
-#pragma once
 
 #include <qlp/schemas/commonschemas.hpp>
 #include <qlp/schemas/termstructures/flatforwardcurveschema.hpp>

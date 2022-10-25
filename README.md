@@ -12,7 +12,6 @@ Ejemplo de instalacion con cmake:
     cmake --build . --config Release --target install
 
 
-
 ## Uso ##
 
     project("SI-Example")

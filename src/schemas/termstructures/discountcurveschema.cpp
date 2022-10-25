@@ -1,5 +1,3 @@
-#pragma once
-
 #include <qlp/schemas/termstructures/discountcurveschema.hpp>
 #include <qlp/schemas/commonschemas.hpp>
 

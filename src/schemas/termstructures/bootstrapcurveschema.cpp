@@ -1,5 +1,3 @@
-#pragma once
-
 #include <qlp/schemas/termstructures/bootstrapcurveschema.hpp>
 #include <qlp/schemas/ratehelpers/depositratehelperschema.hpp>
 #include <qlp/schemas/ratehelpers/bondratehelperschema.hpp>

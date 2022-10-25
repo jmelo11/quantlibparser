@@ -1,4 +1,3 @@
-
 #include <qlp/schemas/ratehelpers/fixfloatxccyratehelperschema.hpp>
 
 namespace QuantLibParser

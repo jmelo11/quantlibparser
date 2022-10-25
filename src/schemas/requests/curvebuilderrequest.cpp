@@ -1,4 +1,3 @@
-#pragma once
 #include <qlp/schemas/requests/curvebuilderrequest.hpp>
 #include <qlp/schemas/commonschemas.hpp>
 

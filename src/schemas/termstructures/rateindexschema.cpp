@@ -1,4 +1,3 @@
-#pragma once
 
 #include <qlp/schemas/termstructures/rateindexschema.hpp>
 #include <qlp/schemas/commonschemas.hpp>
