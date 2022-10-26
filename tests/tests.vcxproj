@@ -129,7 +129,7 @@
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <AdditionalDependencies>$(MSBuildThisFileDirectory)..\..\lib\native\v140\windesktop\msvcstl\static\rt-dyn\x64\Release\gtest_main.lib;%(AdditionalDependencies);nlohmann_json_schema_validator.lib;QuantLib-x64-mt.lib;QuantExt-x64-mt.lib;quantlbparser.lib</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies);nlohmann_json_schema_validator.lib;QuantLib-x64-mt.lib;QuantExt-x64-mt.lib;quantlibparser.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

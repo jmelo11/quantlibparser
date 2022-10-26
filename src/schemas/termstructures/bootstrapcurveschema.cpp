@@ -12,7 +12,7 @@
 namespace QuantLibParser
 {
 	template <>
-	void Schema<QuantLib::PiecewiseYieldCurve<QuantLib::LogLinear, QuantLib::Discount>>::initSchema()
+	void Schema<QuantLib::PiecewiseYieldCurve<QuantLib::Discount, QuantLib::LogLinear>>::initSchema()
 	{
 		using namespace QuantExt;
 		using namespace QuantLib;
@@ -22,7 +22,15 @@ namespace QuantLibParser
             "properties": {},			
             "required": ["NAME", "ENABLEEXTRAPOLATION", "RATEHELPERS", "TYPE"]
         })"_json;
+		
+		json ratehelpers = R"({
+			"type": "array"			
+		})"_json;
 
+		base["properties"] = baseCurveSchema;
+		base["properties"]["RATEHELPERS"] = ratehelpers;
+		
+		/*
 		json ratehelpers = R"({
 			"type": "array",
 			"items": {
@@ -49,17 +57,17 @@ namespace QuantLibParser
 		ratehelpers["items"]["anyOf"].emplace_back(tenorBasisHelperSchema.schema());
 		ratehelpers["items"]["anyOf"].emplace_back(xccyBasisHelperSchema.schema());
 		ratehelpers["items"]["anyOf"].emplace_back(xccyFixFloatHelperSchema.schema());
-		
+		*/
 		mySchema_ = base;
 	}
 
 	template<>
-	void Schema<QuantLib::PiecewiseYieldCurve<QuantLib::LogLinear, QuantLib::Discount>>::initDefaultValues()
+	void Schema<QuantLib::PiecewiseYieldCurve<QuantLib::Discount, QuantLib::LogLinear>>::initDefaultValues()
 	{
 		myDefaultValues_["ENABLEEXTRAPOLATION"] = true;
 		myDefaultValues_["DAYCOUNTER"] = "ACT360";
 	}
 	
-	template class Schema<QuantLib::PiecewiseYieldCurve<QuantLib::LogLinear, QuantLib::Discount>>;
+	template class Schema<QuantLib::PiecewiseYieldCurve<QuantLib::Discount, QuantLib::LogLinear>>;
 
 }

@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef QLP_PARSINGMETHODS_HPP
+#define QLP_PARSINGMETHODS_HPP
+
 #include <qlp/detail/macros.hpp>
 
 #include <ql/utilities/dataparsers.hpp>
@@ -251,3 +254,5 @@ namespace QuantLibParser
 		}
 	};
 }
+
+#endif // !QLP_PARSINGMETHODS_HPP

@@ -37,13 +37,13 @@ find_package(nlohmann_json_schema_validator REQUIRED)
 
 # add quantext
 include("cmake/FindQuantExt.cmake")
+target_link_libraries(QuantLibParser PUBLIC ${QLE_LIBRARY})
 target_link_libraries(QuantLibParser PUBLIC QuantLib::QuantLib)
 target_link_libraries(QuantLibParser PUBLIC Boost::boost)
 target_link_libraries(QuantLibParser PUBLIC nlohmann_json::nlohmann_json)
 target_link_libraries(QuantLibParser PUBLIC nlohmann_json_schema_validator)
 
-target_include_directories(QuantLibParser PUBLIC ${CMAKE_INCLUDE_PATH})
-
+target_include_directories(QuantLibParser PUBLIC ${QLE_INCLUDE_DIR})
 
 #https://dominikberner.ch/cmake-interface-lib/
 include(CMakePackageConfigHelpers)

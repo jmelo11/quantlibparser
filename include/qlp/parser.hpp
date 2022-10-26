@@ -1,4 +1,8 @@
 #pragma once
+
+#ifndef QLP_PARSER_HPP
+#define QLP_PARSER_HPP
+
 #include <string>
 #include <boost/algorithm/string.hpp>
 #include <qlp/detail/parsingmethods.hpp>
@@ -6,22 +10,22 @@
 namespace QuantLibParser {
 
 	template<typename T>
-	 T parse(const std::string& value);
+	inline T parse(const std::string& value);
 	
 	template<>
-	 int parse<int>(const std::string& value)
+	inline int parse<int>(const std::string& value)
 	{
 		return std::stoi(value);
 	}
 
 	template<>
-	 double parse<double>(const std::string& value)
+	inline double parse<double>(const std::string& value)
 	{
 		return std::stod(value);
 	}
 
 	template<>
-	 bool parse<bool>(const std::string& value)
+	inline bool parse<bool>(const std::string& value)
 	{
 		std::string v = value;
 		boost::algorithm::to_lower(v);
@@ -34,57 +38,59 @@ namespace QuantLibParser {
 	}
 
 	template<>
-	 Date parse<Date>(const std::string& value)
+	inline Date parse<Date>(const std::string& value)
 	{
 		return parseDate(value);
 	}
 
 	template<>
-	 Currency parse<Currency>(const std::string& value)
+	inline Currency parse<Currency>(const std::string& value)
 	{
 		return parseCurrency(value);
 	}
 
 	template<>
-	 Period parse<Period>(const std::string& value)
+	inline Period parse<Period>(const std::string& value)
 	{
 		return parsePeriod(value);
 	}
 
 	template<>
-	 DayCounter parse<DayCounter>(const std::string& value)
+	inline DayCounter parse<DayCounter>(const std::string& value)
 	{
 		return parseDayCounter(value);
 	}
 
 	template<>
-	 Calendar parse<Calendar>(const std::string& value)
+	inline Calendar parse<Calendar>(const std::string& value)
 	{
 		return parseCalendar(value);
 	}
 
 	template<>
-	 BusinessDayConvention parse<BusinessDayConvention>(const std::string& value)
+	inline BusinessDayConvention parse<BusinessDayConvention>(const std::string& value)
 	{
 		return parseBusinessDayConvention(value);
 	}
 
 	template<>
-	 Frequency parse<Frequency>(const std::string& value)
+	inline Frequency parse<Frequency>(const std::string& value)
 	{
 		return parseFrequency(value);
 	}
 
 	template<>
-	 Compounding parse<Compounding>(const std::string& value)
+	inline Compounding parse<Compounding>(const std::string& value)
 	{
 		return parseCompounding(value);
 	}
 
 
 	template<>
-	 TimeUnit parse<TimeUnit>(const std::string& value)
+	inline TimeUnit parse<TimeUnit>(const std::string& value)
 	{
 		return parseTimeUnit(value);
 	}
 }
+
+#endif // !QLP_PARSER_HPP

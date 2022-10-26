@@ -59,3 +59,5 @@ Thumbs.db
 /packages/Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.5
 /tests/x64
 /x64
+/python/build
+/python/*.egg-info
