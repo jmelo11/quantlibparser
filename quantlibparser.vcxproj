@@ -163,7 +163,10 @@
     <ClCompile Include="src\schemas\ratehelpers\tenorbasisratehelperschema.cpp" />
     <ClCompile Include="src\schemas\ratehelpers\xccybasisratehelperschema.cpp" />
     <ClCompile Include="src\schemas\requests\curvebuilderrequest.cpp" />
+    <ClCompile Include="src\schemas\requests\discountfactorsrequest.cpp" />
+    <ClCompile Include="src\schemas\requests\forwardratesrequest.cpp" />
     <ClCompile Include="src\schemas\requests\updatequoterequest.cpp" />
+    <ClCompile Include="src\schemas\requests\zeroratesrequest.cpp" />
     <ClCompile Include="src\schemas\termstructures\bootstrapcurveschema.cpp" />
     <ClCompile Include="src\schemas\termstructures\discountcurveschema.cpp" />
     <ClCompile Include="src\schemas\termstructures\flatforwardcurveschema.cpp" />
@@ -184,7 +187,10 @@
     <ClInclude Include="include\qlp\schemas\ratehelpers\tenorbasisratehelperschema.hpp" />
     <ClInclude Include="include\qlp\schemas\ratehelpers\xccybasisratehelperschema.hpp" />
     <ClInclude Include="include\qlp\schemas\requests\curvebuilderrequest.hpp" />
+    <ClInclude Include="include\qlp\schemas\requests\discountfactorsrequest.hpp" />
+    <ClInclude Include="include\qlp\schemas\requests\forwardratesrequest.hpp" />
     <ClInclude Include="include\qlp\schemas\requests\updatequoterequest.hpp" />
+    <ClInclude Include="include\qlp\schemas\requests\zeroratesrequest.hpp" />
     <ClInclude Include="include\qlp\schemas\schema.hpp" />
     <ClInclude Include="include\qlp\schemas\termstructures\bootstrapcurveschema.hpp" />
     <ClInclude Include="include\qlp\schemas\termstructures\discountcurveschema.hpp" />

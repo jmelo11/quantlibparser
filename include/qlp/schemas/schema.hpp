@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef QLP_SCHEMA_HPP
+#define QLP_SCHEMA_HPP
+
 #include <nlohmann/json-schema.hpp>
 #include <stdexcept>
 
@@ -42,7 +45,7 @@ namespace QuantLibParser
             }
         };
 
-        void setDefaultValues(json &target){
+        json setDefaultValues(json target){
             for (auto &[k,v] : myDefaultValues_.items())
             {
                 if (target.find(k) == target.end())
@@ -60,3 +63,5 @@ namespace QuantLibParser
         json mySchema_;
     };
 }
+
+#endif // QLP_SCHEMA_HPP

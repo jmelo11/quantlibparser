@@ -90,6 +90,15 @@
     <ClCompile Include="src\schemas\requests\updatequoterequest.cpp">
       <Filter>src\schemas\requests</Filter>
     </ClCompile>
+    <ClCompile Include="src\schemas\requests\discountfactorsrequest.cpp">
+      <Filter>src\schemas\requests</Filter>
+    </ClCompile>
+    <ClCompile Include="src\schemas\requests\forwardratesrequest.cpp">
+      <Filter>src\schemas\requests</Filter>
+    </ClCompile>
+    <ClCompile Include="src\schemas\requests\zeroratesrequest.cpp">
+      <Filter>src\schemas\requests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\qlp\schemas\termstructures\bootstrapcurveschema.hpp">
@@ -150,6 +159,15 @@
       <Filter>include\qlp\schemas\requests</Filter>
     </ClInclude>
     <ClInclude Include="include\qlp\schemas\requests\updatequoterequest.hpp">
+      <Filter>include\qlp\schemas\requests</Filter>
+    </ClInclude>
+    <ClInclude Include="include\qlp\schemas\requests\discountfactorsrequest.hpp">
+      <Filter>include\qlp\schemas\requests</Filter>
+    </ClInclude>
+    <ClInclude Include="include\qlp\schemas\requests\forwardratesrequest.hpp">
+      <Filter>include\qlp\schemas\requests</Filter>
+    </ClInclude>
+    <ClInclude Include="include\qlp\schemas\requests\zeroratesrequest.hpp">
       <Filter>include\qlp\schemas\requests</Filter>
     </ClInclude>
   </ItemGroup>

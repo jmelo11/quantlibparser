@@ -311,7 +311,7 @@ TEST(BootstrapCurveTest, CurveSchemas) {
         })"_json;
 	
     
-    Schema<PiecewiseYieldCurve<LogLinear, Discount>> curveSchema;
+    Schema<PiecewiseYieldCurve<Discount, LogLinear>> curveSchema;
     try
     {
         curveSchema.validate(data);

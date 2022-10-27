@@ -12,6 +12,10 @@
 #include <qlp/schemas/termstructures/flatforwardcurveschema.hpp>
 #include <qlp/schemas/termstructures/rateindexschema.hpp>
 
+#include <qlp/schemas/requests/discountfactorsrequest.hpp>
+#include <qlp/schemas/requests/forwardratesrequest.hpp>
+#include <qlp/schemas/requests/zeroratesrequest.hpp>
+
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 #include <pybind11_json/pybind11_json.hpp>
@@ -31,7 +35,7 @@ PYBIND11_MODULE(quantlibparser, m) {
     py::class_<Schema<FixedRateBondHelper>>(m, "FixedRateBondHelperSchema")       
         .def(py::init<>())
         .def("validate", &Schema<FixedRateBondHelper>::validate)     
-        .def("schema", &Schema<FixedRateBondHelper>::schema);     
+        .def("schema", &Schema<FixedRateBondHelper>::schema);             
 
     py::class_<Schema<DepositRateHelper>>(m, "DepositRateHelperSchema")       
         .def(py::init<>())
@@ -84,4 +88,19 @@ PYBIND11_MODULE(quantlibparser, m) {
         .def("validate", &Schema<InterestRateIndex>::validate)     
         .def("schema", &Schema<InterestRateIndex>::schema); 
     
+    //requests
+     py::class_<Schema<DiscountFactorsRequest>>(m, "DiscountFactorsRequestSchema")       
+        .def(py::init<>())
+        .def("validate", &Schema<DiscountFactorsRequest>::validate)     
+        .def("schema", &Schema<DiscountFactorsRequest>::schema); 
+    
+    py::class_<Schema<ZeroRatesRequests>>(m, "ZeroRatesRequestsSchema")       
+        .def(py::init<>())
+        .def("validate", &Schema<ZeroRatesRequests>::validate)     
+        .def("schema", &Schema<ZeroRatesRequests>::schema); 
+
+    py::class_<Schema<ForwardRatesRequest>>(m, "ForwardRatesRequestSchema")       
+        .def(py::init<>())
+        .def("validate", &Schema<ForwardRatesRequest>::validate)     
+        .def("schema", &Schema<ForwardRatesRequest>::schema); 
 }
