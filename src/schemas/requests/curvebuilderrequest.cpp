@@ -9,7 +9,7 @@ namespace QuantLibParser
         json base = R"({
             "title": "Curve Builder Request Schema",
             "properties": {},
-            "required": ["REFDATE", "CURVES", "INDICES"]
+            "required": ["REFDATE", "CURVES", "INDEXES"]
         })"_json;
 
         base["properties"]["REFDATE"] = dateSchema;
@@ -18,7 +18,7 @@ namespace QuantLibParser
                     "items":{ "type": "object" }
         })"_json;
 
-		base["properties"]["INDICES"] = R"({               
+		base["properties"]["INDEXES"] = R"({               
 					"type":"array", 
 					"items":{ "type": "object" }     
         })"_json;

@@ -26,7 +26,8 @@ using BootstrapCurveSchema = PiecewiseYieldCurve<Discount, LogLinear>;
 
 PYBIND11_MODULE(quantlibparser, m) {
     m.doc() = "quantlibparser for python"; // optional module docstring
-
+     
+    //ratehelpers
     py::class_<Schema<FixedRateBondHelper>>(m, "FixedRateBondHelperSchema")       
         .def(py::init<>())
         .def("validate", &Schema<FixedRateBondHelper>::validate)     
@@ -67,7 +68,7 @@ PYBIND11_MODULE(quantlibparser, m) {
         .def("validate", &Schema<CrossCcyBasisSwapHelper>::validate)     
         .def("schema", &Schema<CrossCcyBasisSwapHelper>::schema); 
 
-        
+    //curves
     py::class_<Schema<BootstrapCurveSchema>>(m, "BootstrapCurveSchema")       
         .def(py::init<>())
         .def("validate", &Schema<BootstrapCurveSchema>::validate)     

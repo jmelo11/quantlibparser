@@ -23,7 +23,7 @@ namespace QuantLibParser
         base["properties"]["FACEAMOUNT"] = faceAmountSchema;
         base["properties"]["COUPON"] = priceSchema;
 
-        base["properties"]["IRRDAYCOUNTER"] = priceSchema;
+        base["properties"]["IRRDAYCOUNTER"] = dayCounterSchema;
         base["properties"]["COUPONDAYCOUNTER"] = dayCounterSchema;
 
         mySchema_ = base;
