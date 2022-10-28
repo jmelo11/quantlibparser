@@ -1,6 +1,4 @@
 #include "pch.h"
-#include <nlohmann/json-schema.hpp>
-
 #include <qlp/schemas/ratehelpers/bondratehelperschema.hpp>
 #include <qlp/schemas/ratehelpers/depositratehelperschema.hpp>
 #include <qlp/schemas/ratehelpers/fixfloatxccyratehelperschema.hpp>
@@ -8,6 +6,8 @@
 #include <qlp/schemas/ratehelpers/swapratehelperschema.hpp>
 #include <qlp/schemas/ratehelpers/tenorbasisratehelperschema.hpp>
 #include <qlp/schemas/ratehelpers/xccybasisratehelperschema.hpp>
+#include <nlohmann/json-schema.hpp>
+
 
 using nlohmann::json_schema::json_validator;
 using json = nlohmann::json;
@@ -16,16 +16,15 @@ using namespace QuantExt;
 using namespace QuantLibParser;
 
 TEST(DepositSchema, RateHelperSchemas) {
-
-	json testSchema = R"({
+    json testSchema = R"({
             "TYPE": "DEPOSIT",
 			"RATE": 0.033518703852712,
             "RATETICKER": "DAP_1D",
             "TENOR": "1D"            
 		})"_json;
 
-	Schema<DepositRateHelper> depositSchema;		
-    EXPECT_NO_THROW(depositSchema.validate(testSchema));	
+    Schema<DepositRateHelper> depositSchema;
+    EXPECT_NO_THROW(depositSchema.validate(testSchema));
 
     testSchema = R"(  {
             "RATE": 0.0227,
@@ -38,24 +37,24 @@ TEST(DepositSchema, RateHelperSchemas) {
             "TYPE": "DEPOSIT",
             "RATETICKER": "SOFRRATE CURNCY"
           })";
-	
+
     EXPECT_NO_THROW(depositSchema.validate(testSchema));
 }
 
 TEST(BondSchema, RateHelperSchemas) {
-	json testSchema = R"({
+    json testSchema = R"({
             "TYPE": "BOND",
 			"RATE": 0.033518703852712,
             "RATETICKER": "BOND_1D",
             "TENOR": "5M"            
 		})"_json;
 
-	Schema<FixedRateBondHelper> bondSchema;
-	EXPECT_NO_THROW(bondSchema.validate(testSchema));
+    Schema<FixedRateBondHelper> bondSchema;
+    EXPECT_NO_THROW(bondSchema.validate(testSchema));
 }
 
 TEST(FXSwapSchema, RateHelperSchemas) {
-	json testSchema = R"({
+    json testSchema = R"({
             "FXPOINTS": 17.53,
             "FXSPOT": 897.19,
             "TENOR": "3M",
@@ -70,9 +69,8 @@ TEST(FXSwapSchema, RateHelperSchemas) {
             "FXSPOTTICKER": "CLP CURNCY"          
 		})"_json;
 
-	Schema<FxSwapRateHelper> fxSwapSchema;
-	EXPECT_NO_THROW(fxSwapSchema.validate(testSchema));
-	
+    Schema<FxSwapRateHelper> fxSwapSchema;
+    EXPECT_NO_THROW(fxSwapSchema.validate(testSchema));
 }
 
 TEST(XccySchema, RateHelperSchemas) {
@@ -185,13 +183,8 @@ TEST(XccyBasischema, RateHelperSchemas) {
     })"_json;
 
     Schema<CrossCcyBasisSwapHelper> swapSchema;
-    try
-    {
+    try {
         swapSchema.validate(testSchema);
-    }
-    catch (const std::exception& e)
-    {
-        std::cout << e.what() << "\n";
-    }
+    } catch (const std::exception& e) { std::cout << e.what() << "\n"; }
     EXPECT_NO_THROW(swapSchema.validate(testSchema));
 }

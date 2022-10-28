@@ -1,14 +1,14 @@
 #include "pch.h"
-#include <qlp/schemas/termstructures/discountcurveschema.hpp>
 #include <qlp/schemas/termstructures/bootstrapcurveschema.hpp>
-#include <qlp/schemas/termstructures/yieldtermstructureschema.hpp>
+#include <qlp/schemas/termstructures/discountcurveschema.hpp>
 #include <qlp/schemas/termstructures/rateindexschema.hpp>
+#include <qlp/schemas/termstructures/yieldtermstructureschema.hpp>
 
 using namespace QuantLib;
 using namespace QuantLibParser;
 
 TEST(DiscountCurveTest, CurveSchemas) {
-	json data = R"({   
+    json data = R"({   
         "TYPE": "DISCOUNT",    
 		"NAME": "USD",
 		"DAYCOUNTER": "ACT360",
@@ -24,13 +24,12 @@ TEST(DiscountCurveTest, CurveSchemas) {
 			}
 		]
 	})"_json;
-	
-	Schema<DiscountCurve> curveSchema;
 
+    Schema<DiscountCurve> curveSchema;
 
-	EXPECT_NO_THROW(curveSchema.validate(data));
+    EXPECT_NO_THROW(curveSchema.validate(data));
 
-	data = R"({
+    data = R"({
 		"NAME": "USD",
 		"DAYCOUNTER": "ACT360",
 		"ENABLEEXTRAPOLATION": true,
@@ -44,12 +43,11 @@ TEST(DiscountCurveTest, CurveSchemas) {
 			}
 		]
 	})"_json;
-	
-	EXPECT_ANY_THROW(curveSchema.validate(data));
 
+    EXPECT_ANY_THROW(curveSchema.validate(data));
 }
 TEST(BootstrapCurveTest, CurveSchemas) {
-	json data = R"({
+    json data = R"({
             "TYPE": "PIECEWISE",
             "NAME": "CF_USD",
             "DAYCOUNTER": "ACT360",
@@ -309,18 +307,12 @@ TEST(BootstrapCurveTest, CurveSchemas) {
                 }
             ]
         })"_json;
-	
-    
+
     Schema<PiecewiseYieldCurve<Discount, LogLinear>> curveSchema;
-    try
-    {
+    try {
         curveSchema.validate(data);
-    }
-    catch (const std::exception&e)
-    {
-        std::cout << e.what() << "\n";
-    }
-	
+    } catch (const std::exception& e) { std::cout << e.what() << "\n"; }
+
     EXPECT_NO_THROW(curveSchema.validate(data));
 
     data = R"(
@@ -598,10 +590,8 @@ TEST(BootstrapCurveTest, CurveSchemas) {
             ]
         }
     )"_json;
-        
-       
-        EXPECT_ANY_THROW(curveSchema.validate(data));
-					
+
+    EXPECT_ANY_THROW(curveSchema.validate(data));
 }
 TEST(YieldCurveTest, CurveSchemas) {
     Schema<YieldTermStructure> curveSchema;
@@ -617,9 +607,8 @@ TEST(IndexTest, CurveSchemas) {
             "FIXINGDAYS": 0.0,
             "CALENDAR": "USA"
         })"_json;
-	
-	Schema<InterestRateIndex> indexSchema;
-    
-	EXPECT_NO_THROW(indexSchema.validate(data));
 
+    Schema<InterestRateIndex> indexSchema;
+
+    EXPECT_NO_THROW(indexSchema.validate(data));
 }

@@ -1,11 +1,8 @@
 #include <qlp/schemas/requests/updatequoterequest.hpp>
 
-
-namespace QuantLibParser
-{
+namespace QuantLibParser {
     template <>
-    void Schema<UpdateQuoteRequest>::initSchema()
-    {
+    void Schema<UpdateQuoteRequest>::initSchema() {
         json base = R"({
             "title": "Update Quotes Request Schema",
             "type": "array",
@@ -25,16 +22,13 @@ namespace QuantLibParser
             ]
         })"_json;
 
-        
-		
         mySchema_ = base;
     };
 
     template <>
-    void Schema<UpdateQuoteRequest>::initDefaultValues()
-    {
-       
+    void Schema<UpdateQuoteRequest>::initDefaultValues(){
+
     };
 
-	template class Schema<UpdateQuoteRequest>;
-}
+    template class Schema<UpdateQuoteRequest>;
+}  // namespace QuantLibParser

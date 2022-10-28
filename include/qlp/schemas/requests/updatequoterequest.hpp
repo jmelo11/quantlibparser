@@ -2,13 +2,11 @@
 
 #include <qlp/schemas/schema.hpp>
 
-namespace QuantLibParser
-{
-	class UpdateQuoteRequest;
-	template <>
-	void Schema<UpdateQuoteRequest>::initSchema();
+namespace QuantLibParser {
+    class UpdateQuoteRequest;
+    template <>
+    void Schema<UpdateQuoteRequest>::initSchema();
 
-	template<>
-	void Schema<UpdateQuoteRequest>::initDefaultValues();
-
-}
+    template <>
+    void Schema<UpdateQuoteRequest>::initDefaultValues();
+}  // namespace QuantLibParser

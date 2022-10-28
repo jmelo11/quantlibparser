@@ -2,13 +2,12 @@
 
 #include <qlp/schemas/schema.hpp>
 
-namespace QuantLibParser
-{
-	class DiscountFactorsRequest;
-	template <>
-	void Schema<DiscountFactorsRequest>::initSchema();
+namespace QuantLibParser {
+    class DiscountFactorsRequest;
+    template <>
+    void Schema<DiscountFactorsRequest>::initSchema();
 
-	template<>
-	void Schema<DiscountFactorsRequest>::initDefaultValues();
+    template <>
+    void Schema<DiscountFactorsRequest>::initDefaultValues();
 
-}
+}  // namespace QuantLibParser

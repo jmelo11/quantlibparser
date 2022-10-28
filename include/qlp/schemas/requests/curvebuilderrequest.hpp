@@ -2,13 +2,12 @@
 
 #include <qlp/schemas/schema.hpp>
 
-namespace QuantLibParser
-{
-	class CurveBuilderRequest;
-	template <>
-	void Schema<CurveBuilderRequest>::initSchema();
+namespace QuantLibParser {
+    class CurveBuilderRequest;
+    template <>
+    void Schema<CurveBuilderRequest>::initSchema();
 
-	template<>
-	void Schema<CurveBuilderRequest>::initDefaultValues();
+    template <>
+    void Schema<CurveBuilderRequest>::initDefaultValues();
 
-}
+}  // namespace QuantLibParser

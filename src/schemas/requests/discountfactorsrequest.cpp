@@ -1,11 +1,10 @@
-#include <qlp/schemas/requests/discountfactorsrequest.hpp>
 #include <qlp/schemas/commonschemas.hpp>
+#include <qlp/schemas/requests/discountfactorsrequest.hpp>
 
-namespace QuantLibParser
-{
+
+namespace QuantLibParser {
     template <>
-    void Schema<DiscountFactorsRequest>::initSchema()
-    {
+    void Schema<DiscountFactorsRequest>::initSchema() {
         json base = R"({
             "title": "Discounts Request Schema",
             "type": "object",            
@@ -19,18 +18,17 @@ namespace QuantLibParser
             },
             "required": ["REFDATE", "CURVE"]              
         })"_json;
-        
-        base["properties"]["REFDATE"] = dateSchema;
+
+        base["properties"]["REFDATE"]        = dateSchema;
         base["properties"]["DATES"]["items"] = dateSchema;
-		
+
         mySchema_ = base;
     };
 
     template <>
-    void Schema<DiscountFactorsRequest>::initDefaultValues()
-    {
-       
+    void Schema<DiscountFactorsRequest>::initDefaultValues(){
+
     };
 
-	template class Schema<DiscountFactorsRequest>;
-}
+    template class Schema<DiscountFactorsRequest>;
+}  // namespace QuantLibParser

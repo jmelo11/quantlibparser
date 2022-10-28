@@ -1,16 +1,14 @@
 #pragma once
-#pragma once
 
 #include <qlp/schemas/commonschemas.hpp>
 #include <qlp/schemas/schema.hpp>
 #include <ql/termstructures/yield/oisratehelper.hpp>
 
-namespace QuantLibParser
-{
+namespace QuantLibParser {
     template <>
-    void Schema <QuantLib::OISRateHelper> ::initSchema();
+    void Schema<QuantLib::OISRateHelper>::initSchema();
 
-    template<>
+    template <>
     void Schema<QuantLib::OISRateHelper>::initDefaultValues();
-	
-}
+
+}  // namespace QuantLibParser

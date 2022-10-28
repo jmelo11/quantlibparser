@@ -2,13 +2,12 @@
 
 #include <qlp/schemas/schema.hpp>
 
-namespace QuantLibParser
-{
-	class ZeroRatesRequests;
-	template <>
-	void Schema<ZeroRatesRequests>::initSchema();
+namespace QuantLibParser {
+    class ZeroRatesRequests;
+    template <>
+    void Schema<ZeroRatesRequests>::initSchema();
 
-	template<>
-	void Schema<ZeroRatesRequests>::initDefaultValues();
+    template <>
+    void Schema<ZeroRatesRequests>::initDefaultValues();
 
-}
+}  // namespace QuantLibParser

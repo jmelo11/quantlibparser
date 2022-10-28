@@ -1,11 +1,10 @@
-#include <qlp/schemas/requests/curvebuilderrequest.hpp>
 #include <qlp/schemas/commonschemas.hpp>
+#include <qlp/schemas/requests/curvebuilderrequest.hpp>
 
-namespace QuantLibParser
-{
+
+namespace QuantLibParser {
     template <>
-    void Schema<CurveBuilderRequest>::initSchema()
-    {
+    void Schema<CurveBuilderRequest>::initSchema() {
         json base = R"({
             "title": "Curve Builder Request Schema",
             "properties": {},
@@ -13,24 +12,23 @@ namespace QuantLibParser
         })"_json;
 
         base["properties"]["REFDATE"] = dateSchema;
-        base["properties"]["CURVES"] = R"({               
+        base["properties"]["CURVES"]  = R"({               
                     "type":"array", 
                     "items":{ "type": "object" }
         })"_json;
 
-		base["properties"]["INDEXES"] = R"({               
+        base["properties"]["INDEXES"] = R"({               
 					"type":"array", 
 					"items":{ "type": "object" }     
         })"_json;
-		
+
         mySchema_ = base;
     };
 
     template <>
-    void Schema<CurveBuilderRequest>::initDefaultValues()
-    {
-       
+    void Schema<CurveBuilderRequest>::initDefaultValues(){
+
     };
 
-	template class Schema<CurveBuilderRequest>;
-}
+    template class Schema<CurveBuilderRequest>;
+}  // namespace QuantLibParser

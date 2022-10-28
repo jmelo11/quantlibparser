@@ -1,18 +1,16 @@
-#include <qlp/schemas/termstructures/discountcurveschema.hpp>
 #include <qlp/schemas/commonschemas.hpp>
+#include <qlp/schemas/termstructures/discountcurveschema.hpp>
 
-namespace QuantLibParser
-{
-	template <>
-	void Schema<QuantLib::DiscountCurve>::initSchema()
-	{
-		json base = R"({
+namespace QuantLibParser {
+    template <>
+    void Schema<QuantLib::DiscountCurve>::initSchema() {
+        json base = R"({
             "title": "Discount Curve Schema",
             "properties": {},			
             "required": ["TYPE", "NAME", "ENABLEEXTRAPOLATION", "NODES"]
         })"_json;
 
-		json nodes = R"({
+        json nodes = R"({
 			"type": "array",
 			"items": {
 				"type": "object",
@@ -24,23 +22,20 @@ namespace QuantLibParser
 			}
 		})"_json;
 
-		base["properties"] = baseCurveSchema;
+        base["properties"]                    = baseCurveSchema;
+        nodes["items"]["properties"]["DATE"]  = dateSchema;
+        nodes["items"]["properties"]["VALUE"] = priceSchema;
+        base["properties"]["NODES"]           = nodes;
 
-		nodes["items"]["properties"]["DATE"] = dateSchema;
-		nodes["items"]["properties"]["VALUE"] = priceSchema;
+        mySchema_ = base;
+    }
 
-		base["properties"]["NODES"] = nodes;
+    template <>
+    void Schema<QuantLib::DiscountCurve>::initDefaultValues() {
+        myDefaultValues_["ENABLEEXTRAPOLATION"] = true;
+        myDefaultValues_["DAYCOUNTER"]          = "ACT360";
+    }
 
-		mySchema_ = base;
-	}
+    template class Schema<QuantLib::DiscountCurve>;
 
-	template <>
-	void Schema<QuantLib::DiscountCurve>::initDefaultValues()
-	{
-		myDefaultValues_["ENABLEEXTRAPOLATION"] = true;
-		myDefaultValues_["DAYCOUNTER"] = "ACT360";
-	}
-
-	template class Schema<QuantLib::DiscountCurve>;
-
-}
+}  // namespace QuantLibParser

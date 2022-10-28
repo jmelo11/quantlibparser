@@ -1,16 +1,14 @@
 #pragma once
-#pragma once
 
 #include <qlp/schemas/commonschemas.hpp>
 #include <qlp/schemas/schema.hpp>
 #include <qle/termstructures/crossccyfixfloatswaphelper.hpp>
 
-namespace QuantLibParser
-{
+namespace QuantLibParser {
     template <>
-    void Schema <QuantExt::CrossCcyFixFloatSwapHelper> ::initSchema();
+    void Schema<QuantExt::CrossCcyFixFloatSwapHelper>::initSchema();
 
-    template<>
+    template <>
     void Schema<QuantExt::CrossCcyFixFloatSwapHelper>::initDefaultValues();
-	
-}
+
+}  // namespace QuantLibParser

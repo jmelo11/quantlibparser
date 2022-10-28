@@ -1,11 +1,10 @@
-#include <qlp/schemas/requests/forwardratesrequest.hpp>
 #include <qlp/schemas/commonschemas.hpp>
+#include <qlp/schemas/requests/forwardratesrequest.hpp>
 
-namespace QuantLibParser
-{
+
+namespace QuantLibParser {
     template <>
-    void Schema<ForwardRatesRequest>::initSchema()
-    {
+    void Schema<ForwardRatesRequest>::initSchema() {
         json base = R"({
             "title": "Discounts Request Schema",
             "type": "object",            
@@ -17,31 +16,29 @@ namespace QuantLibParser
             "required": ["REFDATE", "CURVE"]              
         })"_json;
 
-        base["properties"]["FREQUENCY"] = frequencySchema;
+        base["properties"]["FREQUENCY"]   = frequencySchema;
         base["properties"]["COMPOUNDING"] = compoundingSchema;
-        base["properties"]["DAYCOUNTER"] = dayCounterSchema;
-        base["properties"]["REFDATE"] = dateSchema;
+        base["properties"]["DAYCOUNTER"]  = dayCounterSchema;
+        base["properties"]["REFDATE"]     = dateSchema;
 
-        json dates = R"({
+        json dates                  = R"({
             "type": "array",
             "items": {
                 "type": "array",
                 "maxItems": 2                
             }
-        })"_json;		
-        dates["items"]["items"] = dateSchema;
+        })"_json;
+        dates["items"]["items"]     = dateSchema;
         base["properties"]["DATES"] = dates;
-        mySchema_ = base;
-       
+        mySchema_                   = base;
     };
 
     template <>
-    void Schema<ForwardRatesRequest>::initDefaultValues()
-    {
-        myDefaultValues_["DAYCOUNTER"] = "ACT360";
+    void Schema<ForwardRatesRequest>::initDefaultValues() {
+        myDefaultValues_["DAYCOUNTER"]  = "ACT360";
         myDefaultValues_["COMPOUNDING"] = "SIMPLE";
-        myDefaultValues_["FREQUENCY"] = "ANNUAL";
+        myDefaultValues_["FREQUENCY"]   = "ANNUAL";
     };
 
-	template class Schema<ForwardRatesRequest>;
-}
+    template class Schema<ForwardRatesRequest>;
+}  // namespace QuantLibParser
