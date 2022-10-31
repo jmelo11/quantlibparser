@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "pch.hpp"
 #include <qlp/schemas/termstructures/bootstrapcurveschema.hpp>
 #include <qlp/schemas/termstructures/discountcurveschema.hpp>
 #include <qlp/schemas/termstructures/rateindexschema.hpp>
