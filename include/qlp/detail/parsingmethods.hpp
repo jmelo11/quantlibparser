@@ -28,7 +28,7 @@ namespace QuantLibParser {
 
     enum DateFormat { MIXED, SLASH, HYPHEN };
 
-    static std::string parseDate(const Date& date, DateFormat format) {
+    inline std::string parseDate(const Date& date, DateFormat format) {
         std::string day = date.dayOfMonth() < 10 ? "0" + std::to_string(date.dayOfMonth()) :
                                                    std::to_string(date.dayOfMonth());
         std::string month =
@@ -45,7 +45,7 @@ namespace QuantLibParser {
         }
     };
 
-    static Date parseDate(const std::string& date, DateFormat format = DateFormat::MIXED) {
+    inline Date parseDate(const std::string& date, DateFormat format = DateFormat::MIXED) {
         int day, month, year;
         if (format == DateFormat::MIXED) {
             day   = std::stoi(date.substr(0, 2));
@@ -63,7 +63,7 @@ namespace QuantLibParser {
         } catch (std::exception&) { throw std::runtime_error("Invalid date: " + date); }
     };
 
-    static Currency parseCurrency(const std::string& currency) {
+    inline Currency parseCurrency(const std::string& currency) {
         switch (map_Currencies.at(currency)) {
             case CLP:
                 return CLPCurrency();
@@ -78,9 +78,9 @@ namespace QuantLibParser {
         }
     };
 
-    static std::string parseCurrency(const Currency& currency) { return currency.name(); };
+    inline std::string parseCurrency(const Currency& currency) { return currency.name(); };
 
-    static DayCounter parseDayCounter(const std::string& dayCounter) {
+    inline DayCounter parseDayCounter(const std::string& dayCounter) {
         switch (map_DayCounters.at(dayCounter)) {
             case ACT360:
                 return Actual360();
@@ -93,9 +93,9 @@ namespace QuantLibParser {
         }
     };
 
-    static std::string parseDayCounter(DayCounter& dayCounter) { return dayCounter.name(); };
+    inline std::string parseDayCounter(DayCounter& dayCounter) { return dayCounter.name(); };
 
-    static Compounding parseCompounding(const std::string& compounding) {
+    inline Compounding parseCompounding(const std::string& compounding) {
         switch (map_Compoundings.at(compounding)) {
             case SIMPLE:
                 return Compounding::Simple;
@@ -108,7 +108,7 @@ namespace QuantLibParser {
         }
     };
 
-    static std::string parseCompounding(Compounding& compounding) {
+    inline std::string parseCompounding(Compounding& compounding) {
         switch (compounding) {
             case Compounding::Simple:
                 return "SIMPLE";
@@ -119,7 +119,7 @@ namespace QuantLibParser {
         }
     };
 
-    static Frequency parseFrequency(const std::string& frequency) {
+    inline Frequency parseFrequency(const std::string& frequency) {
         switch (map_Frequencies.at(frequency)) {
             case ANNUAL:
                 return Frequency::Annual;
@@ -138,7 +138,7 @@ namespace QuantLibParser {
         }
     };
 
-    static std::string parseFrequency(Frequency& frequency) {
+    inline std::string parseFrequency(Frequency& frequency) {
         switch (frequency) {
             case Frequency::Annual:
                 return "ANNUAL";
@@ -155,13 +155,13 @@ namespace QuantLibParser {
         }
     };
 
-    static Period parsePeriod(const std::string& period) { return PeriodParser::parse(period); }
+    inline Period parsePeriod(const std::string& period) { return PeriodParser::parse(period); }
 
-    static std::string parsePeriod(const Period& period) {
+    inline std::string parsePeriod(const Period& period) {
         return std::to_string(period.length()) + std::to_string(period.units());
     }
 
-    static TimeUnit parseTimeUnit(const std::string& timeUnit) {
+    inline TimeUnit parseTimeUnit(const std::string& timeUnit) {
         switch (map_TimeUnits.at(timeUnit)) {
             case DAYS:
                 return TimeUnit::Days;
@@ -176,7 +176,7 @@ namespace QuantLibParser {
         }
     };
 
-    static Calendar parseCalendar(const std::string& calendar) {
+    inline Calendar parseCalendar(const std::string& calendar) {
         switch (map_Calendars.at(calendar)) {
             case USA:
                 return UnitedStates(UnitedStates::Market::Settlement);
@@ -191,9 +191,9 @@ namespace QuantLibParser {
         }
     }
 
-    static std::string parseCalendar(Calendar& calendar) { return calendar.name(); }
+    inline std::string parseCalendar(Calendar& calendar) { return calendar.name(); }
 
-    static BusinessDayConvention parseBusinessDayConvention(const std::string& convention) {
+    inline BusinessDayConvention parseBusinessDayConvention(const std::string& convention) {
         switch (map_BDConventions.at(convention)) {
             case FOLLOWING:
                 return BusinessDayConvention::Following;
