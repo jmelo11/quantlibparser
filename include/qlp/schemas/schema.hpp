@@ -1,7 +1,5 @@
-#pragma once
-
-#ifndef QLP_SCHEMA_HPP
-#define QLP_SCHEMA_HPP
+#ifndef FE76B325_D614_42C2_B02D_FBBF19C04BBC
+#define FE76B325_D614_42C2_B02D_FBBF19C04BBC
 
 #include <nlohmann/json-schema.hpp>
 #include <stdexcept>
@@ -51,4 +49,4 @@ namespace QuantLibParser {
     };
 }  // namespace QuantLibParser
 
-#endif  // QLP_SCHEMA_HPP
+#endif /* FE76B325_D614_42C2_B02D_FBBF19C04BBC */

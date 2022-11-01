@@ -1,4 +1,5 @@
-#pragma once
+#ifndef AD3742D4_E50B_4FA0_8341_2C3599919519
+#define AD3742D4_E50B_4FA0_8341_2C3599919519
 
 #include <qlp/schemas/commonschemas.hpp>
 #include <qlp/schemas/schema.hpp>
@@ -12,3 +13,5 @@ namespace QuantLibParser {
     void Schema<QuantExt::CrossCcyFixFloatSwapHelper>::initDefaultValues();
 
 }  // namespace QuantLibParser
+
+#endif /* AD3742D4_E50B_4FA0_8341_2C3599919519 */

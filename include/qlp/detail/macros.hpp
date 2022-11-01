@@ -1,3 +1,6 @@
+#ifndef FBD8AA68_730E_479B_9583_A3FDEAC4D1C3
+#define FBD8AA68_730E_479B_9583_A3FDEAC4D1C3
+
 #include <boost/preprocessor.hpp>
 #include <unordered_map>
 
@@ -16,3 +19,5 @@
                 return "[Unknown " BOOST_PP_STRINGIZE(name) "]";              \
         }                                                                     \
     };
+
+#endif /* FBD8AA68_730E_479B_9583_A3FDEAC4D1C3 */

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef A41B4609_6780_4032_8436_DC2C44D02812
+#define A41B4609_6780_4032_8436_DC2C44D02812
 
 #include <nlohmann/json.hpp>
 
@@ -158,3 +159,5 @@ namespace QuantLibParser {
         })"_json;
 
 }  // namespace QuantLibParser
+
+#endif /* A41B4609_6780_4032_8436_DC2C44D02812 */

@@ -1,7 +1,5 @@
-#pragma once
-
-#ifndef QLP_PARSER_HPP
-#define QLP_PARSER_HPP
+#ifndef D75B9C4C_9058_41DA_960E_59D210FB1A99
+#define D75B9C4C_9058_41DA_960E_59D210FB1A99
 
 #include <qlp/detail/parsingmethods.hpp>
 #include <boost/algorithm/string.hpp>
@@ -80,4 +78,4 @@ namespace QuantLibParser {
     }
 }  // namespace QuantLibParser
 
-#endif  // !QLP_PARSER_HPP
+#endif /* D75B9C4C_9058_41DA_960E_59D210FB1A99 */
