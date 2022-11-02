@@ -6,10 +6,13 @@ Transforma string a objectos de QuantLib y viceversa.
 
 Ejemplo de instalacion con cmake:
 
+Windows:
+
     mkdir build 
     cd build
     cmake .. -DCMAKE_PREFIX_PATH='C:\Users\bloomberg\Desktop\Desarrollo\builds' -DCMAKE_INSTALL_PREFIX='C:\Users\bloomberg\Desktop\Desarrollo\builds\quantlibparser' -DCMAKE_CXX_STANDARD=20
     cmake --build . --config Release --target install
+
 
 
 ## Uso ##

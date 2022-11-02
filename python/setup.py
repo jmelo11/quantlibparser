@@ -28,7 +28,7 @@ elif platform == "linux" or platform == "linux2":
     extra_compile_args = ['-std=c++20']
 
 else:
-    LIB_DIR = Path('/usr/local')
+    LIB_DIR = Path('/Users/josemelo/Desktop/dev/builds')
     include_dirs = [str(LIB_DIR / 'include')]
     include_dirs += ['/opt/homebrew/opt/boost/include']
     library_dirs = [str(LIB_DIR / 'lib')]

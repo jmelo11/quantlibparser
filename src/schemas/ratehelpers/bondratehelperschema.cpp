@@ -16,7 +16,6 @@ namespace QuantLibParser {
         base["properties"]["COMPOUNDING"]      = compoundingSchema;
         base["properties"]["FREQUENCY"]        = frequencySchema;
         base["properties"]["SETTLEMENTDAYS"]   = fixingDaysSchema;
-        base["properties"]["ENDOFMONTH"]       = eomSchema;
         base["properties"]["FACEAMOUNT"]       = faceAmountSchema;
         base["properties"]["COUPON"]           = priceSchema;
         base["properties"]["IRRDAYCOUNTER"]    = dayCounterSchema;
@@ -30,7 +29,6 @@ namespace QuantLibParser {
         myDefaultValues_["CALENDAR"]         = "NULLCALENDAR";
         myDefaultValues_["FIXINGDAYS"]       = 0;
         myDefaultValues_["SETTLEMENTDAYS"]   = 0;
-        myDefaultValues_["ENDOFMONTH"]       = false;
         myDefaultValues_["FACEAMOUNT"]       = 100.0;
         myDefaultValues_["COUPON"]           = 0.03;
         myDefaultValues_["IRRDAYCOUNTER"]    = "ACT365";

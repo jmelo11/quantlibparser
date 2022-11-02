@@ -54,7 +54,7 @@ namespace QuantLibParser {
             month = std::stoi(date.substr(2, 2));
             year  = std::stoi(date.substr(4, 4));
         } else {
-            throw std::runtime_error("Unknown date format: " + format);
+            throw std::runtime_error("Unknown date format");
         }
         try {
             return Date(day, (Month)month, year);
@@ -117,7 +117,7 @@ namespace QuantLibParser {
             case Compounding::Compounded:
                 return "COMPOUNDED";
             default:
-                break;
+                throw std::runtime_error("Unknown compounding");
         }
     };
 
@@ -153,7 +153,7 @@ namespace QuantLibParser {
             case Frequency::Once:
                 return "ONCE";
             default:
-                break;
+                throw std::runtime_error("Unknown frequency");
         }
     };
 

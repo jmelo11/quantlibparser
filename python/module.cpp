@@ -25,7 +25,7 @@ using namespace std;
 
 using BootstrapCurveSchema = PiecewiseYieldCurve<Discount, LogLinear>;
 
-PYBIND11_MODULE(quantlibparser, m) {
+PYBIND11_MODULE(QuantLibParser, m) {
     m.doc() = "quantlibparser for python";  // optional module docstring
 
     // ratehelpers
