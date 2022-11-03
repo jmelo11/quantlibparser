@@ -17,7 +17,7 @@ if platform == "win32":
     library_dirs = [str(LIB_DIR / folder / 'lib') for folder in folders]
     libraries = ['QuantLib-x64-mt', 'QuantExt-x64-mt',
                  'quantlibparser', 'nlohmann_json_schema_validator']
-    compiler_args = ['-std=c++20']
+    extra_compile_args = ['-std=c++20']
 
 elif platform == "linux" or platform == "linux2":
     LIB_DIR = Path('/usr/local')

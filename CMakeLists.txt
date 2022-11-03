@@ -4,7 +4,9 @@ project(
   QuantLibParser
   VERSION 1.0.0
   LANGUAGES CXX)
+
 set(CMAKE_CXX_STANDARD 20)
+set(BUILD_TESTS OFF)
 
 include(GNUInstallDirs)
 
@@ -95,4 +97,6 @@ install(FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/include
         DESTINATION ${CMAKE_INSTALL_PREFIX})
 
-add_subdirectory(tests)
+if (BUILD_TESTS)        
+  add_subdirectory(tests)
+endif()

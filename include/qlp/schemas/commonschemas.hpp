@@ -37,7 +37,7 @@ namespace QuantLibParser {
 		"ENABLEEXTRAPOLATION": {
 			"type": "boolean",
 			"description": "Enable extrapolation"						
-				}                
+			}                
     })"_json;
 
     static json curveNameSchema = R"({
