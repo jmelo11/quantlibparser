@@ -70,6 +70,20 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\Users\bloomberg\Desktop\Desarrollo\builds\QuantLib\include;C:\Users\bloomberg\Desktop\Desarrollo\builds\nlohmann_json_schema_validator\include;C:\Users\bloomberg\Desktop\Desarrollo\builds\boost;C:\Users\bloomberg\Desktop\Desarrollo\builds\nlohmann_json\include;C:\Users\bloomberg\Desktop\Desarrollo\builds\QuantExt\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\bloomberg\Desktop\Desarrollo\builds\QuantLib\lib;C:\Users\bloomberg\Desktop\Desarrollo\builds\nlohmann_json_schema_validator\lib;C:\Users\bloomberg\Desktop\Desarrollo\builds\QuantExt\lib;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(VC_SourcePath);$(SolutionDir)src</SourcePath>
+    <ReferencePath>$(VC_ReferencesPath_x64);</ReferencePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath)</ExternalIncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>C:\Users\bloomberg\Desktop\Desarrollo\builds\QuantLib\include;C:\Users\bloomberg\Desktop\Desarrollo\builds\nlohmann_json_schema_validator\include;C:\Users\bloomberg\Desktop\Desarrollo\builds\boost;C:\Users\bloomberg\Desktop\Desarrollo\builds\nlohmann_json\include;C:\Users\bloomberg\Desktop\Desarrollo\builds\QuantExt\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\bloomberg\Desktop\Desarrollo\builds\QuantLib\bin;C:\Users\bloomberg\Desktop\Desarrollo\builds\nlohmann_json_schema_validator\bin;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(VC_SourcePath);</SourcePath>
+    <ReferencePath>$(VC_ReferencesPath_x64);</ReferencePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath)</ExternalIncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -105,11 +119,16 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -120,6 +139,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)src;$(SolutionDir)include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,13 +147,56 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\detail\macros.hpp" />
-    <ClInclude Include="..\include\quantlibparser.hpp" />
+    <ClCompile Include="src\detail\parsingmethods.cpp" />
+    <ClCompile Include="src\schemas\ratehelpers\bondratehelperschema.cpp" />
+    <ClCompile Include="src\schemas\ratehelpers\depositratehelperschema.cpp" />
+    <ClCompile Include="src\schemas\ratehelpers\fixfloatxccyratehelperschema.cpp" />
+    <ClCompile Include="src\schemas\ratehelpers\fxswapratehelperschema.cpp" />
+    <ClCompile Include="src\schemas\ratehelpers\oisratehelperschema.cpp" />
+    <ClCompile Include="src\schemas\ratehelpers\swapratehelperschema.cpp" />
+    <ClCompile Include="src\schemas\ratehelpers\tenorbasisratehelperschema.cpp" />
+    <ClCompile Include="src\schemas\ratehelpers\xccybasisratehelperschema.cpp" />
+    <ClCompile Include="src\schemas\requests\curvebuilderrequest.cpp" />
+    <ClCompile Include="src\schemas\requests\discountfactorsrequest.cpp" />
+    <ClCompile Include="src\schemas\requests\forwardratesrequest.cpp" />
+    <ClCompile Include="src\schemas\requests\updatequoterequest.cpp" />
+    <ClCompile Include="src\schemas\requests\zeroratesrequest.cpp" />
+    <ClCompile Include="src\schemas\termstructures\bootstrapcurveschema.cpp" />
+    <ClCompile Include="src\schemas\termstructures\discountcurveschema.cpp" />
+    <ClCompile Include="src\schemas\termstructures\flatforwardcurveschema.cpp" />
+    <ClCompile Include="src\schemas\termstructures\rateindexschema.cpp" />
+    <ClCompile Include="src\schemas\termstructures\yieldtermstructureschema.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\quantlibparser.cpp" />
+    <ClInclude Include="include\qlp\detail\macros.hpp" />
+    <ClInclude Include="include\qlp\detail\parsingmethods.hpp" />
+    <ClInclude Include="include\qlp\parser.hpp" />
+    <ClInclude Include="include\qlp\schemas\commonschemas.hpp" />
+    <ClInclude Include="include\qlp\schemas\ratehelpers\bondratehelperschema.hpp" />
+    <ClInclude Include="include\qlp\schemas\ratehelpers\depositratehelperschema.hpp" />
+    <ClInclude Include="include\qlp\schemas\ratehelpers\fixfloatxccyratehelperschema.hpp" />
+    <ClInclude Include="include\qlp\schemas\ratehelpers\fxswapratehelperschema.hpp" />
+    <ClInclude Include="include\qlp\schemas\ratehelpers\oisratehelperschema.hpp" />
+    <ClInclude Include="include\qlp\schemas\ratehelpers\swapratehelperschema.hpp" />
+    <ClInclude Include="include\qlp\schemas\ratehelpers\tenorbasisratehelperschema.hpp" />
+    <ClInclude Include="include\qlp\schemas\ratehelpers\xccybasisratehelperschema.hpp" />
+    <ClInclude Include="include\qlp\schemas\requests\curvebuilderrequest.hpp" />
+    <ClInclude Include="include\qlp\schemas\requests\discountfactorsrequest.hpp" />
+    <ClInclude Include="include\qlp\schemas\requests\forwardratesrequest.hpp" />
+    <ClInclude Include="include\qlp\schemas\requests\updatequoterequest.hpp" />
+    <ClInclude Include="include\qlp\schemas\requests\zeroratesrequest.hpp" />
+    <ClInclude Include="include\qlp\schemas\schema.hpp" />
+    <ClInclude Include="include\qlp\schemas\termstructures\bootstrapcurveschema.hpp" />
+    <ClInclude Include="include\qlp\schemas\termstructures\discountcurveschema.hpp" />
+    <ClInclude Include="include\qlp\schemas\termstructures\flatforwardcurveschema.hpp" />
+    <ClInclude Include="include\qlp\schemas\termstructures\rateindexschema.hpp" />
+    <ClInclude Include="include\qlp\schemas\termstructures\yieldtermstructureschema.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
