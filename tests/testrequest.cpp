@@ -7,7 +7,7 @@
 
 using namespace QuantLibParser;
 
-TEST(CurveBuilder, Requests) {
+TEST(Requests, CurveBuilder) {
     json data = R"({
 		"REFDATE":"28022022",
 		"CURVES": [{}],
@@ -17,7 +17,7 @@ TEST(CurveBuilder, Requests) {
     EXPECT_NO_THROW(schema.validate(data));
 }
 
-TEST(UpdateQuote, Requests) {
+TEST(Requests, UpdateQuote) {
     json data = R"([		
 		{
 			"NAME": "CLP CURRENCY",
@@ -29,7 +29,7 @@ TEST(UpdateQuote, Requests) {
     EXPECT_NO_THROW(schema.validate(data));
 }
 
-TEST(DiscountFactors, Requests) {
+TEST(Requests, DiscountFactors) {
     json data = R"({
 		"REFDATE":"24082022",
 		"CURVE":"ICP_ICAP",		
@@ -40,7 +40,7 @@ TEST(DiscountFactors, Requests) {
     EXPECT_NO_THROW(schema.validate(data));
 }
 
-TEST(ZeroRates, Requests) {
+TEST(Requests, ZeroRates) {
     json data = R"({
 		"REFDATE":"24082022",
 		"CURVE":"ICP_ICAP",
@@ -53,7 +53,7 @@ TEST(ZeroRates, Requests) {
     EXPECT_NO_THROW(schema.validate(data));
 }
 
-TEST(ForwardRates, Requests) {
+TEST(Requests, ForwardRates) {
     json data = R"({
 		"REFDATE":"24082022",
 		"CURVE":"ICP_ICAP",

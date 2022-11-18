@@ -6,7 +6,7 @@ using nlohmann::json_schema::json_validator;
 using json = nlohmann::json;
 using namespace QuantLibParser;
 
-TEST(Daycounter, TestCommonSchemas) {
+TEST(CommonSchemas, Daycounter) {
     json base = R"({
             "title": "Day counter schema test",
             "properties": {},
@@ -43,7 +43,7 @@ TEST(Daycounter, TestCommonSchemas) {
     EXPECT_ANY_THROW(validator.validate(test));
 }
 
-TEST(Date, TestCommonSchemas) {
+TEST(CommonSchemas, Date) {
     json base = R"({
             "title": "Day counter schema test",
             "properties": {},
@@ -72,7 +72,7 @@ TEST(Date, TestCommonSchemas) {
     EXPECT_ANY_THROW(validator.validate(test));
 }
 
-TEST(Tenor, TestCommonSchemas) {
+TEST(CommonSchemas, Tenor) {
     json base = R"({
             "title": "Day counter schema test",
             "properties": {},
@@ -109,7 +109,7 @@ TEST(Tenor, TestCommonSchemas) {
     EXPECT_NO_THROW(validator.validate(test));
 }
 
-TEST(PriceOrTicker, TestCommonSchemas) {
+TEST(CommonSchemas, PriceOrTicker) {
     json base = R"({
             "title": "Price or ticker schema test",
             "properties": {},

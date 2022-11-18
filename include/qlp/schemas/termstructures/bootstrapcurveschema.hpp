@@ -8,13 +8,12 @@
 
 namespace QuantLibParser {
     template <>
-    void
-    Schema<QuantLib::PiecewiseYieldCurve<QuantLib::Discount, QuantLib::LogLinear>>::initSchema();
+    void Schema<QuantLib::PiecewiseYieldCurve<QuantLib::Discount, QuantLib::LogLinear>>::initSchema();
 
     template <>
-    void Schema<QuantLib::PiecewiseYieldCurve<QuantLib::Discount,
-                                              QuantLib::LogLinear>>::initDefaultValues();
+    void Schema<QuantLib::PiecewiseYieldCurve<QuantLib::Discount, QuantLib::LogLinear>>::initDefaultValues();
 
+    
 }  // namespace QuantLibParser
 
 #endif /* DA3366E8_01A3_405B_B0B7_42E56D00B2D2 */

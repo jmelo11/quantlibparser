@@ -13,6 +13,8 @@ namespace QuantLibParser {
     template <>
     void Schema<QuantLib::SwapRateHelper>::initDefaultValues();
 
+    
+
 }  // namespace QuantLibParser
 
 #endif /* B8C18B07_3A7F_4FC3_BE18_DE08D66F9B95 */

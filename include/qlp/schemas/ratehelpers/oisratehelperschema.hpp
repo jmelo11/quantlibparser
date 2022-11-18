@@ -12,6 +12,8 @@ namespace QuantLibParser {
     template <>
     void Schema<QuantLib::OISRateHelper>::initDefaultValues();
 
+    
+
 }  // namespace QuantLibParser
 
 #endif /* A8848702_C1F4_4B97_B4AE_1BD0F21B7EFA */

@@ -11,8 +11,7 @@
 
 namespace QuantLibParser {
     template <>
-    void
-    Schema<QuantLib::PiecewiseYieldCurve<QuantLib::Discount, QuantLib::LogLinear>>::initSchema() {
+    void Schema<QuantLib::PiecewiseYieldCurve<QuantLib::Discount, QuantLib::LogLinear>>::initSchema() {
         using namespace QuantExt;
         using namespace QuantLib;
 
@@ -33,8 +32,7 @@ namespace QuantLibParser {
     }
 
     template <>
-    void Schema<QuantLib::PiecewiseYieldCurve<QuantLib::Discount,
-                                              QuantLib::LogLinear>>::initDefaultValues() {
+    void Schema<QuantLib::PiecewiseYieldCurve<QuantLib::Discount, QuantLib::LogLinear>>::initDefaultValues() {
         myDefaultValues_["ENABLEEXTRAPOLATION"] = true;
         myDefaultValues_["DAYCOUNTER"]          = "ACT360";
     }

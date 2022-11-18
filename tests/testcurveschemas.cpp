@@ -1,16 +1,17 @@
 #include "pch.hpp"
 #include <qlp/schemas/termstructures/bootstrapcurveschema.hpp>
 #include <qlp/schemas/termstructures/discountcurveschema.hpp>
+#include <qlp/schemas/termstructures/flatforwardcurveschema.hpp>
 #include <qlp/schemas/termstructures/rateindexschema.hpp>
 #include <qlp/schemas/termstructures/yieldtermstructureschema.hpp>
 
 using namespace QuantLib;
 using namespace QuantLibParser;
 
-TEST(DiscountCurveTest, CurveSchemas) {
+TEST(CurveSchemas, DiscountCurve) {
     json data = R"({   
         "TYPE": "DISCOUNT",    
-		"NAME": "USD",
+		"NAME": "DISCOUNTCURVE",
 		"DAYCOUNTER": "ACT360",
 		"ENABLEEXTRAPOLATION": true,
 		"NODES": [
@@ -30,7 +31,6 @@ TEST(DiscountCurveTest, CurveSchemas) {
     EXPECT_NO_THROW(curveSchema.validate(data));
 
     data = R"({
-		"NAME": "USD",
 		"DAYCOUNTER": "ACT360",
 		"ENABLEEXTRAPOLATION": true,
 		"NODES": [
@@ -46,7 +46,21 @@ TEST(DiscountCurveTest, CurveSchemas) {
 
     EXPECT_ANY_THROW(curveSchema.validate(data));
 }
-TEST(BootstrapCurveTest, CurveSchemas) {
+
+TEST(CurveSchemas, FlatForwardCurve) {
+    json data = R"({   
+        "NAME":"FLATFORWARDCURVE",
+        "REFDATE": "01012019",
+        "TYPE": "FLATFORWARD",    
+		"DAYCOUNTER": "ACT360",
+		"ENABLEEXTRAPOLATION": true,
+		"RATE":0.03
+	})"_json;
+    Schema<FlatForward> curveSchema;
+    EXPECT_NO_THROW(curveSchema.validate(data));
+}
+
+TEST(CurveSchemas, BootstrapCurve) {
     json data = R"({
             "TYPE": "PIECEWISE",
             "NAME": "CF_USD",
@@ -593,11 +607,7 @@ TEST(BootstrapCurveTest, CurveSchemas) {
 
     EXPECT_ANY_THROW(curveSchema.validate(data));
 }
-TEST(YieldCurveTest, CurveSchemas) {
-    Schema<YieldTermStructure> curveSchema;
-    EXPECT_TRUE(true);
-}
-TEST(IndexTest, CurveSchemas) {
+TEST(CurveSchemas, IndexTest) {
     json data = R"({
             "NAME": "SOFR",
             "TYPE": "OVERNIGHT",

@@ -10,6 +10,7 @@ namespace QuantLibParser {
 
     template <>
     void Schema<QuantLib::YieldTermStructure>::initDefaultValues();
+
 }  // namespace QuantLibParser
 
 #endif /* A807DF1A_E4DB_4A26_BD82_C0A710059426 */

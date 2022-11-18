@@ -6,7 +6,7 @@ project(
   LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
-set(BUILD_TESTS OFF)
+set(BUILD_TESTS ON)
 
 include(GNUInstallDirs)
 

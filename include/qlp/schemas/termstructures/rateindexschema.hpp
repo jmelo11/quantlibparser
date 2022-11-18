@@ -10,6 +10,7 @@ namespace QuantLibParser {
 
     template <>
     void Schema<QuantLib::InterestRateIndex>::initDefaultValues();
+
 }  // namespace QuantLibParser
 
 #endif /* DCAFE307_2925_4B11_919B_1DB856AAD537 */

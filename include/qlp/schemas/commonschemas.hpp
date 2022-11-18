@@ -158,16 +158,15 @@ namespace QuantLibParser {
         "example": "1Y"
         })"_json;
 
-    static json baseRateSchema = {
-        {"title", "Base Rate Schema"},
-        {"properties",
-         {
-             {"VALUE", {{"type", "number"}, {"description", "Base rate"}}},
-             {"DAYCOUNTER", dayCounterSchema},
-             {"COMPOUNDING", compoundingSchema},
-             {"FREQUENCY", frequencySchema},
-         }},
-        {"required", json::array({"VALUE", "DAYCOUNTER", "COMPOUNDING", "FREQUENCY"})}};
+    static json baseRateSchema = {{"title", "Base Rate Schema"},
+                                  {"properties",
+                                   {
+                                       {"VALUE", {{"type", "number"}, {"description", "Base rate"}}},
+                                       {"DAYCOUNTER", dayCounterSchema},
+                                       {"COMPOUNDING", compoundingSchema},
+                                       {"FREQUENCY", frequencySchema},
+                                   }},
+                                  {"required", json::array({"VALUE", "DAYCOUNTER", "COMPOUNDING", "FREQUENCY"})}};
 
 }  // namespace QuantLibParser
 

@@ -6,11 +6,15 @@
 #include <ql/termstructures/yield/bondhelpers.hpp>
 
 namespace QuantLibParser {
+
+    
     template <>
     void Schema<QuantLib::FixedRateBondHelper>::initSchema();
 
     template <>
     void Schema<QuantLib::FixedRateBondHelper>::initDefaultValues();
+
+    
 }  // namespace QuantLibParser
 
 #endif /* F72A64CF_A426_44A2_8A94_B9B012261F23 */

@@ -2,9 +2,11 @@
 #define FE76B325_D614_42C2_B02D_FBBF19C04BBC
 
 #include <nlohmann/json-schema.hpp>
+#include <optional>
 #include <stdexcept>
 
 namespace QuantLibParser {
+
     using json = nlohmann::json;
     using nlohmann::json_schema::json_validator;
 
@@ -22,6 +24,8 @@ namespace QuantLibParser {
 
         json schema() { return mySchema_; };
 
+        std::optional<T> makeObj(const json& data);
+
         void validate(const json& data) {
             json_validator validator;
             try {
@@ -33,12 +37,33 @@ namespace QuantLibParser {
             }
         };
 
+        bool isValid(const json& data) {
+            try {
+                validate(data);
+                return true;
+            } catch (std::exception& e) { return false; }
+        };
+
+        void addRequired(const std::string& key, const json& format) {
+            mySchema_["required"].push_back(key);
+            mySchema_["properties"][key] = format;
+        };
+
+        void removeRequired(const std::string& key) {
+            mySchema_["required"].erase(std::remove(mySchema_["required"].begin(), mySchema_["required"].end(), key), mySchema_["required"].end());
+            mySchema_["properties"].erase(key);
+        };
+
         json setDefaultValues(json target) {
             for (auto& [k, v] : myDefaultValues_.items()) {
                 if (target.find(k) == target.end()) target[k] = v;
             }
             return target;
         };
+
+        void addDefaultValue(const std::string& key, const json& value) { myDefaultValues_[key] = value; };
+
+        void removeDefaultValue(const std::string& key) { myDefaultValues_.erase(key); };
 
        private:
         void initSchema();

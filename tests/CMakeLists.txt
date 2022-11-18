@@ -30,12 +30,14 @@ target_link_libraries(QuantLibParserTests PUBLIC gtest_main)
 
 find_package(Boost REQUIRED)
 find_package(QuantLib REQUIRED)
-find_package(QuantLibParser REQUIRED)
 find_package(nlohmann_json REQUIRED)
 find_package(nlohmann_json_schema_validator REQUIRED)
 
-# add quantext
-target_link_libraries(QuantLibParserTests PUBLIC QuantLibParser::QuantLibParser)
+message(STATUS "Using this folder for test building: ${CMAKE_SOURCE_DIR}")
+target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_SOURCE_DIR}/include"
+                                                  "${CMAKE_SOURCE_DIR}/src")
+target_link_libraries(${PROJECT_NAME}
+                      PUBLIC "${CMAKE_SOURCE_DIR}/build/libQuantLibParser.dylib")
 
 include("../cmake/FindQuantExt.cmake")
 target_link_libraries(QuantLibParserTests PUBLIC ${QLE_LIBRARY})

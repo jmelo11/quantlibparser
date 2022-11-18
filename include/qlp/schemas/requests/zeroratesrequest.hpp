@@ -11,6 +11,7 @@ namespace QuantLibParser {
     template <>
     void Schema<ZeroRatesRequests>::initDefaultValues();
 
+    
 }  // namespace QuantLibParser
 
 #endif /* D96A5895_A90A_4E74_8384_7D8CDBB81F30 */

@@ -14,7 +14,7 @@ using namespace QuantLib;
 using namespace QuantExt;
 using namespace QuantLibParser;
 
-TEST(DepositSchema, RateHelperSchemas) {
+TEST(RateHelperSchemas, DepositSchema) {
     json testSchema = R"({
             "TYPE": "DEPOSIT",
 			"RATE": 0.033518703852712,
@@ -40,7 +40,7 @@ TEST(DepositSchema, RateHelperSchemas) {
     EXPECT_NO_THROW(depositSchema.validate(testSchema));
 }
 
-TEST(BondSchema, RateHelperSchemas) {
+TEST(RateHelperSchemas, BondSchema) {
     json testSchema = R"({
             "TYPE": "BOND",
 			"RATE": 0.033518703852712,
@@ -52,7 +52,7 @@ TEST(BondSchema, RateHelperSchemas) {
     EXPECT_NO_THROW(bondSchema.validate(testSchema));
 }
 
-TEST(FXSwapSchema, RateHelperSchemas) {
+TEST(RateHelperSchemas, FXSwapSchema) {
     json testSchema = R"({
             "FXPOINTS": 17.53,
             "FXSPOT": 897.19,
@@ -72,7 +72,7 @@ TEST(FXSwapSchema, RateHelperSchemas) {
     EXPECT_NO_THROW(fxSwapSchema.validate(testSchema));
 }
 
-TEST(XccySchema, RateHelperSchemas) {
+TEST(RateHelperSchemas, XccySchema) {
     json testSchema = R"({
             "RATE": 0.0641,
             "TENOR": "5Y",
@@ -95,7 +95,7 @@ TEST(XccySchema, RateHelperSchemas) {
     EXPECT_NO_THROW(xccySchema.validate(testSchema));
 }
 
-TEST(SwapSchema, RateHelperSchemas) {
+TEST(RateHelperSchemas, SwapSchema) {
     json testSchema = R"({
             "RATE": 0.02742,
             "TENOR": "40Y",
@@ -114,7 +114,7 @@ TEST(SwapSchema, RateHelperSchemas) {
     EXPECT_NO_THROW(swapSchema.validate(testSchema));
 }
 
-TEST(OISSchema, RateHelperSchemas) {
+TEST(RateHelperSchemas, OISSchema) {
     json testSchema = R"({
             "RATE": 0.024620000000000003,
             "TENOR": "40Y",
@@ -134,7 +134,8 @@ TEST(OISSchema, RateHelperSchemas) {
     Schema<OISRateHelper> swapSchema;
     EXPECT_NO_THROW(swapSchema.validate(testSchema));
 }
-TEST(TenorBasischema, RateHelperSchemas) {
+
+TEST(RateHelperSchemas, TenorBasischema) {
     json testSchema = R"({
             "SPREAD": 0.0014,
             "TENOR": "20Y",
@@ -160,7 +161,7 @@ TEST(TenorBasischema, RateHelperSchemas) {
     EXPECT_NO_THROW(swapSchema.validate(testSchema));
 }
 
-TEST(XccyBasischema, RateHelperSchemas) {
+TEST(RateHelperSchemas, XccyBasischema) {
     json testSchema = R"({
                     "SPREAD": 0.019,
                     "TENOR": "15Y",
