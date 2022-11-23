@@ -33,8 +33,7 @@ else:
     include_dirs += ['/opt/homebrew/opt/boost/include']
     library_dirs = [str(LIB_DIR / 'lib')]
     library_dirs += ['/opt/homebrew/opt/boost/lib']
-    libraries = ['QuantLib', 'QuantExt', 'QuantLibParser',
-                 'nlohmann_json_schema_validator']
+    libraries = ['QuantLib', 'QuantExt', 'nlohmann_json_schema_validator','QuantLibParser']
     extra_compile_args = ['-std=c++20', '-arch', 'arm64']
 
 ext_modules = [

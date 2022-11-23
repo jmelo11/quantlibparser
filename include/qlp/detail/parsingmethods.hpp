@@ -21,16 +21,13 @@ namespace QuantLibParser {
     SERIALIZE_ENUM_WITH_CONVERSIONS(Calendars, (CHILE)(NULLCALENDAR)(USA)(JOINT))
     SERIALIZE_ENUM_WITH_CONVERSIONS(TimeUnits, (DAYS)(WEEKS)(MONTHS)(YEARS))
     SERIALIZE_ENUM_WITH_CONVERSIONS(BDConventions, (FOLLOWING)(UNADJUSTED)(MODIFIEDFOLLOWING))
-    SERIALIZE_ENUM_WITH_CONVERSIONS(Frequencies,
-                                    (ONCE)(ANNUAL)(SEMIANNUAL)(MONTHLY)(QUARTERLY)(NOFREQUENCY))
+    SERIALIZE_ENUM_WITH_CONVERSIONS(Frequencies, (ONCE)(ANNUAL)(SEMIANNUAL)(MONTHLY)(QUARTERLY)(NOFREQUENCY))
 
     enum DateFormat { MIXED, SLASH, HYPHEN };
 
-    inline std::string parseDate(const Date& date, DateFormat format) {
-        std::string day = date.dayOfMonth() < 10 ? "0" + std::to_string(date.dayOfMonth()) :
-                                                   std::to_string(date.dayOfMonth());
-        std::string month =
-            date.month() < 10 ? "0" + std::to_string(date.month()) : std::to_string(date.month());
+    inline std::string parseDate(const Date& date, DateFormat format = DateFormat::MIXED) {
+        std::string day   = date.dayOfMonth() < 10 ? "0" + std::to_string(date.dayOfMonth()) : std::to_string(date.dayOfMonth());
+        std::string month = date.month() < 10 ? "0" + std::to_string(date.month()) : std::to_string(date.month());
         switch (format) {
             case MIXED:
                 return day + month + std::to_string(date.year());
