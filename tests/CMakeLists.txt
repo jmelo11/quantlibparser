@@ -25,8 +25,8 @@ set(gtest_force_shared_crt
     CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-add_executable(QuantLibParserTests ${INCLUDES} ${SOURCES})
-target_link_libraries(QuantLibParserTests PUBLIC gtest_main)
+add_executable(${PROJECT_NAME}  ${INCLUDES} ${SOURCES})
+target_link_libraries(${PROJECT_NAME}  PUBLIC gtest_main)
 
 find_package(Boost REQUIRED)
 find_package(QuantLib REQUIRED)
@@ -36,14 +36,18 @@ find_package(nlohmann_json_schema_validator REQUIRED)
 message(STATUS "Using this folder for test building: ${CMAKE_SOURCE_DIR}")
 target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_SOURCE_DIR}/include"
                                                   "${CMAKE_SOURCE_DIR}/src")
-target_link_libraries(${PROJECT_NAME}
-                      PUBLIC "${CMAKE_SOURCE_DIR}/build/libQuantLibParser.dylib")
 
+if(MSVC)
+  target_link_libraries(${PROJECT_NAME} PUBLIC "${CMAKE_SOURCE_DIR}/build/${CMAKE_BUILD_TYPE}/QuantLibParser.lib")
+else()
+  target_link_libraries(${PROJECT_NAME} PUBLIC "${CMAKE_SOURCE_DIR}/build/libQuantLibParser.dylib")
+endif(MSVC)
+                           
 include("../cmake/FindQuantExt.cmake")
-target_link_libraries(QuantLibParserTests PUBLIC ${QLE_LIBRARY})
-target_include_directories(QuantLibParserTests PUBLIC ${QLE_INCLUDE_DIR})
+target_link_libraries(${PROJECT_NAME}  PUBLIC ${QLE_LIBRARY})
+target_include_directories(${PROJECT_NAME}  PUBLIC ${QLE_INCLUDE_DIR})
 
-target_link_libraries(QuantLibParserTests PUBLIC QuantLib::QuantLib)
-target_link_libraries(QuantLibParserTests PUBLIC Boost::boost)
-target_link_libraries(QuantLibParserTests PUBLIC nlohmann_json::nlohmann_json)
-target_link_libraries(QuantLibParserTests PUBLIC nlohmann_json_schema_validator)
+target_link_libraries(${PROJECT_NAME}  PUBLIC QuantLib::QuantLib)
+target_link_libraries(${PROJECT_NAME}  PUBLIC Boost::boost)
+target_link_libraries(${PROJECT_NAME}  PUBLIC nlohmann_json::nlohmann_json)
+target_link_libraries(${PROJECT_NAME}  PUBLIC nlohmann_json_schema_validator)

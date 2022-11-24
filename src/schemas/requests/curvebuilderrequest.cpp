@@ -1,7 +1,6 @@
 #include <qlp/schemas/commonschemas.hpp>
 #include <qlp/schemas/requests/curvebuilderrequest.hpp>
 
-
 namespace QuantLibParser {
     template <>
     void Schema<CurveBuilderRequest>::initSchema() {

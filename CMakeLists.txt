@@ -29,7 +29,7 @@ file(
   "include/qle/schemas/termstructures/*.hpp")
 
 if(MSVC)
-  add_library(${PROJECT_NAME}  STATIC ${INCLUDES} ${SOURCES})
+  add_library(${PROJECT_NAME} STATIC ${INCLUDES} ${SOURCES})
 else()
   add_library(${PROJECT_NAME} SHARED ${INCLUDES} ${SOURCES})
 endif()

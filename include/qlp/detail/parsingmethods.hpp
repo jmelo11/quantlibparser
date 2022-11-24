@@ -73,9 +73,7 @@ namespace QuantLibParser {
         }
     };
 
-    inline std::string parseCurrency(const Currency& currency) {
-        return currency.name();
-    };
+    inline std::string parseCurrency(const Currency& currency) { return currency.name(); };
 
     inline DayCounter parseDayCounter(const std::string& dayCounter) {
         switch (map_DayCounters.at(dayCounter)) {
@@ -90,9 +88,7 @@ namespace QuantLibParser {
         }
     };
 
-    inline std::string parseDayCounter(DayCounter& dayCounter) {
-        return dayCounter.name();
-    };
+    inline std::string parseDayCounter(DayCounter& dayCounter) { return dayCounter.name(); };
 
     inline Compounding parseCompounding(const std::string& compounding) {
         switch (map_Compoundings.at(compounding)) {
@@ -154,13 +150,9 @@ namespace QuantLibParser {
         }
     };
 
-    inline Period parsePeriod(const std::string& period) {
-        return PeriodParser::parse(period);
-    }
+    inline Period parsePeriod(const std::string& period) { return PeriodParser::parse(period); }
 
-    inline std::string parsePeriod(const Period& period) {
-        return std::to_string(period.length()) + std::to_string(period.units());
-    }
+    inline std::string parsePeriod(const Period& period) { return std::to_string(period.length()) + std::to_string(period.units()); }
 
     inline TimeUnit parseTimeUnit(const std::string& timeUnit) {
         switch (map_TimeUnits.at(timeUnit)) {
@@ -192,9 +184,7 @@ namespace QuantLibParser {
         }
     }
 
-    inline std::string parseCalendar(Calendar& calendar) {
-        return calendar.name();
-    }
+    inline std::string parseCalendar(Calendar& calendar) { return calendar.name(); }
 
     inline BusinessDayConvention parseBusinessDayConvention(const std::string& convention) {
         switch (map_BDConventions.at(convention)) {

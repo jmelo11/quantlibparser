@@ -41,7 +41,7 @@ namespace QuantLibParser {
             try {
                 validate(data);
                 return true;
-            } catch (std::exception& e) { return false; }
+            } catch (std::exception&) { return false; }
         };
 
         void addRequired(const std::string& key, const json& format) {

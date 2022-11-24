@@ -1,7 +1,6 @@
 #include <qlp/schemas/commonschemas.hpp>
 #include <qlp/schemas/requests/zeroratesrequest.hpp>
 
-
 namespace QuantLibParser {
     template <>
     void Schema<ZeroRatesRequests>::initSchema() {

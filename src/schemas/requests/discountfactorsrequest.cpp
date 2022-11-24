@@ -1,7 +1,6 @@
 #include <qlp/schemas/commonschemas.hpp>
 #include <qlp/schemas/requests/discountfactorsrequest.hpp>
 
-
 namespace QuantLibParser {
     template <>
     void Schema<DiscountFactorsRequest>::initSchema() {
