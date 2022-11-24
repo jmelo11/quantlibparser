@@ -2,13 +2,16 @@
 #define FE76B325_D614_42C2_B02D_FBBF19C04BBC
 
 #include <nlohmann/json-schema.hpp>
-#include <optional>
+#include <ql/handle.hpp>
+#include <ql/quote.hpp>
 #include <stdexcept>
 
 namespace QuantLibParser {
 
     using json = nlohmann::json;
     using nlohmann::json_schema::json_validator;
+
+    using PriceGetter = std::function<QuantLib::Handle<QuantLib::Quote>(double price, const std::string& ticker)>;
 
     template <typename T>
     class Schema;
@@ -24,7 +27,11 @@ namespace QuantLibParser {
 
         json schema() { return mySchema_; };
 
-        std::optional<T> makeObj(const json& data);
+        template <typename... Args>
+        T makeObj(const json& data, Args&&... args);
+
+        template <>
+        T makeObj(const json& data);
 
         void validate(const json& data) {
             json_validator validator;
@@ -41,7 +48,7 @@ namespace QuantLibParser {
             try {
                 validate(data);
                 return true;
-            } catch (std::exception&) { return false; }
+            } catch (std::exception& e) { return false; }
         };
 
         void addRequired(const std::string& key, const json& format) {

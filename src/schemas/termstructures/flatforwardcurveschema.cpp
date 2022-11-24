@@ -2,7 +2,6 @@
 #include <qlp/parser.hpp>
 #include <qlp/schemas/commonschemas.hpp>
 #include <qlp/schemas/termstructures/flatforwardcurveschema.hpp>
-#include <optional>
 
 namespace QuantLibParser {
 
@@ -33,20 +32,19 @@ namespace QuantLibParser {
     };
 
     template <>
-    std::optional<QuantLib::FlatForward> Schema<QuantLib::FlatForward>::makeObj(const json& params) {
-        auto f = [&](const json& params) {
-            json data                         = setDefaultValues(params);
-            double rate                       = data.at("RATE");
-            QuantLib::DayCounter dayCounter   = parse<QuantLib::DayCounter>(data.at("DAYCOUNTER"));
-            QuantLib::Compounding compounding = parse<QuantLib::Compounding>(data.at("COMPOUNDING"));
-            QuantLib::Frequency frequency     = parse<QuantLib::Frequency>(data.at("FREQUENCY"));
-            QuantLib::Date refDate            = parse<QuantLib::Date>(data.at("REFDATE"));
-            bool enableExtrapolation          = data.at("ENABLEEXTRAPOLATION");
-            QuantLib::FlatForward curve(refDate, rate, dayCounter, compounding, frequency);
-            curve.enableExtrapolation(enableExtrapolation);
-            curve.unregisterWith(QuantLib::Settings::instance().evaluationDate());
-            return std::make_optional<QuantLib::FlatForward>(curve);
-        };
-        return isValid(params) ? f(params) : std::nullopt;
+    template <>
+    QuantLib::FlatForward Schema<QuantLib::FlatForward>::makeObj(const json& params) {
+        validate(params);
+        json data                         = setDefaultValues(params);
+        double rate                       = data.at("RATE");
+        QuantLib::DayCounter dayCounter   = parse<QuantLib::DayCounter>(data.at("DAYCOUNTER"));
+        QuantLib::Compounding compounding = parse<QuantLib::Compounding>(data.at("COMPOUNDING"));
+        QuantLib::Frequency frequency     = parse<QuantLib::Frequency>(data.at("FREQUENCY"));
+        QuantLib::Date refDate            = parse<QuantLib::Date>(data.at("REFDATE"));
+        bool enableExtrapolation          = data.at("ENABLEEXTRAPOLATION");
+        QuantLib::FlatForward curve(refDate, rate, dayCounter, compounding, frequency);
+        curve.enableExtrapolation(enableExtrapolation);
+        curve.unregisterWith(QuantLib::Settings::instance().evaluationDate());
+        return curve;
     }
 }  // namespace QuantLibParser

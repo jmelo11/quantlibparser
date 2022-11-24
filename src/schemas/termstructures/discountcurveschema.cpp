@@ -1,7 +1,6 @@
 
 #include <qlp/schemas/commonschemas.hpp>
 #include <qlp/schemas/termstructures/discountcurveschema.hpp>
-#include <optional>
 
 namespace QuantLibParser {
 
@@ -24,10 +23,11 @@ namespace QuantLibParser {
 				"required":["DATE","VALUE"]
 			}
 		})"_json;
-
-        base["properties"]                    = baseCurveSchema;
+        
         nodes["items"]["properties"]["DATE"]  = dateSchema;
         nodes["items"]["properties"]["VALUE"] = priceSchema;
+
+        base["properties"]                    = baseCurveSchema;
         base["properties"]["NODES"]           = nodes;
 
         mySchema_ = base;
@@ -40,27 +40,26 @@ namespace QuantLibParser {
     };
 
     template <>
-    std::optional<QuantLib::DiscountCurve> Schema<QuantLib::DiscountCurve>::makeObj(const json& data) {
-        auto f = [&]() {
-            json params       = setDefaultValues(data);
-            const json& nodes = params.at("NODES");
-            std::vector<QuantLib::Date> dates;
-            std::vector<double> dfs;
-            for (const auto& node : nodes) {
-                dates.push_back(parse<QuantLib::Date>(node.at("DATE")));
-                dfs.push_back(node.at("VALUE"));
-            }
-            QuantLib::DayCounter dayCounter = parse<QuantLib::DayCounter>(params.at("DAYCOUNTER"));
+    template <>
+    QuantLib::DiscountCurve Schema<QuantLib::DiscountCurve>::makeObj(const json& data) {
+        validate(data);
+        json params       = setDefaultValues(data);
+        const json& nodes = params.at("NODES");
+        std::vector<QuantLib::Date> dates;
+        std::vector<double> dfs;
+        for (const auto& node : nodes) {
+            dates.push_back(parse<QuantLib::Date>(node.at("DATE")));
+            dfs.push_back(node.at("VALUE"));
+        }
+        QuantLib::DayCounter dayCounter = parse<QuantLib::DayCounter>(params.at("DAYCOUNTER"));
 
-            bool enableExtrapolation = params.at("ENABLEEXTRAPOLATION");
-            QuantLib::DiscountCurve curve(dates, dfs, dayCounter);
+        bool enableExtrapolation = params.at("ENABLEEXTRAPOLATION");
+        QuantLib::DiscountCurve curve(dates, dfs, dayCounter);
 
-            curve.enableExtrapolation(enableExtrapolation);
-            curve.unregisterWith(QuantLib::Settings::instance().evaluationDate());
+        curve.enableExtrapolation(enableExtrapolation);
+        curve.unregisterWith(QuantLib::Settings::instance().evaluationDate());
 
-            return std::make_optional<QuantLib::DiscountCurve>(curve);
-        };
-        return isValid(data) ? f() : std::nullopt;
+        return curve;
     }
 
 }  // namespace QuantLibParser
