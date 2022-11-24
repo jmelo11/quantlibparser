@@ -8,33 +8,33 @@ __version__ = "1.0.0"
 
 BASE_DIR = Path(__file__).absolute().parent.resolve()
 
+include_dirs = []
+library_dirs = []
+libraries = []
 if platform == "win32":
     LIB_DIR = Path('C:/Users/bloomberg/Desktop/Desarrollo/builds')
-    folders = ['QuantLib', 'QuantExt', 'quantlibparser',
-               'nlohmann_json_schema_validator', 'nlohmann_json', 'pybind11', 'pybind11_json']
-    include_dirs = [str(LIB_DIR / folder / 'include') for folder in folders]
-    include_dirs.append(str(LIB_DIR / 'boost'))
-    library_dirs = [str(LIB_DIR / folder / 'lib') for folder in folders]
-    libraries = ['QuantLib-x64-mt', 'QuantExt-x64-mt',
-                 'quantlibparser', 'nlohmann_json_schema_validator']
-    extra_compile_args = ['-std=c++20']
+    include_dirs += [str(LIB_DIR / 'include')]
+    library_dirs += [str(LIB_DIR / 'lib')]
 
-elif platform == "linux" or platform == "linux2":
-    LIB_DIR = Path('/usr/local')
-    include_dirs = [str(LIB_DIR / 'include')]
-    library_dirs = [str(LIB_DIR / 'lib')]
-    libraries = ['QuantLib', 'QuantExt', 'QuantLibParser',
-                 'nlohmann_json_schema_validator']
-    extra_compile_args = ['-std=c++20']
+    include_dirs += [str(LIB_DIR / 'boost')]
+    libraries += ['QuantLib-x64-mt', 'QuantExt-x64-mt',
+                 'QuantLibParser', 'nlohmann_json_schema_validator']
 
 else:
-    LIB_DIR = Path('/Users/josemelo/Desktop/dev/builds')
-    include_dirs = [str(LIB_DIR / 'include')]
-    include_dirs += ['/opt/homebrew/opt/boost/include']
-    library_dirs = [str(LIB_DIR / 'lib')]
-    library_dirs += ['/opt/homebrew/opt/boost/lib']
-    libraries = ['QuantLib', 'QuantExt', 'nlohmann_json_schema_validator','QuantLibParser']
-    extra_compile_args = ['-std=c++20', '-arch', 'arm64']
+    if platform == "linux" or platform == "linux2":
+        LIB_DIR = Path('/usr/local')
+    else:
+        LIB_DIR = Path('/Users/josemelo/Desktop/dev/builds')
+        include_dirs += ['/opt/homebrew/opt/boost/include']
+        library_dirs += ['/opt/homebrew/opt/boost/lib']
+
+    include_dirs += [str(LIB_DIR / 'include')]
+    library_dirs += [str(LIB_DIR / 'lib')]
+
+    libraries += ['QuantLib', 'QuantExt', 'QuantLibParser',
+                 'nlohmann_json_schema_validator']
+
+extra_compile_args = ['-std=c++20']
 
 ext_modules = [
     Pybind11Extension("QuantLibParser",

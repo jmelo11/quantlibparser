@@ -29,18 +29,17 @@ file(
   "include/qle/schemas/termstructures/*.hpp")
 
 if(MSVC)
-  add_library(QuantLibParser STATIC ${INCLUDES} ${SOURCES})
+  add_library(${PROJECT_NAME}  STATIC ${INCLUDES} ${SOURCES})
 else()
-  add_library(QuantLibParser SHARED ${INCLUDES} ${SOURCES})
+  add_library(${PROJECT_NAME} SHARED ${INCLUDES} ${SOURCES})
 endif()
 
 target_include_directories(
-  QuantLibParser
+  ${PROJECT_NAME} 
   PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
          $<INSTALL_INTERFACE:include>
   PRIVATE src)
 
-set(Boost_INCLUDE_DIR "C:/Users/bloomberg/Desktop/Desarrollo/builds/boost")
 find_package(Boost REQUIRED)
 find_package(QuantLib REQUIRED)
 find_package(nlohmann_json REQUIRED)
@@ -48,13 +47,13 @@ find_package(nlohmann_json_schema_validator REQUIRED)
 
 # add quantext
 include("cmake/FindQuantExt.cmake")
-target_link_libraries(QuantLibParser PUBLIC ${QLE_LIBRARY})
-target_link_libraries(QuantLibParser PUBLIC QuantLib::QuantLib)
-target_link_libraries(QuantLibParser PUBLIC Boost::boost)
-target_link_libraries(QuantLibParser PUBLIC nlohmann_json::nlohmann_json)
-target_link_libraries(QuantLibParser PUBLIC nlohmann_json_schema_validator)
+target_link_libraries(${PROJECT_NAME}  PUBLIC ${QLE_LIBRARY})
+target_link_libraries(${PROJECT_NAME}  PUBLIC QuantLib::QuantLib)
+target_link_libraries(${PROJECT_NAME}  PUBLIC Boost::boost)
+target_link_libraries(${PROJECT_NAME}  PUBLIC nlohmann_json::nlohmann_json)
+target_link_libraries(${PROJECT_NAME}  PUBLIC nlohmann_json_schema_validator)
 
-target_include_directories(QuantLibParser PUBLIC ${QLE_INCLUDE_DIR})
+target_include_directories(${PROJECT_NAME}  PUBLIC ${QLE_INCLUDE_DIR})
 
 # https://dominikberner.ch/cmake-interface-lib/
 include(CMakePackageConfigHelpers)
