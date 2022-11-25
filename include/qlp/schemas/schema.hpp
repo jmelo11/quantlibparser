@@ -30,9 +30,6 @@ namespace QuantLibParser {
         template <typename... Args>
         T makeObj(const json& data, Args&&... args);
 
-        template <>
-        T makeObj(const json& data);
-
         void validate(const json& data) {
             json_validator validator;
             try {
@@ -48,7 +45,7 @@ namespace QuantLibParser {
             try {
                 validate(data);
                 return true;
-            } catch (std::exception& e) { return false; }
+            } catch (std::exception&) { return false; }
         };
 
         void addRequired(const std::string& key, const json& format) {
