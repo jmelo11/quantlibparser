@@ -37,6 +37,4 @@ namespace QuantLibParser {
         myDefaultValues_["DAYCOUNTER"]          = "ACT360";
     }
 
-    template class Schema<QuantLib::PiecewiseYieldCurve<QuantLib::Discount, QuantLib::LogLinear>>;
-
 }  // namespace QuantLibParser

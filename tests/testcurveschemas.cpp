@@ -607,6 +607,7 @@ TEST(CurveSchemas, BootstrapCurve) {
 
     EXPECT_ANY_THROW(curveSchema.validate(data));
 }
+
 TEST(CurveSchemas, IndexTest) {
     json data = R"({
             "NAME": "SOFR",
@@ -622,3 +623,19 @@ TEST(CurveSchemas, IndexTest) {
 
     EXPECT_NO_THROW(indexSchema.validate(data));
 }
+
+TEST(CurveSchemas, IborIndex) {
+    json data = R"({
+            "NAME": "LIBOR1M",
+            "TENOR": "1M",
+            "DAYCOUNTER": "ACT360",
+            "CURRENCY": "USD",
+            "SETTLEMENTDAYS": 0.0,
+            "CALENDAR": "USA"
+        })"_json;
+
+    Schema<IborIndex> indexSchema;
+    EXPECT_NO_THROW(indexSchema.validate(data));
+}
+
+TEST(CurveSchemas, OvernightIndex) {}

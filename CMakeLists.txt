@@ -47,8 +47,8 @@ find_package(nlohmann_json_schema_validator REQUIRED)
 
 # add quantext
 include("cmake/FindQuantExt.cmake")
-target_link_libraries(${PROJECT_NAME}  PUBLIC ${QLE_LIBRARY})
 target_link_libraries(${PROJECT_NAME}  PUBLIC QuantLib::QuantLib)
+target_link_libraries(${PROJECT_NAME}  PUBLIC ${QLE_LIBRARY})
 target_link_libraries(${PROJECT_NAME}  PUBLIC Boost::boost)
 target_link_libraries(${PROJECT_NAME}  PUBLIC nlohmann_json::nlohmann_json)
 target_link_libraries(${PROJECT_NAME}  PUBLIC nlohmann_json_schema_validator)

@@ -23,12 +23,12 @@ namespace QuantLibParser {
 				"required":["DATE","VALUE"]
 			}
 		})"_json;
-        
+
         nodes["items"]["properties"]["DATE"]  = dateSchema;
         nodes["items"]["properties"]["VALUE"] = priceSchema;
 
-        base["properties"]                    = baseCurveSchema;
-        base["properties"]["NODES"]           = nodes;
+        base["properties"]          = baseCurveSchema;
+        base["properties"]["NODES"] = nodes;
 
         mySchema_ = base;
     };

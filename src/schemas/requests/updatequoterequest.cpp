@@ -30,5 +30,4 @@ namespace QuantLibParser {
 
     };
 
-    template class Schema<UpdateQuoteRequest>;
 }  // namespace QuantLibParser

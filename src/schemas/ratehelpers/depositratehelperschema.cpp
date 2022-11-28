@@ -1,3 +1,4 @@
+#include <qlp/parser.hpp>
 #include <qlp/schemas/ratehelpers/depositratehelperschema.hpp>
 
 namespace QuantLibParser {
@@ -30,6 +31,23 @@ namespace QuantLibParser {
         myDefaultValues_["CONVENTION"] = "UNADJUSTED";
     }
 
-    template class Schema<QuantLib::DepositRateHelper>;
+    template <>
+    template <>
+    QuantLib::DepositRateHelper Schema<QuantLib::DepositRateHelper>::makeObj(const json& params, PriceGetter& priceGetter) {
+        validate(params);
+        json data = setDefaultValues(params);
 
+        QuantLib::DayCounter dayCounter = parse<QuantLib::DayCounter>(data.at("DAYCOUNTER"));
+        QuantLib::Calendar calendar     = parse<QuantLib::Calendar>(data.at("CALENDAR"));
+
+        double fixingDays                          = params.at("FIXINGDAYS");
+        bool endOfMonth                            = params.at("ENDOFMONTH");
+        QuantLib::BusinessDayConvention convention = parse<QuantLib::BusinessDayConvention>(data.at("CONVENTION"));
+
+        // non-defaults
+        QuantLib::Period tenor = parse<QuantLib::Period>(data.at("TENOR"));
+
+        auto rate = priceGetter(params.at("RATE"), params.at("RATETICKER"));
+        return DepositRateHelper(rate, tenor, fixingDays, calendar, convention, endOfMonth, dayCounter);
+    }
 }  // namespace QuantLibParser

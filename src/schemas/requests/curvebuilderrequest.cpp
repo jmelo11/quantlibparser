@@ -29,5 +29,4 @@ namespace QuantLibParser {
 
     };
 
-    template class Schema<CurveBuilderRequest>;
 }  // namespace QuantLibParser

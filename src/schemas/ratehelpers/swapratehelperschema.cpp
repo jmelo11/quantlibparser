@@ -1,3 +1,5 @@
+#include <qlp/parser.hpp>
+#include <qlp/schemas/commonschemas.hpp>
 #include <qlp/schemas/ratehelpers/swapratehelperschema.hpp>
 
 namespace QuantLibParser {
@@ -35,6 +37,33 @@ namespace QuantLibParser {
         myDefaultValues_["FWDSTART"]       = "0D";
     }
 
-    template class Schema<QuantLib::SwapRateHelper>;
+    template <>
+    template <>
+    QuantLib::SwapRateHelper Schema<QuantLib::SwapRateHelper>::makeObj(const json& params, PriceGetter& priceGetter, IndexGetter& indexGetter,
+                                                                       CurveGetter& curveGetter) {
+        validate(params);
+        json data = setDefaultValues(params);
+
+        QuantLib::DayCounter dayCounter            = parse<QuantLib::DayCounter>(data.at("DAYCOUNTER"));
+        QuantLib::Calendar calendar                = parse<QuantLib::Calendar>(data.at("CALENDAR"));
+        QuantLib::BusinessDayConvention convention = parse<QuantLib::BusinessDayConvention>(data.at("CONVENTION"));
+        QuantLib::Frequency frequency              = parse<QuantLib::Frequency>(data.at("FREQUENCY"));
+        QuantLib::Period tenor                     = parse<QuantLib::Period>(data.at("TENOR"));
+        QuantLib::Period fwdStart                  = parse<QuantLib::Period>(data.at("FWDSTART"));
+        int settlementDays                         = data.at("SETTLEMENTDAYS");
+
+        double spread = data.at("SPREAD");
+        boost::shared_ptr<QuantLib::Quote> spreadPtr(new QuantLib::SimpleQuote(spread));
+        QuantLib::Handle<QuantLib::Quote> spreadQuote(spreadPtr);
+
+        auto discountCurve = data.find("DISCOUNTINGCURVE") != data.end() ? curveGetter(data.at("DISCOUNTINGCURVE")) :
+                                                                           QuantLib::RelinkableHandle<QuantLib::YieldTermStructure>();
+
+        auto rate = priceGetter(data.at("RATE"), data.at("RATETICKER"));
+
+        auto index = indexGetter(data.at("INDEX"));
+        return QuantLib::SwapRateHelper(rate, tenor, calendar, frequency, convention, dayCounter, index, spreadQuote, fwdStart, discountCurve,
+                                        settlementDays);
+    }
 
 }  // namespace QuantLibParser

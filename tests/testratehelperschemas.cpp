@@ -148,16 +148,6 @@ TEST(RateHelperSchemas, TenorBasischema) {
         })"_json;
 
     Schema<TenorBasisSwapHelper> swapSchema;
-    /*
-    try
-    {
-        swapSchema.validate(testSchema);
-    }
-    catch (const std::exception&e)
-    {
-        std::cout << e.what() << "\n";
-    }
-    */
     EXPECT_NO_THROW(swapSchema.validate(testSchema));
 }
 

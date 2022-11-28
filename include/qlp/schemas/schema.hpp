@@ -1,20 +1,23 @@
 #ifndef FE76B325_D614_42C2_B02D_FBBF19C04BBC
 #define FE76B325_D614_42C2_B02D_FBBF19C04BBC
 
-#include <nlohmann/json-schema.hpp>
 #include <ql/handle.hpp>
+#include <ql/indexes/iborindex.hpp>
 #include <ql/quote.hpp>
+#include <nlohmann/json-schema.hpp>
 #include <stdexcept>
 
 namespace QuantLibParser {
 
     using json = nlohmann::json;
     using nlohmann::json_schema::json_validator;
+    namespace ext = boost;
 
     using PriceGetter = std::function<QuantLib::Handle<QuantLib::Quote>(double price, const std::string& ticker)>;
 
-    template <typename T>
-    class Schema;
+    using IndexGetter = std::function<ext::shared_ptr<QuantLib::IborIndex>(const std::string& name)>;
+
+    using CurveGetter = std::function<QuantLib::RelinkableHandle<QuantLib::YieldTermStructure>(const std::string& name)>;
 
     template <typename T>
     class Schema {

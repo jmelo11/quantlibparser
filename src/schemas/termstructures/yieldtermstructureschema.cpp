@@ -20,5 +20,4 @@ namespace QuantLibParser {
     template <>
     void Schema<QuantLib::YieldTermStructure>::initDefaultValues() {}
 
-    
 }  // namespace QuantLibParser

@@ -1,3 +1,4 @@
+#include <qlp/parser.hpp>
 #include <qlp/schemas/ratehelpers/fixfloatxccyratehelperschema.hpp>
 
 namespace QuantLibParser {
@@ -40,5 +41,34 @@ namespace QuantLibParser {
         myDefaultValues_["SPREAD"]         = 0.0;
     }
 
-    template class Schema<QuantExt::CrossCcyFixFloatSwapHelper>;
+    template <>
+    template <>
+    QuantExt::CrossCcyFixFloatSwapHelper Schema<QuantExt::CrossCcyFixFloatSwapHelper>::makeObj(const json& params, PriceGetter& priceGetter,
+                                                                                               IndexGetter& indexGetter, CurveGetter& curveGetter) {
+        validate(params);
+        json data = setDefaultValues(params);
+
+        QuantLib::DayCounter dayCounter            = parse<QuantLib::DayCounter>(data.at("DAYCOUNTER"));
+        QuantLib::Calendar calendar                = parse<QuantLib::Calendar>(data.at("CALENDAR"));
+        QuantLib::BusinessDayConvention convention = parse<QuantLib::BusinessDayConvention>(data.at("CONVENTION"));
+        bool endOfMonth                            = data.at("ENDOFMONTH");
+        int settlementDays                         = data.at("SETTLEMENTDAYS");
+        QuantLib::Period tenor                     = parse<QuantLib::Period>(data.at("TENOR"));
+        QuantLib::Frequency frequency              = parse<QuantLib::Frequency>(data.at("FREQUENCY"));
+        QuantLib::Currency currency                = parse<QuantLib::Currency>(data.at("CURRENCY"));
+
+        double spread  = data.at("SPREAD");
+        auto spreadPtr = ext::make_shared<QuantLib::SimpleQuote>(spread);
+        QuantLib::Handle<QuantLib::Quote> spreadQuote(spreadPtr);
+
+        auto discountCurve = data.find("DISCOUNTINGCURVE") == data.end() ? curveGetter(data.at("DISCOUNTINGCURVE")) :
+                                                                           QuantLib::RelinkableHandle<QuantLib::YieldTermStructure>();
+
+        auto rate   = priceGetter(data.at("RATE"), data.at("RATETICKER"));
+        auto fxSpot = priceGetter(data.at("FXSPOT"), data.at("FXSPOTTICKER"));
+        auto index  = indexGetter(data.at("INDEX"));
+
+        return QuantExt::CrossCcyFixFloatSwapHelper(rate, fxSpot, settlementDays, calendar, convention, tenor, currency, frequency, convention,
+                                                    dayCounter, index, discountCurve, spreadQuote, endOfMonth);
+    };
 }  // namespace QuantLibParser

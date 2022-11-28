@@ -26,5 +26,4 @@ namespace QuantLibParser {
         myDefaultValues_["DAYCOUNTER"] = "ACT360";
     }
 
-    template class Schema<QuantLib::InterestRateIndex>;
 }  // namespace QuantLibParser

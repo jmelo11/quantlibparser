@@ -34,16 +34,18 @@ IncludeBlocks: Merge
 IncludeCategories: 
   - Regex:           '^"'
     Priority:        1
-  - Regex:           '^<'
-    Priority:        2
-  - Regex:           '^<qlp/'
-    Priority:        3
   - Regex:           '^<ql/'
-    Priority:        4
+    Priority:        3
   - Regex:           '^<qle/'
+    Priority:        4
+  - Regex:           '^<qlp/'
     Priority:        5
-  - Regex:           '^<boost/'
+  - Regex:           '^<nlohmann/'
     Priority:        6
+  - Regex:           '^<'
+    Priority:        7
+  - Regex:           '^<boost/'
+    Priority:        8
   
 
 # Other:

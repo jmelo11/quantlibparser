@@ -29,5 +29,4 @@ namespace QuantLibParser {
 
     };
 
-    template class Schema<DiscountFactorsRequest>;
 }  // namespace QuantLibParser

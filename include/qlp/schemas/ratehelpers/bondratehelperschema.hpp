@@ -5,7 +5,7 @@
 #include <qlp/schemas/schema.hpp>
 
 namespace QuantLibParser {
-
+    
     template <>
     void Schema<QuantLib::FixedRateBondHelper>::initSchema();
 

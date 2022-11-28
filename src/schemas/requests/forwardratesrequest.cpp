@@ -39,5 +39,4 @@ namespace QuantLibParser {
         myDefaultValues_["FREQUENCY"]   = "ANNUAL";
     };
 
-    template class Schema<ForwardRatesRequest>;
 }  // namespace QuantLibParser
