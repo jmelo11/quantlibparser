@@ -13,6 +13,7 @@
 #include <qlp/schemas/termstructures/discountcurveschema.hpp>
 #include <qlp/schemas/termstructures/flatforwardcurveschema.hpp>
 #include <qlp/schemas/termstructures/rateindexschema.hpp>
+#include <iostream>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 #include <pybind11_json/pybind11_json.hpp>
@@ -59,15 +60,28 @@ PYBIND11_MODULE(QuantLibParser, m) {
     SchemaWithoutMaker(InterestRateIndex);
 
     // common schemas
-    m.attr("RateHelperTypeSchema") = &rateHelperTypeSchema;
-    m.attr("IndexTypeSchemas")     = &indexTypesSchema;
-    m.attr("DayCounterTypeSchema") = &dayCounterSchema;
-    m.attr("CalendarTypeSchema")   = &calendarSchema;
-    m.attr("ConventionTypeSchema") = &conventionSchema;
-    m.attr("FrequencyTypeSchema")  = &frequencySchema;
-    m.attr("TenorSchema")          = &tenorSchema;
-    m.attr("DateSchema")           = &dateSchema;
-    m.attr("RateSchema")           = &baseRateSchema;
+    py::module_ common                  = m.def_submodule("CommonSchemas", "common schemas");
+    common.attr("RateHelperTypeSchema") = &rateHelperTypeSchema;
+    common.attr("IndexTypeSchemas")     = &indexTypesSchema;
+    common.attr("DayCounterTypeSchema") = &dayCounterSchema;
+    common.attr("CalendarTypeSchema")   = &calendarSchema;
+    common.attr("ConventionTypeSchema") = &conventionSchema;
+    common.attr("FrequencyTypeSchema")  = &frequencySchema;
+    common.attr("TenorSchema")          = &tenorSchema;
+    common.attr("DateSchema")           = &dateSchema;
+    common.attr("RateSchema")           = &baseRateSchema;
+
+    // json validator
+    m.def("schemaValidation", [](const json& schema, const json& data) {
+        nlohmann::json_schema::json_validator validator;
+        try {
+            validator.set_root_schema(schema);  // insert root-schema
+            validator.validate(data);
+        } catch (std::exception& e) {
+            std::cout << e.what() << std::endl;
+            throw e;
+        }
+    });
 
     // requests
     py::class_<Schema<DiscountFactorsRequest>>(m, "DiscountFactorsRequestSchema")
