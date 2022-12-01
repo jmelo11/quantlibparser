@@ -32,8 +32,9 @@ namespace QuantLibParser {
     template <>
     template <>
     QuantLib::OvernightIndex Schema<QuantLib::OvernightIndex>::makeObj(const json& params, CurveGetter& curveGetter) {
-        validate(params);
-        json data                       = setDefaultValues(params);
+        json data = setDefaultValues(params);
+        validate(data);
+        
         QuantLib::Currency currency     = parse<QuantLib::Currency>(data.at("CURRENCY"));
         QuantLib::Calendar calendar     = parse<QuantLib::Calendar>(data.at("CALENDAR"));
         QuantLib::DayCounter dayCounter = parse<QuantLib::DayCounter>(data.at("DAYCOUNTER"));

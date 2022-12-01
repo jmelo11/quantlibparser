@@ -32,9 +32,9 @@ namespace QuantLibParser {
     template <>
     QuantExt::TenorBasisSwapHelper Schema<QuantExt::TenorBasisSwapHelper>::makeObj(const json& params, PriceGetter& priceGetter,
                                                                                    IndexGetter& indexGetter, CurveGetter& curveGetter) {
-        validate(params);
         json data = setDefaultValues(params);
-
+        validate(data);
+        
         auto discountCurve = data.find("DISCOUNTINGCURVE") != data.end() ? curveGetter(data.at("DISCOUNTINGCURVE")) :
                                                                            QuantLib::RelinkableHandle<QuantLib::YieldTermStructure>();
         auto shortIndex    = indexGetter(params.at("SHORTINDEX"));

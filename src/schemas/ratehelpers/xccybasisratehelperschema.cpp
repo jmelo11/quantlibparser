@@ -42,8 +42,8 @@ namespace QuantLibParser {
     template <>
     QuantExt::CrossCcyBasisSwapHelper Schema<QuantExt::CrossCcyBasisSwapHelper>::makeObj(const json& params, PriceGetter& priceGetter,
                                                                                          IndexGetter& indexGetter, CurveGetter& curveGetter) {
-        validate(params);
         json data = setDefaultValues(params);
+        validate(data);
 
         QuantLib::Calendar calendar                = parse<QuantLib::Calendar>(data.at("CALENDAR"));
         QuantLib::BusinessDayConvention convention = parse<QuantLib::BusinessDayConvention>(data.at("CONVENTION"));

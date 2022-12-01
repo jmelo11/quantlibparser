@@ -9,7 +9,7 @@ namespace QuantLibParser {
         json base = R"({
             "title": "Discount Curve Schema",
             "properties": {},			
-            "required": ["TYPE", "NAME", "ENABLEEXTRAPOLATION", "NODES"]
+            "required": ["ENABLEEXTRAPOLATION", "NODES"]
         })"_json;
 
         json nodes = R"({
@@ -26,9 +26,7 @@ namespace QuantLibParser {
 
         nodes["items"]["properties"]["DATE"]  = dateSchema;
         nodes["items"]["properties"]["VALUE"] = priceSchema;
-
-        base["properties"]          = baseCurveSchema;
-        base["properties"]["NODES"] = nodes;
+        base["properties"]["NODES"]           = nodes;
 
         mySchema_ = base;
     };
@@ -41,24 +39,24 @@ namespace QuantLibParser {
 
     template <>
     template <>
-    QuantLib::DiscountCurve Schema<QuantLib::DiscountCurve>::makeObj(const json& data) {
+    QuantLib::DiscountCurve Schema<QuantLib::DiscountCurve>::makeObj(const json& params) {
+        json data = setDefaultValues(params);
         validate(data);
-        json params       = setDefaultValues(data);
-        const json& nodes = params.at("NODES");
+
+        const json& nodes = data.at("NODES");
         std::vector<QuantLib::Date> dates;
         std::vector<double> dfs;
         for (const auto& node : nodes) {
             dates.push_back(parse<QuantLib::Date>(node.at("DATE")));
             dfs.push_back(node.at("VALUE"));
         }
-        QuantLib::DayCounter dayCounter = parse<QuantLib::DayCounter>(params.at("DAYCOUNTER"));
+        QuantLib::DayCounter dayCounter = parse<QuantLib::DayCounter>(data.at("DAYCOUNTER"));
 
-        bool enableExtrapolation = params.at("ENABLEEXTRAPOLATION");
+        bool enableExtrapolation = data.at("ENABLEEXTRAPOLATION");
         QuantLib::DiscountCurve curve(dates, dfs, dayCounter);
 
         curve.enableExtrapolation(enableExtrapolation);
         curve.unregisterWith(QuantLib::Settings::instance().evaluationDate());
-
         return curve;
     }
 

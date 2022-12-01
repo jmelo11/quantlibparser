@@ -34,20 +34,20 @@ namespace QuantLibParser {
     template <>
     template <>
     QuantLib::DepositRateHelper Schema<QuantLib::DepositRateHelper>::makeObj(const json& params, PriceGetter& priceGetter) {
-        validate(params);
         json data = setDefaultValues(params);
+        validate(data);
 
         QuantLib::DayCounter dayCounter = parse<QuantLib::DayCounter>(data.at("DAYCOUNTER"));
         QuantLib::Calendar calendar     = parse<QuantLib::Calendar>(data.at("CALENDAR"));
 
-        double fixingDays                          = params.at("FIXINGDAYS");
-        bool endOfMonth                            = params.at("ENDOFMONTH");
+        double fixingDays                          = data.at("FIXINGDAYS");
+        bool endOfMonth                            = data.at("ENDOFMONTH");
         QuantLib::BusinessDayConvention convention = parse<QuantLib::BusinessDayConvention>(data.at("CONVENTION"));
 
         // non-defaults
         QuantLib::Period tenor = parse<QuantLib::Period>(data.at("TENOR"));
 
-        auto rate = priceGetter(params.at("RATE"), params.at("RATETICKER"));
+        auto rate = priceGetter(data.at("RATE"), data.at("RATETICKER"));
         return DepositRateHelper(rate, tenor, fixingDays, calendar, convention, endOfMonth, dayCounter);
     }
 }  // namespace QuantLibParser

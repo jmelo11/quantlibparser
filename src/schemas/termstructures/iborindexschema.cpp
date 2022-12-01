@@ -37,8 +37,8 @@ namespace QuantLibParser {
     template <>
     template <>
     QuantLib::IborIndex Schema<QuantLib::IborIndex>::makeObj(const json& params, CurveGetter& curveGetter) {
-        validate(params);
-        json data                                  = setDefaultValues(params);
+        json data = setDefaultValues(params);
+        validate(data);
         QuantLib::Period tenor                     = parse<QuantLib::Period>(data.at("TENOR"));
         QuantLib::Currency currency                = parse<QuantLib::Currency>(data.at("CURRENCY"));
         QuantLib::Calendar calendar                = parse<QuantLib::Calendar>(data.at("CALENDAR"));

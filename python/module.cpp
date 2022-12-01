@@ -6,9 +6,6 @@
 #include <qlp/schemas/ratehelpers/swapratehelperschema.hpp>
 #include <qlp/schemas/ratehelpers/tenorbasisratehelperschema.hpp>
 #include <qlp/schemas/ratehelpers/xccybasisratehelperschema.hpp>
-#include <qlp/schemas/requests/discountfactorsrequest.hpp>
-#include <qlp/schemas/requests/forwardratesrequest.hpp>
-#include <qlp/schemas/requests/zeroratesrequest.hpp>
 #include <qlp/schemas/termstructures/bootstrapcurveschema.hpp>
 #include <qlp/schemas/termstructures/discountcurveschema.hpp>
 #include <qlp/schemas/termstructures/flatforwardcurveschema.hpp>
@@ -65,6 +62,7 @@ PYBIND11_MODULE(QuantLibParser, m) {
     common.attr("IndexTypeSchemas")     = &indexTypesSchema;
     common.attr("DayCounterTypeSchema") = &dayCounterSchema;
     common.attr("CalendarTypeSchema")   = &calendarSchema;
+    common.attr("CurveTypeSchema")      = &curveTypeSchema;
     common.attr("ConventionTypeSchema") = &conventionSchema;
     common.attr("FrequencyTypeSchema")  = &frequencySchema;
     common.attr("TenorSchema")          = &tenorSchema;
@@ -82,20 +80,4 @@ PYBIND11_MODULE(QuantLibParser, m) {
             throw e;
         }
     });
-
-    // requests
-    py::class_<Schema<DiscountFactorsRequest>>(m, "DiscountFactorsRequestSchema")
-        .def(py::init<>())
-        .def("validate", &Schema<DiscountFactorsRequest>::validate)
-        .def("schema", &Schema<DiscountFactorsRequest>::schema);
-
-    py::class_<Schema<ZeroRatesRequests>>(m, "ZeroRatesRequestsSchema")
-        .def(py::init<>())
-        .def("validate", &Schema<ZeroRatesRequests>::validate)
-        .def("schema", &Schema<ZeroRatesRequests>::schema);
-
-    py::class_<Schema<ForwardRatesRequest>>(m, "ForwardRatesRequestSchema")
-        .def(py::init<>())
-        .def("validate", &Schema<ForwardRatesRequest>::validate)
-        .def("schema", &Schema<ForwardRatesRequest>::schema);
 }

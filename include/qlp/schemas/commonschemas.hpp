@@ -24,6 +24,12 @@ namespace QuantLibParser {
         "enum": ["OVERNIGHT", "IBOR"]
     })"_json;
 
+    static json curveTypeSchema = R"({
+        "type": "string",
+        "description": "Type of curve",
+        "enum": ["PIECEWISE", "DISCOUNT", "FLATFORWARD"]
+    })"_json;
+
     static json baseCurveSchema = R"({             
         "TYPE": {
             "type": "string",

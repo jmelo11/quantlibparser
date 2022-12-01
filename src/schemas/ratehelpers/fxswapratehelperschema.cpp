@@ -41,38 +41,37 @@ namespace QuantLibParser {
     template <>
     template <>
     QuantLib::FxSwapRateHelper Schema<QuantLib::FxSwapRateHelper>::makeObj(const json& params, PriceGetter& priceGetter, CurveGetter& curveGetter) {
-        validate(params);
         json data = setDefaultValues(params);
+        validate(data);
 
         QuantLib::Calendar calendar                = parse<QuantLib::Calendar>(data.at("CALENDAR"));
         QuantLib::BusinessDayConvention convention = parse<QuantLib::BusinessDayConvention>(data.at("CONVENTION"));
         bool endOfMonth                            = data.at("ENDOFMONTH");
-        double fixingDays                          = params.at("FIXINGDAYS");
-        bool endOfMont                             = params.at("ENDOFMONTH");
-        bool baseCurrencyColateral                 = params.at("BASECURRENCYCOLLATERAL");
+        double fixingDays                          = data.at("FIXINGDAYS");
+        bool endOfMont                             = data.at("ENDOFMONTH");
+        bool baseCurrencyColateral                 = data.at("BASECURRENCYCOLLATERAL");
 
         auto collateralCurve =
-            data.find("COLLATERALCURVE") != data.end() ? curveGetter(params.at("COLLATERALCURVE")) : RelinkableHandle<YieldTermStructure>();
+            data.find("COLLATERALCURVE") != data.end() ? curveGetter(data.at("COLLATERALCURVE")) : RelinkableHandle<YieldTermStructure>();
 
         // non-defaults
         QuantLib::Period tenor;
         if (data.find("ENDDATE") != data.end()) {
-            QuantLib::Date endDate   = parse<QuantLib::Date>(params.at("ENDDATE"));
-            QuantLib::Date startDate = parse<QuantLib::Date>(params.at("STARTDATE"));
+            QuantLib::Date endDate   = parse<QuantLib::Date>(data.at("ENDDATE"));
+            QuantLib::Date startDate = parse<QuantLib::Date>(data.at("STARTDATE"));
 
             int days = endDate - startDate;
             if (days > 0) {
                 tenor = QuantLib::Period(days, QuantLib::TimeUnit::Days);
             } else {
-                
                 throw std::runtime_error("Error processing FXSWAPRATEHELPER: End date must be after today (" + parseDate(startDate) + ").");
             }
         } else {
-            tenor = parse<QuantLib::Period>(params.at("TENOR"));
+            tenor = parse<QuantLib::Period>(data.at("TENOR"));
         }
 
-        auto fxPoints = priceGetter(params.at("FXPOINTS"), params.at("FXPOINTSTICKER"));
-        auto fxSpot   = priceGetter(params.at("FXSPOT"), params.at("FXSPOTTICKER"));
+        auto fxPoints = priceGetter(data.at("FXPOINTS"), data.at("FXPOINTSTICKER"));
+        auto fxSpot   = priceGetter(data.at("FXSPOT"), data.at("FXSPOTTICKER"));
 
         return QuantLib::FxSwapRateHelper(fxPoints, fxSpot, tenor, fixingDays, calendar, convention, endOfMonth, baseCurrencyColateral,
                                           collateralCurve);

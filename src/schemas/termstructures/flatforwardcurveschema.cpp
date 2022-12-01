@@ -10,10 +10,9 @@ namespace QuantLibParser {
         json base = R"({
             "title": "Flat Forward Curve Schema",
             "properties": {},			
-            "required": ["TYPE", "REFDATE", "NAME", "ENABLEEXTRAPOLATION", "RATE"]
+            "required": ["ENABLEEXTRAPOLATION", "RATE"]
         })"_json;
 
-        base["properties"]                = baseCurveSchema;
         base["properties"]["REFDATE"]     = dateSchema;
         base["properties"]["RATE"]        = priceSchema;
         base["properties"]["DAYCOUNTER"]  = dayCounterSchema;
@@ -25,17 +24,19 @@ namespace QuantLibParser {
 
     template <>
     void Schema<QuantLib::FlatForward>::initDefaultValues() {
-        myDefaultValues_["ENABLEEXTRAPOLATION"] = true;
+        myDefaultValues_["REFDATE"]             = parseDate(QuantLib::Settings::instance().evaluationDate());
         myDefaultValues_["DAYCOUNTER"]          = "ACT360";
         myDefaultValues_["COMPOUNDING"]         = "SIMPLE";
         myDefaultValues_["FREQUENCY"]           = "ANNUAL";
+        myDefaultValues_["ENABLEEXTRAPOLATION"] = true;
     };
 
     template <>
     template <>
     QuantLib::FlatForward Schema<QuantLib::FlatForward>::makeObj(const json& params) {
-        validate(params);
-        json data                         = setDefaultValues(params);
+        json data = setDefaultValues(params);
+        validate(data);
+        
         double rate                       = data.at("RATE");
         QuantLib::DayCounter dayCounter   = parse<QuantLib::DayCounter>(data.at("DAYCOUNTER"));
         QuantLib::Compounding compounding = parse<QuantLib::Compounding>(data.at("COMPOUNDING"));
