@@ -70,14 +70,12 @@ PYBIND11_MODULE(QuantLibParser, m) {
     common.attr("RateSchema")           = &baseRateSchema;
 
     // json validator
+
     m.def("schemaValidation", [](const json& schema, const json& data) {
         nlohmann::json_schema::json_validator validator;
         try {
             validator.set_root_schema(schema);  // insert root-schema
             validator.validate(data);
-        } catch (std::exception& e) {
-            std::cout << e.what() << std::endl;
-            throw e;
-        }
+        } catch (const std::invalid_argument& e) { throw e; }
     });
 }
