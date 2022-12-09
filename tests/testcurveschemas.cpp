@@ -2,8 +2,7 @@
 #include <qlp/schemas/termstructures/bootstrapcurveschema.hpp>
 #include <qlp/schemas/termstructures/discountcurveschema.hpp>
 #include <qlp/schemas/termstructures/flatforwardcurveschema.hpp>
-#include <qlp/schemas/termstructures/rateindexschema.hpp>
-#include <qlp/schemas/termstructures/yieldtermstructureschema.hpp>
+
 
 using namespace QuantLib;
 using namespace QuantLibParser;
@@ -608,21 +607,7 @@ TEST(CurveSchemas, BootstrapCurve) {
     EXPECT_ANY_THROW(curveSchema.validate(data));
 }
 
-TEST(CurveSchemas, IndexTest) {
-    json data = R"({
-            "NAME": "SOFR",
-            "TYPE": "OVERNIGHT",
-            "TENOR": "1D",
-            "DAYCOUNTER": "ACT360",
-            "CURRENCY": "USD",
-            "FIXINGDAYS": 0.0,
-            "CALENDAR": "USA"
-        })"_json;
 
-    Schema<InterestRateIndex> indexSchema;
-
-    EXPECT_NO_THROW(indexSchema.validate(data));
-}
 
 TEST(CurveSchemas, IborIndex) {
     json data = R"({

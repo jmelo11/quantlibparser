@@ -9,7 +9,8 @@
 #include <qlp/schemas/termstructures/bootstrapcurveschema.hpp>
 #include <qlp/schemas/termstructures/discountcurveschema.hpp>
 #include <qlp/schemas/termstructures/flatforwardcurveschema.hpp>
-#include <qlp/schemas/termstructures/rateindexschema.hpp>
+#include <qlp/schemas/termstructures/iborindexschema.hpp>
+#include <qlp/schemas/termstructures/overnightindexschema.hpp>
 #include <iostream>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
@@ -54,7 +55,8 @@ PYBIND11_MODULE(QuantLibParser, m) {
     SchemaWithMaker(DiscountCurve);
     SchemaWithMaker(FlatForward);
     SchemaWithoutMaker(BootstrapCurve);
-    SchemaWithoutMaker(InterestRateIndex);
+    SchemaWithoutMaker(IborIndex);
+    SchemaWithoutMaker(OvernightIndex);
 
     // common schemas
     py::module_ common                  = m.def_submodule("CommonSchemas", "common schemas");

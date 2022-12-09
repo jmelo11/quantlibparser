@@ -6,7 +6,5 @@
 #include <qlp/schemas/termstructures/flatforwardcurveschema.hpp>
 #include <qlp/schemas/termstructures/iborindexschema.hpp>
 #include <qlp/schemas/termstructures/overnightindexschema.hpp>
-#include <qlp/schemas/termstructures/rateindexschema.hpp>
-#include <qlp/schemas/termstructures/yieldtermstructureschema.hpp>
 
 #endif /* EFC9126D_A1F0_4DAB_B7FF_9E68550D7CF3 */
