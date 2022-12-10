@@ -30,20 +30,9 @@ namespace QuantLibParser {
         "enum": ["PIECEWISE", "DISCOUNT", "FLATFORWARD"]
     })"_json;
 
-    static json baseCurveSchema = R"({             
-        "TYPE": {
-            "type": "string",
-            "description": "Type of curve",
-            "enum": ["PIECEWISE", "DISCOUNT", "FLATFORWARD"]
-				},
-		"NAME": {
-			"type":"string",
-			"description": "Curve name"
-				},
-		"ENABLEEXTRAPOLATION": {
-			"type": "boolean",
-			"description": "Enable extrapolation"						
-			}                
+    static json enableExtrapolationSchema = R"({             
+        "type": "boolean",
+        "description": "Enable extrapolation"								              
     })"_json;
 
     static json curveNameSchema = R"({

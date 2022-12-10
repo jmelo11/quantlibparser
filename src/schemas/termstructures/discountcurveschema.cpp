@@ -9,7 +9,7 @@ namespace QuantLibParser {
         json base = R"({
             "title": "Discount Curve Schema",
             "properties": {},			
-            "required": ["ENABLEEXTRAPOLATION", "NODES"]
+            "required": ["NODES"]
         })"_json;
 
         json nodes = R"({
@@ -24,9 +24,10 @@ namespace QuantLibParser {
 			}
 		})"_json;
 
-        nodes["items"]["properties"]["DATE"]  = dateSchema;
-        nodes["items"]["properties"]["VALUE"] = priceSchema;
-        base["properties"]["NODES"]           = nodes;
+        nodes["items"]["properties"]["DATE"]      = dateSchema;
+        nodes["items"]["properties"]["VALUE"]     = priceSchema;
+        base["properties"]["NODES"]               = nodes;
+        base["properties"]["ENABLEEXTRAPOLATION"] = enableExtrapolationSchema;
 
         mySchema_ = base;
     };

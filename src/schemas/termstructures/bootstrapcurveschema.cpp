@@ -12,23 +12,20 @@
 namespace QuantLibParser {
     template <>
     void Schema<QuantLib::PiecewiseYieldCurve<QuantLib::Discount, QuantLib::LogLinear>>::initSchema() {
-        using namespace QuantExt;
-        using namespace QuantLib;
-
         json base = R"({
             "title": "Bootstrap Curve Schema",
             "properties": {},			
-            "required": ["NAME", "ENABLEEXTRAPOLATION", "RATEHELPERS", "TYPE"]
+            "required": ["RATEHELPERS"]
         })"_json;
 
         json ratehelpers = R"({
 			"type": "array"			
 		})"_json;
 
-        base["properties"]                = baseCurveSchema;
-        base["properties"]["RATEHELPERS"] = ratehelpers;
-
-        mySchema_ = base;
+        base["properties"]["ENABLEEXTRAPOLATION"] = enableExtrapolationSchema;
+        base["properties"]["RATEHELPERS"]         = ratehelpers;
+        base["properties"]["DAYCOUNTER"]          = dayCounterSchema;
+        mySchema_                                 = base;
     }
 
     template <>

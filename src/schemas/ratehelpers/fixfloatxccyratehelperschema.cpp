@@ -61,8 +61,8 @@ namespace QuantLibParser {
         auto spreadPtr = ext::make_shared<QuantLib::SimpleQuote>(spread);
         QuantLib::Handle<QuantLib::Quote> spreadQuote(spreadPtr);
 
-        auto discountCurve = data.find("DISCOUNTINGCURVE") == data.end() ? curveGetter(data.at("DISCOUNTINGCURVE")) :
-                                                                           QuantLib::RelinkableHandle<QuantLib::YieldTermStructure>();
+        bool hasDiscountCurve = data.find("DISCOUNTINGCURVE") != data.end();
+        auto discountCurve = hasDiscountCurve ? curveGetter(data.at("DISCOUNTINGCURVE")) : QuantLib::RelinkableHandle<QuantLib::YieldTermStructure>();
 
         auto rate   = priceGetter(data.at("RATE"), data.at("RATETICKER"));
         auto fxSpot = priceGetter(data.at("FXSPOT"), data.at("FXSPOTTICKER"));

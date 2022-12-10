@@ -3,7 +3,6 @@
 #include <qlp/schemas/termstructures/discountcurveschema.hpp>
 #include <qlp/schemas/termstructures/flatforwardcurveschema.hpp>
 
-
 using namespace QuantLib;
 using namespace QuantLibParser;
 
@@ -329,10 +328,7 @@ TEST(CurveSchemas, BootstrapCurve) {
     EXPECT_NO_THROW(curveSchema.validate(data));
 
     data = R"(
-        {
-            "NAME": "SOFR",
-            "DAYCOUNTER": "ACT360",
-            "ENABLEEXTRAPOLATION": true,
+        {          
             "RATEHELPERS": [
                 {
                     "RATE": 0.0227,
@@ -604,10 +600,8 @@ TEST(CurveSchemas, BootstrapCurve) {
         }
     )"_json;
 
-    EXPECT_ANY_THROW(curveSchema.validate(data));
+    EXPECT_NO_THROW(curveSchema.validate(data));
 }
-
-
 
 TEST(CurveSchemas, IborIndex) {
     json data = R"({
@@ -623,4 +617,15 @@ TEST(CurveSchemas, IborIndex) {
     EXPECT_NO_THROW(indexSchema.validate(data));
 }
 
-TEST(CurveSchemas, OvernightIndex) {}
+TEST(CurveSchemas, OvernightIndex) {
+     json data = R"({
+            "NAME": "LIBOR1M",
+            "DAYCOUNTER": "ACT360",
+            "CURRENCY": "USD",
+            "SETTLEMENTDAYS": 0.0,
+            "CALENDAR": "USA"
+        })"_json;
+
+    Schema<OvernightIndex> indexSchema;
+    EXPECT_NO_THROW(indexSchema.validate(data));
+}
