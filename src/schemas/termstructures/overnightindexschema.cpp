@@ -17,7 +17,6 @@ namespace QuantLibParser {
         base["properties"]["DAYCOUNTER"]     = dayCounterSchema;
         base["properties"]["CURRENCY"]       = currencySchema;
         base["properties"]["CALENDAR"]       = calendarSchema;
-        base["properties"]["CURVE"]          = curveNameSchema;
 
         mySchema_ = base;
     };
@@ -34,17 +33,13 @@ namespace QuantLibParser {
     QuantLib::OvernightIndex Schema<QuantLib::OvernightIndex>::makeObj(const json& params, CurveGetter& curveGetter) {
         json data = setDefaultValues(params);
         validate(data);
-        
+
         QuantLib::Currency currency     = parse<QuantLib::Currency>(data.at("CURRENCY"));
         QuantLib::Calendar calendar     = parse<QuantLib::Calendar>(data.at("CALENDAR"));
         QuantLib::DayCounter dayCounter = parse<QuantLib::DayCounter>(data.at("DAYCOUNTER"));
         int settlementDays              = data.at("SETTLEMENTDAYS");
 
-        if (data.find("CURVE") != data.end()) {
-            QuantLib::RelinkableHandle<QuantLib::YieldTermStructure> curve = curveGetter(data.at("CURVE"));
-            return QuantLib::OvernightIndex(data.at("NAME"), settlementDays, currency, calendar, dayCounter, curve);
-        } else {
-            return QuantLib::OvernightIndex(data.at("NAME"), settlementDays, currency, calendar, dayCounter);
-        }
+        auto curve = curveGetter(data.at("NAME"));
+        return QuantLib::OvernightIndex(data.at("NAME"), settlementDays, currency, calendar, dayCounter, curve);
     };
 }  // namespace QuantLibParser

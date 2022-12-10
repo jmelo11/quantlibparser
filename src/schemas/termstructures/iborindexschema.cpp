@@ -20,7 +20,6 @@ namespace QuantLibParser {
         base["properties"]["CONVENTION"]     = conventionSchema;
         base["properties"]["ENDOFMONTH"]     = eomSchema;
         base["properties"]["CALENDAR"]       = calendarSchema;
-        base["properties"]["CURVE"]          = curveNameSchema;
 
         mySchema_ = base;
     };
@@ -47,11 +46,7 @@ namespace QuantLibParser {
         int settlementDays                         = data.at("SETTLEMENTDAYS");
         bool endOfMonth                            = data.at("ENDOFMONTH");
 
-        if (data.find("CURVE") != data.end()) {
-            QuantLib::RelinkableHandle<QuantLib::YieldTermStructure> curve = curveGetter(data.at("CURVE"));
-            return QuantLib::IborIndex(data.at("NAME"), tenor, settlementDays, currency, calendar, convention, endOfMonth, dayCounter, curve);
-        } else {
-            return QuantLib::IborIndex(data.at("NAME"), tenor, settlementDays, currency, calendar, convention, endOfMonth, dayCounter);
-        }
+        auto curve = curveGetter(data.at("NAME"));
+        return QuantLib::IborIndex(data.at("NAME"), tenor, settlementDays, currency, calendar, convention, endOfMonth, dayCounter, curve);
     };
 }  // namespace QuantLibParser

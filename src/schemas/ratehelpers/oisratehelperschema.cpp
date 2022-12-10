@@ -65,9 +65,10 @@ namespace QuantLibParser {
                                                                            QuantLib::RelinkableHandle<QuantLib::YieldTermStructure>();
 
         auto rate  = priceGetter(data.at("RATE"), data.at("RATETICKER"));
-        auto index = boost::dynamic_pointer_cast<QuantLib::OvernightIndex>(indexGetter(params.at("INDEX")));
+        auto index = indexGetter(params.at("INDEX"));
+        auto indexPtr = boost::dynamic_pointer_cast<QuantLib::OvernightIndex>(index);
 
-        return QuantLib::OISRateHelper(settlementDays, tenor, rate, index, discountCurve, telescopicValueDates, paymentLag, convention, frequency,
+        return QuantLib::OISRateHelper(settlementDays, tenor, rate, indexPtr, discountCurve, telescopicValueDates, paymentLag, convention, frequency,
                                        calendar, fwdStart, spread);
     }
 }  // namespace QuantLibParser
