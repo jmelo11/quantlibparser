@@ -10,6 +10,7 @@
 #include <qlp/schemas/ratehelpers/xccybasisratehelperschema.hpp>
 #include <qlp/schemas/termstructures/discountcurveschema.hpp>
 #include <qlp/schemas/termstructures/flatforwardcurveschema.hpp>
+#include <qlp/schemas/termstructures/interestrateschema.hpp>
 
 using namespace QuantLibParser;
 
@@ -264,5 +265,17 @@ TEST(MakeObject, OvernightIndex) {
         })"_json;
 
     Schema<QuantLib::OvernightIndex> schema;
+    EXPECT_NO_THROW(schema.makeObj(data, h));
+}
+
+TEST(MakeObject, InterestRate) {
+    json data = R"({
+            "VALUE": 0.01,
+            "DAYCOUNTER": "ACT360",
+            "COMPOUDING": "COMPUNDED",
+            "FREQUENCY": "ANNUAL"
+        })"_json;
+
+    Schema<QuantLib::InterestRate> schema;
     EXPECT_NO_THROW(schema.makeObj(data, h));
 }
