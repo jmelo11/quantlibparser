@@ -1,16 +1,6 @@
-#include <qlp/schemas/ratehelpers/bondratehelperschema.hpp>
-#include <qlp/schemas/ratehelpers/depositratehelperschema.hpp>
-#include <qlp/schemas/ratehelpers/fixfloatxccyratehelperschema.hpp>
-#include <qlp/schemas/ratehelpers/fxswapratehelperschema.hpp>
-#include <qlp/schemas/ratehelpers/oisratehelperschema.hpp>
-#include <qlp/schemas/ratehelpers/swapratehelperschema.hpp>
-#include <qlp/schemas/ratehelpers/tenorbasisratehelperschema.hpp>
-#include <qlp/schemas/ratehelpers/xccybasisratehelperschema.hpp>
-#include <qlp/schemas/termstructures/bootstrapcurveschema.hpp>
-#include <qlp/schemas/termstructures/discountcurveschema.hpp>
-#include <qlp/schemas/termstructures/flatforwardcurveschema.hpp>
-#include <qlp/schemas/termstructures/iborindexschema.hpp>
-#include <qlp/schemas/termstructures/overnightindexschema.hpp>
+#include <qlp/schemas/ratehelpers/all.hpp>
+#include <qlp/schemas/termstructures/all.hpp>
+
 #include <iostream>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
@@ -54,6 +44,7 @@ PYBIND11_MODULE(QuantLibParser, m) {
     // curves
     SchemaWithMaker(DiscountCurve);
     SchemaWithMaker(FlatForward);
+    SchemaWithMaker(InterestRate);
     SchemaWithoutMaker(BootstrapCurve);
     SchemaWithoutMaker(IborIndex);
     SchemaWithoutMaker(OvernightIndex);

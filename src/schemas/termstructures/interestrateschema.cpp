@@ -31,7 +31,7 @@ namespace QuantLibParser {
 
     template <>
     template <>
-    QuantLib::InterestRate Schema<QuantLib::InterestRate>::makeObj(const json& params, CurveGetter& curveGetter) {
+    QuantLib::InterestRate Schema<QuantLib::InterestRate>::makeObj(const json& params) {
         json data = setDefaultValues(params);
         validate(data);
         double value                    = data.at("VALUE");

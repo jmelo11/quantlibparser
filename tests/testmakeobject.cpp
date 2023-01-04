@@ -277,5 +277,5 @@ TEST(MakeObject, InterestRate) {
         })"_json;
 
     Schema<QuantLib::InterestRate> schema;
-    EXPECT_NO_THROW(schema.makeObj(data, h));
+    EXPECT_NO_THROW(schema.makeObj(data));
 }
