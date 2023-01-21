@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "ratehelper.schema.json",
+    "description": "Rate helper schema specification",
+    "type": "object",
+    "properties": {
+        "rateHelperType": {
+            "description": "Rate Helper Type",
+            "type": "string",
+            "enum": [
+                "Deposit",
+                "Swap",
+                "OIS",
+                "Xccy",
+                "Bond",
+                "FxSwap",
+                "XccyBasis",
+                "TenorBasis"
+            ]
+        },
+        "helperConfig": {
+            "type": "object"
+        },
+        "marketConfig": {
+            "type": "object"
+        }
+    }
+}

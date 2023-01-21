@@ -1,49 +1,22 @@
 #include <qlp/parser.hpp>
 #include <qlp/schemas/commonschemas.hpp>
-#include <qlp/schemas/ratehelpers/bondratehelperschema.hpp>
+#include <qlp/schemas/ratehelpers/bondratehelperschema2.hpp>
 
 namespace QuantLibParser {
     template <>
-    void Schema<QuantLib::FixedRateBondHelper>::initSchema() {
-        json base = R"({
-            "title": "Bond Rate Helper Schema",
-            "properties": {},
-            "required": ["RATE", "RATETICKER", "TENOR", "TYPE"]
-        })"_json;
-
-        base["properties"]["RATETICKER"]       = tickerSchema;
-        base["properties"]["TYPE"]             = rateHelperTypeSchema;
-        base["properties"]["TENOR"]            = tenorSchema;
-        base["properties"]["CALENDAR"]         = calendarSchema;
-        base["properties"]["COMPOUNDING"]      = compoundingSchema;
-        base["properties"]["FREQUENCY"]        = frequencySchema;
-        base["properties"]["SETTLEMENTDAYS"]   = fixingDaysSchema;
-        base["properties"]["FACEAMOUNT"]       = faceAmountSchema;
-        base["properties"]["COUPON"]           = priceSchema;
-        base["properties"]["IRRDAYCOUNTER"]    = dayCounterSchema;
-        base["properties"]["COUPONDAYCOUNTER"] = dayCounterSchema;
-
-        mySchema_ = base;
+    void Schema2<QuantLib::FixedRateBondHelper>::initSchema() {
+        loader("bondratehelper.schema.json", mySchema_);
     };
 
     template <>
-    void Schema<QuantLib::FixedRateBondHelper>::initDefaultValues() {
-        myDefaultValues_["STARTDATE"]        = parseDate(QuantLib::Settings::instance().evaluationDate());
-        myDefaultValues_["CALENDAR"]         = "NULLCALENDAR";        
-        myDefaultValues_["SETTLEMENTDAYS"]   = 0;
-        myDefaultValues_["FACEAMOUNT"]       = 100.0;
-        myDefaultValues_["COUPON"]           = 0.03;
-        myDefaultValues_["IRRDAYCOUNTER"]    = "ACT365";
-        myDefaultValues_["COUPONDAYCOUNTER"] = "THIRTY360";
-        myDefaultValues_["FREQUENCY"]        = "SEMIANNUAL";
-        myDefaultValues_["CONVENTION"]       = "UNADJUSTED";
+    void Schema2<QuantLib::FixedRateBondHelper>::initDefaultValues(){
+
     };
 
     template <>
     template <>
-    QuantLib::FixedRateBondHelper Schema<QuantLib::FixedRateBondHelper>::makeObj(const json& params, PriceGetter& priceGetter) {
-        json data = setDefaultValues(params);
-        validate(data);
+    QuantLib::FixedRateBondHelper Schema2<QuantLib::FixedRateBondHelper>::makeObj(const json& params, PriceGetter& priceGetter) {
+        json data = validate(params);
 
         QuantLib::Calendar calendar                = parse<QuantLib::Calendar>(data.at("CALENDAR"));
         QuantLib::BusinessDayConvention convention = parse<QuantLib::BusinessDayConvention>(data.at("CONVENTION"));

@@ -1,0 +1,123 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "common.schema.json",
+  "description": "Common schemas specification",
+  "type": "object",
+  "properties": {
+    "date": {
+      "$id": "#date",
+      "description": "Date",
+      "type": "string",
+      "format": "date"
+    },
+    "settlementDays": {
+      "$id": "#settlementDays",
+      "description": "Settlement Days",
+      "type": "integer",
+      "minimum": 0
+    },
+    "dayCounter": {
+      "$id": "#dayCounter",
+      "description": "Day Counter",
+      "type": "string",
+      "enum": [
+        "Act360",
+        "Act365",
+        "Thirty360"
+      ]
+    },
+    "notional": {
+      "$id": "#notional",
+      "description": "Notional",
+      "type": "number",
+      "example": 1000000
+    },
+    "currency": {
+      "$id": "#currency",
+      "type": "string",
+      "description": "Currency",
+      "example": "CLP",
+      "enum": [
+        "CLP",
+        "USD",
+        "EUR",
+        "CLF"
+      ]
+    },
+    "compounding": {
+      "$id": "#compounding",
+      "type": "string",
+      "description": "Rate Compounding",
+      "example": "Simple",
+      "enum": [
+        "Simple",
+        "Compounded",
+        "Continuous"
+      ]
+    },
+    "convention": {
+      "type": "string",
+      "description": "convention",
+      "example": "Unadjusted",
+      "enum": [
+        "Following",
+        "ModifiedFollowing",
+        "Unadjusted"
+      ]
+    },
+    "frequency": {
+      "$id": "#frequency",
+      "type": "string",
+      "description": "Frequency",
+      "example": "Annual",
+      "enum": [
+        "Annual",
+        "SemiAnnual",
+        "Quarterly",
+        "Monthly",
+        "Once",
+        "NoFrequency"
+      ]
+    },
+    "marketQuote": {
+      "$id": "#marketQuote",
+      "type": "object",
+      "description": "Market Quote",
+      "properties": {
+        "ticker": {
+          "description": "Ticker",
+          "type": "string"
+        },
+        "value": {
+          "description": "Value",
+          "type": "number"
+        },
+        "description": {
+          "description": "Description",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "calendar": {
+      "$id": "#calendar",
+      "type": "string",
+      "description": "calendar",
+      "example": "NullCalendar",
+      "enum": [
+        "NullCalendar",
+        "Chile",
+        "Usa",
+        "Joint"
+      ]
+    },
+    "tenor": {
+      "$id": "#tenor",
+      "description": "Tenor",
+      "type": "string",
+      "pattern": "^\\d+[YWDM]$"
+    }
+  }
+}
