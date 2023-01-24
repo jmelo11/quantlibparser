@@ -4,50 +4,38 @@
 namespace QuantLibParser {
     template <>
     void Schema<QuantLib::DepositRateHelper>::initSchema() {
-        json base = R"({
-            "title": "Deposit Rate Helper Schema",
-            "properties": {},
-            "required": ["TYPE", "RATE", "RATETICKER", "TENOR"]
-        })"_json;
-
-        base["properties"]["RATETICKER"] = tickerSchema;
-        base["properties"]["TENOR"]      = tenorSchema;
-        base["properties"]["TYPE"]       = rateHelperTypeSchema;
-        base["properties"]["DAYCOUNTER"] = dayCounterSchema;
-        base["properties"]["ENDOFMONTH"] = eomSchema;
-        base["properties"]["CONVENTION"] = conventionSchema;
-        base["properties"]["CALENDAR"]   = calendarSchema;
-        base["properties"]["FIXINGDAYS"] = fixingDaysSchema;
-
-        mySchema_ = base;
+        mySchema_ = readJSONFile("depositratehelper.schema.json");
     }
 
     template <>
     void Schema<QuantLib::DepositRateHelper>::initDefaultValues() {
-        myDefaultValues_["CALENDAR"]   = "NULLCALENDAR";
-        myDefaultValues_["FIXINGDAYS"] = 0;
-        myDefaultValues_["ENDOFMONTH"] = false;
-        myDefaultValues_["DAYCOUNTER"] = "ACT360";
-        myDefaultValues_["CONVENTION"] = "UNADJUSTED";
+        myDefaultValues_["helperConfig"]["calendar"]       = "NullCalendar";
+        myDefaultValues_["helperConfig"]["convention"]     = "Unadjusted";
+        myDefaultValues_["helperConfig"]["dayCounter"]     = "Act360";
+        myDefaultValues_["helperConfig"]["settlementDays"] = 0;       
+        myDefaultValues_["helperConfig"]["endOfMonth"]     = false;
     }
 
     template <>
     template <>
     QuantLib::DepositRateHelper Schema<QuantLib::DepositRateHelper>::makeObj(const json& params, PriceGetter& priceGetter) {
         json data = setDefaultValues(params);
-        validate(data);
+        validate(params);
+        const json& helperConfig = data.at("helperConfig");
+        const json& marketConfig = data.at("marketConfig");
 
-        QuantLib::DayCounter dayCounter = parse<QuantLib::DayCounter>(data.at("DAYCOUNTER"));
-        QuantLib::Calendar calendar     = parse<QuantLib::Calendar>(data.at("CALENDAR"));
+        QuantLib::DayCounter dayCounter = parse<QuantLib::DayCounter>(helperConfig.at("dayCounter"));
+        QuantLib::Calendar calendar     = parse<QuantLib::Calendar>(helperConfig.at("calendar"));
 
-        double fixingDays                          = data.at("FIXINGDAYS");
-        bool endOfMonth                            = data.at("ENDOFMONTH");
-        QuantLib::BusinessDayConvention convention = parse<QuantLib::BusinessDayConvention>(data.at("CONVENTION"));
+        double settlementDays                      = helperConfig.at("settlementDays");
+        bool endOfMonth                            = helperConfig.at("endOfMonth");
+        QuantLib::BusinessDayConvention convention = parse<QuantLib::BusinessDayConvention>(data.at("convention"));
 
         // non-defaults
-        QuantLib::Period tenor = parse<QuantLib::Period>(data.at("TENOR"));
+        QuantLib::Period tenor = parse<QuantLib::Period>(data.at("tenor"));
 
-        auto rate = priceGetter(data.at("RATE"), data.at("RATETICKER"));
-        return DepositRateHelper(rate, tenor, fixingDays, calendar, convention, endOfMonth, dayCounter);
+        const json& rate = marketConfig.at("rate");
+        auto mktRate     = priceGetter(marketConfig.at("value"), marketConfig.at("ticker"));
+        return DepositRateHelper(mktRate, tenor, settlementDays, calendar, convention, endOfMonth, dayCounter);
     }
 }  // namespace QuantLibParser

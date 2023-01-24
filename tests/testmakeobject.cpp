@@ -91,28 +91,37 @@ TEST(MakeObject, FlatForwardCurve) {
 
 TEST(MakeObject, FixedRateBondHelper) {
     json testSchema = R"({
-            "TYPE": "BOND",
-			"RATE": 0.033518703852712,
-            "RATETICKER": "BOND_1D",
-            "TENOR": "5M"            
-		})"_json;
+            "helperType": "Bond",
+            "helperConfig": {
+                "tenor": "2Y",
+                "calendar": "NullCalendar"                
+            },
+            "marketConfig": {
+                "rate": {
+                    "ticker": "BondTicker",
+                    "value": 0.05
+                }
+            }
+    })"_json;
 
     Schema<QuantLib::FixedRateBondHelper> schema;
     EXPECT_NO_THROW(schema.makeObj(testSchema, f));
 }
 
 TEST(MakeObject, DepositRateHelper) {
-    json testSchema = R"(  {
-            "RATE": 0.0227,
-            "DAYCOUNTER": "ACT360",
-            "TENOR": "1D",
-            "CALENDAR": "USA",
-            "FIXINGDAYS": 0.0,
-            "ENDOFMONTH": true,
-            "CONVENTION": "MODIFIEDFOLLOWING",
-            "TYPE": "DEPOSIT",
-            "RATETICKER": "SOFRRATE CURNCY"
-          })"_json;
+    json testSchema = R"({
+            "helperType": "Deposit",
+            "helperConfig": {
+                "tenor": "1Y",
+                "calendar": "NullCalendar"                
+            },
+            "marketConfig": {
+                "rate": {
+                    "ticker": "DepositTicker",
+                    "value": 0.05
+                }
+            }
+    })"_json;
 
     Schema<QuantLib::DepositRateHelper> schema;
     EXPECT_NO_THROW(schema.makeObj(testSchema, f));

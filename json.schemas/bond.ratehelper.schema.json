@@ -1,0 +1,79 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "bondratehelper.schema.json",
+    "$ref": "ratehelper.schema.json",
+    "definitions": {
+        "helperConfig": {
+            "type": "object",
+            "properties": {
+                "tenor": {
+                    "$ref": "common.schema.json#/definitions/tenor"
+                },
+                "couponDayCounter": {
+                    "$ref": "common.schema.json#/definitions/dayCounter"
+                },
+                "couponRate": {
+                    "type": "number"
+                },
+                "yieldDayCounter": {
+                    "$ref": "common.schema.json#/definitions/dayCounter"
+                },
+                "calendar": {
+                    "$ref": "common.schema.json#/definitions/calendar"
+                },
+                "paymentFrequency": {
+                    "$ref": "common.schema.json#/definitions/frequency"
+                },
+                "settlementDays": {
+                    "$ref": "common.schema.json#/definitions/settlementDays"
+                },
+                "startDate": {
+                    "$ref": "common.schema.json#/definitions/date"
+                },
+                "endDate": {
+                    "$ref": "common.schema.json#/definitions/date"
+                }
+            },
+            "required": [
+                "tenor"
+            ]
+        },
+        "marketConfig": {
+            "type": "object",
+            "properties": {
+                "rate": {
+                    "$ref": "common.schema.json#/definitions/marketQuote"
+                }
+            },
+            "required": [
+                "rate"
+            ]
+        }
+    },
+    "if": {
+        "properties": {
+            "helperType": {
+                "const": "Bond"
+            }
+        }
+    },
+    "then": {
+        "properties": {
+            "helperType": {
+                "const": "Bond"
+            },
+            "helperConfig": {
+                "$ref": "#/definitions/helperConfig"
+            },
+            "marketConfig": {
+                "$ref": "#/definitions/marketConfig"
+            }
+        },
+        "required": [
+            "helperType",
+            "helperConfig",
+            "marketConfig"
+        ]
+    },
+    "else": false
+}

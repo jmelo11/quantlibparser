@@ -4,7 +4,7 @@
     "description": "Rate helper schema specification",
     "type": "object",
     "properties": {
-        "rateHelperType": {
+        "helperType": {
             "description": "Rate Helper Type",
             "type": "string",
             "enum": [
@@ -24,5 +24,10 @@
         "marketConfig": {
             "type": "object"
         }
-    }
+    },
+    "required": [
+        "helperType",
+        "helperConfig",
+        "marketConfig"
+    ]
 }

@@ -72,6 +72,18 @@ set(CONFIG_INSTALL_DIR
     CACHE INTERNAL "")
 set(INCLUDE_INSTALL_DIR "${CMAKE_INSTALL_INCLUDEDIR}")
 
+file(
+  GLOB
+  SCHEMAS
+  "json.schemas/*.json")
+
+# set path to schemas
+set(SCHEMAPATH "${CMAKE_INSTALL_PREFIX}/include/qlp/json.schemas")
+configure_file("${PROJECT_SOURCE_DIR}/cmake/schemapath.hpp.in" ${PROJECT_SOURCE_DIR}/include/qlp/schemapath.hpp)
+
+# exports schemas to install dir
+install(FILES ${SCHEMAS} DESTINATION "${CMAKE_INSTALL_PREFIX}/include/qlp/json.schemas")
+
 # export targets to be used with find_package
 install(
   TARGETS ${PROJECT_NAME}
@@ -95,6 +107,9 @@ install(FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
 # exports headers to install dir
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/include
         DESTINATION ${CMAKE_INSTALL_PREFIX})
+
+# exports schemas to install dir
+
 
 if (BUILD_TESTS)        
   add_subdirectory(tests)

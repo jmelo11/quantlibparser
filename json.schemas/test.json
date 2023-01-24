@@ -1,0 +1,4 @@
+{
+    "$schema": "./ratehelper.schema.json",
+    "helperType": "Bond"    
+}

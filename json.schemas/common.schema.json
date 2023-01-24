@@ -2,22 +2,18 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "$id": "common.schema.json",
   "description": "Common schemas specification",
-  "type": "object",
-  "properties": {
+  "definitions": {
     "date": {
-      "$id": "#date",
       "description": "Date",
       "type": "string",
       "format": "date"
     },
     "settlementDays": {
-      "$id": "#settlementDays",
       "description": "Settlement Days",
       "type": "integer",
       "minimum": 0
     },
     "dayCounter": {
-      "$id": "#dayCounter",
       "description": "Day Counter",
       "type": "string",
       "enum": [
@@ -27,13 +23,11 @@
       ]
     },
     "notional": {
-      "$id": "#notional",
       "description": "Notional",
       "type": "number",
       "example": 1000000
     },
     "currency": {
-      "$id": "#currency",
       "type": "string",
       "description": "Currency",
       "example": "CLP",
@@ -45,7 +39,6 @@
       ]
     },
     "compounding": {
-      "$id": "#compounding",
       "type": "string",
       "description": "Rate Compounding",
       "example": "Simple",
@@ -65,8 +58,15 @@
         "Unadjusted"
       ]
     },
+    "discountCurve": {
+      "description": "Discount Curve",
+      "type": "string"
+    },
+    "index": {
+      "description": "Index",
+      "type": "string"
+    },
     "frequency": {
-      "$id": "#frequency",
       "type": "string",
       "description": "Frequency",
       "example": "Annual",
@@ -78,9 +78,8 @@
         "Once",
         "NoFrequency"
       ]
-    },
+    },    
     "marketQuote": {
-      "$id": "#marketQuote",
       "type": "object",
       "description": "Market Quote",
       "properties": {
@@ -102,7 +101,6 @@
       ]
     },
     "calendar": {
-      "$id": "#calendar",
       "type": "string",
       "description": "calendar",
       "example": "NullCalendar",
@@ -114,10 +112,13 @@
       ]
     },
     "tenor": {
-      "$id": "#tenor",
       "description": "Tenor",
       "type": "string",
       "pattern": "^\\d+[YWDM]$"
+    },
+    "endOfMonth": {
+      "description": "End of Month",
+      "type": "boolean"
     }
   }
 }

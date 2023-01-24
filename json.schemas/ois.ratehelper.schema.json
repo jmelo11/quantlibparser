@@ -1,0 +1,85 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "xccyratehelper.schema.json",
+    "$ref": "ratehelper.schema.json",
+    "definitions": {
+        "helperConfig": {
+            "type": "object",
+            "properties": {
+                "tenor": {
+                    "$ref": "common.schema.json#/definitions/tenor"
+                },
+                "dayCounter": {
+                    "$ref": "common.schema.json#/definitions/dayCounter"
+                },
+                "calendar": {
+                    "$ref": "common.schema.json#/definitions/calendar"
+                },
+                "settlementDays": {
+                    "$ref": "common.schema.json#/definitions/settlementDays"
+                },
+                "paymentLag": {
+                    "$ref": "common.schema.json#/definitions/settlementDays"
+                },
+                "endOfMonth": {
+                    "$ref": "common.schema.json#/definitions/endOfMonth"
+                },                
+                "convention": {
+                    "$ref": "common.schema.json#/definitions/convention"
+                },
+                "discountCurve": {
+                    "$ref": "common.schema.json#/definitions/discountCurve"
+                },
+                "index": {
+                    "$ref": "common.schema.json#/definitions/index"
+                },
+                "fwdStart": {
+                    "$ref": "common.schema.json#/definitions/tenor"
+                }
+            },
+            "required": [
+                "tenor"
+            ]
+        },
+        "marketConfig": {
+            "type": "object",
+            "properties": {
+                "rate": {
+                    "$ref": "common.schema.json#/definitions/marketQuote"
+                },
+                "spread": {
+                    "$ref": "common.schema.json#/definitions/marketQuote"
+                }
+            },
+            "required": [
+                "rate"
+            ]
+        }
+    },
+    "if": {
+        "properties": {
+            "helperType": {
+                "const": "OIS"
+            }
+        }
+    },
+    "then": {
+        "properties": {
+            "helperType": {
+                "const": "OIS"
+            },
+            "helperConfig": {
+                "$ref": "#/definitions/helperConfig"
+            },
+            "marketConfig": {
+                "$ref": "#/definitions/marketConfig"
+            }
+        },
+        "required": [
+            "helperType",
+            "helperConfig",
+            "marketConfig"
+        ]
+    },
+    "else": false
+}

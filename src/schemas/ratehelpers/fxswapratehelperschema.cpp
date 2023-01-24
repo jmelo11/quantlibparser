@@ -4,61 +4,42 @@
 namespace QuantLibParser {
     template <>
     void Schema<QuantLib::FxSwapRateHelper>::initSchema() {
-        json base = R"({
-            "title": "FX Swap Rate Helper Schema",
-            "properties": {},
-            "required": ["TYPE", "FXPOINTS", "FXPOINTSTICKER", "FXSPOTTICKER", "FXSPOT"]
-        })"_json;
-
-        base["properties"]["FXSPOT"]                 = priceSchema;
-        base["properties"]["FXSPOTTICKER"]           = tickerSchema;
-        base["properties"]["FXPOINTS"]               = priceSchema;
-        base["properties"]["FXPOINTSTICKER"]         = tickerSchema;
-        base["properties"]["STARTDATE"]              = dateSchema;
-        base["properties"]["ENDDATE"]                = dateSchema;
-        base["properties"]["TENOR"]                  = tenorSchema;
-        base["properties"]["TYPE"]                   = rateHelperTypeSchema;
-        base["properties"]["ENDOFMONTH"]             = eomSchema;
-        base["properties"]["CONVENTION"]             = conventionSchema;
-        base["properties"]["CALENDAR"]               = calendarSchema;
-        base["properties"]["FIXINGDATS"]             = fixingDaysSchema;
-        base["properties"]["BASECURRENCYCOLLATERAL"] = isBaseCurrencySchema;
-        base["properties"]["COLLATERALCURVE"]        = curveNameSchema;
-
-        mySchema_ = base;
+        mySchema_ = readJSONFile("fxswap.ratehelper.schema.json");
     }
 
     template <>
     void Schema<QuantLib::FxSwapRateHelper>::initDefaultValues() {
-        myDefaultValues_["STARTDATE"]  = parseDate(QuantLib::Settings::instance().evaluationDate());
-        myDefaultValues_["CALENDAR"]   = "NULLCALENDAR";
-        myDefaultValues_["FIXINGDAYS"] = 0;
-        myDefaultValues_["ENDOFMONTH"] = false;
-        myDefaultValues_["DAYCOUNTER"] = "ACT360";
-        myDefaultValues_["CONVENTION"] = "UNADJUSTED";
+        myDefaultValues_["helperConfig"]["startDate"]  = parseDate(QuantLib::Settings::instance().evaluationDate());
+        myDefaultValues_["helperConfig"]["calendar"]   = "NullCalendar";
+        myDefaultValues_["helperConfig"]["fixingDays"] = 0;
+        myDefaultValues_["helperConfig"]["endOfMonth"] = false;
+        myDefaultValues_["helperConfig"]["dayCounter"] = "Act360";
+        myDefaultValues_["helperConfig"]["convention"] = "Unadjusted";
     }
 
     template <>
     template <>
     QuantLib::FxSwapRateHelper Schema<QuantLib::FxSwapRateHelper>::makeObj(const json& params, PriceGetter& priceGetter, CurveGetter& curveGetter) {
         json data = setDefaultValues(params);
-        validate(data);
+        validate(params);
+        const json& helperConfig = data.at("helperConfig");
+        const json& marketConfig = data.at("marketConfig");
 
-        QuantLib::Calendar calendar                = parse<QuantLib::Calendar>(data.at("CALENDAR"));
-        QuantLib::BusinessDayConvention convention = parse<QuantLib::BusinessDayConvention>(data.at("CONVENTION"));
-        bool endOfMonth                            = data.at("ENDOFMONTH");
-        double fixingDays                          = data.at("FIXINGDAYS");
-        bool endOfMont                             = data.at("ENDOFMONTH");
-        bool baseCurrencyColateral                 = data.at("BASECURRENCYCOLLATERAL");
+        QuantLib::Calendar calendar                = parse<QuantLib::Calendar>(helperConfig.at("calendar"));
+        QuantLib::BusinessDayConvention convention = parse<QuantLib::BusinessDayConvention>(helperConfig.at("convention"));
+        bool endOfMonth                            = helperConfig.at("endOfMonth");
+        double fixingDays                          = helperConfig.at("fixingDays");
+        bool endOfMont                             = helperConfig.at("endOfMonth");
+        bool baseCurrencyColateral                 = helperConfig.at("baseCurrencyIsCollateral");
 
         auto collateralCurve =
-            data.find("COLLATERALCURVE") != data.end() ? curveGetter(data.at("COLLATERALCURVE")) : RelinkableHandle<YieldTermStructure>();
+            helperConfig.find("collateralCurve") != data.end() ? curveGetter(helperConfig.at("collateralCurve")) : RelinkableHandle<YieldTermStructure>();
 
         // non-defaults
         QuantLib::Period tenor;
-        if (data.find("ENDDATE") != data.end()) {
-            QuantLib::Date endDate   = parse<QuantLib::Date>(data.at("ENDDATE"));
-            QuantLib::Date startDate = parse<QuantLib::Date>(data.at("STARTDATE"));
+        if (helperConfig.find("endDate") != helperConfig.end()) {
+            QuantLib::Date endDate   = parse<QuantLib::Date>(helperConfig.at("endDate"));
+            QuantLib::Date startDate = parse<QuantLib::Date>(helperConfig.at("startDate"));
 
             int days = endDate - startDate;
             if (days > 0) {
@@ -67,11 +48,12 @@ namespace QuantLibParser {
                 throw std::runtime_error("Error processing FXSWAPRATEHELPER: End date must be after today (" + parseDate(startDate) + ").");
             }
         } else {
-            tenor = parse<QuantLib::Period>(data.at("TENOR"));
+            tenor = parse<QuantLib::Period>(helperConfig.at("tenor"));
         }
 
-        auto fxPoints = priceGetter(data.at("FXPOINTS"), data.at("FXPOINTSTICKER"));
-        auto fxSpot   = priceGetter(data.at("FXSPOT"), data.at("FXSPOTTICKER"));
+
+        auto fxPoints = priceGetter(marketConfig.at("fxPoints").at("value"), marketConfig.at("fxPoints").at("ticker"));
+        auto fxSpot   = priceGetter(marketConfig.at("fxSpot").at("value"), marketConfig.at("fxSpot").at("ticker"));
 
         return QuantLib::FxSwapRateHelper(fxPoints, fxSpot, tenor, fixingDays, calendar, convention, endOfMonth, baseCurrencyColateral,
                                           collateralCurve);

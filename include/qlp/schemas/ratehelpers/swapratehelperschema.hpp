@@ -1,5 +1,5 @@
-#ifndef B8C18B07_3A7F_4FC3_BE18_DE08D66F9B95
-#define B8C18B07_3A7F_4FC3_BE18_DE08D66F9B95
+#ifndef A419F092_1290_4617_85D0_FD8CDDC17992
+#define A419F092_1290_4617_85D0_FD8CDDC17992
 
 #include <ql/termstructures/yield/ratehelpers.hpp>
 #include <qlp/schemas/schema.hpp>
@@ -18,4 +18,4 @@ namespace QuantLibParser {
                                                                        CurveGetter& curveGetter);
 }  // namespace QuantLibParser
 
-#endif /* B8C18B07_3A7F_4FC3_BE18_DE08D66F9B95 */
+#endif /* A419F092_1290_4617_85D0_FD8CDDC17992 */

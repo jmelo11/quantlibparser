@@ -1,5 +1,5 @@
-#ifndef CAD14D85_CBF4_4973_B946_7206E9020489
-#define CAD14D85_CBF4_4973_B946_7206E9020489
+#ifndef FBCE53F7_949D_4709_B6AB_BCF1DE30F4A5
+#define FBCE53F7_949D_4709_B6AB_BCF1DE30F4A5
 
 #include <ql/termstructures/yield/bondhelpers.hpp>
 #include <qlp/schemas/commonschemas.hpp>
@@ -18,4 +18,4 @@ namespace QuantLibParser {
     QuantLib::DepositRateHelper Schema<QuantLib::DepositRateHelper>::makeObj(const json& params, PriceGetter& priceGetter);
 }  // namespace QuantLibParser
 
-#endif /* CAD14D85_CBF4_4973_B946_7206E9020489 */
+#endif /* FBCE53F7_949D_4709_B6AB_BCF1DE30F4A5 */

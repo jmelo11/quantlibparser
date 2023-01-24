@@ -1,0 +1,88 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "xccyratehelper.schema.json",
+    "$ref": "ratehelper.schema.json",
+    "definitions": {
+        "helperConfig": {
+            "type": "object",
+            "properties": {
+                "tenor": {
+                    "$ref": "common.schema.json#/definitions/tenor"
+                },
+                "startDate": {
+                    "$ref": "common.schema.json#/definitions/date"
+                },
+                "endDate": {
+                    "$ref": "common.schema.json#/definitions/date"
+                },
+                "calendar": {
+                    "$ref": "common.schema.json#/definitions/calendar"
+                },
+                "settlementDays": {
+                    "$ref": "common.schema.json#/definitions/settlementDays"
+                },
+                "endOfMonth": {
+                    "$ref": "common.schema.json#/definitions/endOfMonth"
+                },
+                "convention": {
+                    "$ref": "common.schema.json#/definitions/convention"
+                },
+                "collateralCurve": {
+                    "$ref": "common.schema.json#/definitions/discountCurve"
+                },
+                "baseCurrencyIsCollateral": {
+                    "type": "boolean"
+                },
+                "fixingDays": {
+                    "$ref": "common.schema.json#/definitions/settlementDays"
+                }
+            },
+            "required": [
+                "tenor",
+                "baseCurrencyIsCollateral",
+                "collateralCurve"
+            ]
+        },
+        "marketConfig": {
+            "type": "object",
+            "properties": {
+                "fxPoints": {
+                    "$ref": "common.schema.json#/definitions/marketQuote"
+                },
+                "fxSpot": {
+                    "$ref": "common.schema.json#/definitions/marketQuote"
+                }
+            },
+            "required": [
+                "fxPoints",
+                "fxSpot"
+            ]
+        }
+    },
+    "if": {
+        "properties": {
+            "helperType": {
+                "const": "FxSwap"
+            }
+        }
+    },
+    "then": {
+        "properties": {
+            "helperType": {
+                "const": "FxSwap"
+            },
+            "helperConfig": {
+                "$ref": "#/definitions/helperConfig"
+            },
+            "marketConfig": {
+                "$ref": "#/definitions/marketConfig"
+            }
+        },
+        "required": [
+            "helperType",
+            "helperConfig",
+            "marketConfig"
+        ]
+    },
+    "else": false
+}

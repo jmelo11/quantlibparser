@@ -5,61 +5,43 @@
 namespace QuantLibParser {
     template <>
     void Schema<QuantLib::FixedRateBondHelper>::initSchema() {
-        json base = R"({
-            "title": "Bond Rate Helper Schema",
-            "properties": {},
-            "required": ["RATE", "RATETICKER", "TENOR", "TYPE"]
-        })"_json;
-
-        base["properties"]["RATETICKER"]       = tickerSchema;
-        base["properties"]["TYPE"]             = rateHelperTypeSchema;
-        base["properties"]["TENOR"]            = tenorSchema;
-        base["properties"]["CALENDAR"]         = calendarSchema;
-        base["properties"]["COMPOUNDING"]      = compoundingSchema;
-        base["properties"]["FREQUENCY"]        = frequencySchema;
-        base["properties"]["SETTLEMENTDAYS"]   = fixingDaysSchema;
-        base["properties"]["FACEAMOUNT"]       = faceAmountSchema;
-        base["properties"]["COUPON"]           = priceSchema;
-        base["properties"]["IRRDAYCOUNTER"]    = dayCounterSchema;
-        base["properties"]["COUPONDAYCOUNTER"] = dayCounterSchema;
-
-        mySchema_ = base;
+        mySchema_ = readJSONFile("bondratehelper.schema.json");
     };
 
     template <>
     void Schema<QuantLib::FixedRateBondHelper>::initDefaultValues() {
-        myDefaultValues_["STARTDATE"]        = parseDate(QuantLib::Settings::instance().evaluationDate());
-        myDefaultValues_["CALENDAR"]         = "NULLCALENDAR";        
-        myDefaultValues_["SETTLEMENTDAYS"]   = 0;
-        myDefaultValues_["FACEAMOUNT"]       = 100.0;
-        myDefaultValues_["COUPON"]           = 0.03;
-        myDefaultValues_["IRRDAYCOUNTER"]    = "ACT365";
-        myDefaultValues_["COUPONDAYCOUNTER"] = "THIRTY360";
-        myDefaultValues_["FREQUENCY"]        = "SEMIANNUAL";
-        myDefaultValues_["CONVENTION"]       = "UNADJUSTED";
+        myDefaultValues_["helperConfig"]["calendar"] = "NullCalendar";
+        myDefaultValues_["helperConfig"]["convention"] = "Unadjusted";
+        myDefaultValues_["helperConfig"]["paymentFrequency"] = "SemiAnnual";
+        myDefaultValues_["helperConfig"]["couponDayCounter"] = "Thirty360";
+        myDefaultValues_["helperConfig"]["yieldDayCounter"] = "Act360";
+        myDefaultValues_["helperConfig"]["settlementDays"] = 0;        
+        myDefaultValues_["helperConfig"]["couponRate"] = 0.03;
     };
 
     template <>
     template <>
     QuantLib::FixedRateBondHelper Schema<QuantLib::FixedRateBondHelper>::makeObj(const json& params, PriceGetter& priceGetter) {
         json data = setDefaultValues(params);
-        validate(data);
+        validate(params);        
+        const json& helperConfig = data.at("helperConfig");
+        const json& marketConfig = data.at("marketConfig");
 
-        QuantLib::Calendar calendar                = parse<QuantLib::Calendar>(data.at("CALENDAR"));
-        QuantLib::BusinessDayConvention convention = parse<QuantLib::BusinessDayConvention>(data.at("CONVENTION"));
-        QuantLib::Frequency frequency              = parse<QuantLib::Frequency>(data.at("FREQUENCY"));
-        QuantLib::Period tenor                     = parse<QuantLib::Period>(data.at("TENOR"));
-        QuantLib::DayCounter couponDayCounter      = parse<QuantLib::DayCounter>(data.at("COUPONDAYCOUNTER"));
-        QuantLib::DayCounter irrDayCounter         = parse<QuantLib::DayCounter>(data.at("IRRDAYCOUNTER"));
+        QuantLib::Calendar calendar                = parse<QuantLib::Calendar>(helperConfig.at("calendar"));
+        QuantLib::BusinessDayConvention convention = parse<QuantLib::BusinessDayConvention>(helperConfig.at("convention"));
+        QuantLib::Frequency frequency              = parse<QuantLib::Frequency>(helperConfig.at("paymentFrequency"));
+        QuantLib::Period tenor                     = parse<QuantLib::Period>(helperConfig.at("tenor"));
+        QuantLib::DayCounter couponDayCounter      = parse<QuantLib::DayCounter>(helperConfig.at("couponDayCounter"));
+        QuantLib::DayCounter yieldDayCounter       = parse<QuantLib::DayCounter>(helperConfig.at("yieldDayCounter"));
 
-        double settlementDays = data.at("SETTLEMENTDAYS");
-        double faceAmount     = data.at("FACEAMOUNT");
-        double coupon         = data.at("COUPON");
+        double settlementDays = helperConfig.at("settlementDays");
+        double faceAmount     = 100;
+        double coupon         = helperConfig.at("couponRate");
 
-        QuantLib::Date startDate = parse<Date>(data.at("STARTDATE"));
+        QuantLib::Date startDate = parse<Date>(helperConfig.at("startDate"));
         QuantLib::Date endDate;
-        if (data.find("ENDDATE") != data.end()) {
-            endDate = parse<Date>(data.at("ENDDATE"));
+        if (helperConfig.find("endDate") != helperConfig.end()) {
+            endDate = parse<Date>(helperConfig.at("endDate"));
         } else {
             endDate = startDate + tenor;
         }
@@ -67,7 +49,10 @@ namespace QuantLibParser {
         /* coupon rate */
         QuantLib::InterestRate couponRate(coupon, couponDayCounter, QuantLib::Compounding::Simple, QuantLib::Frequency::Annual);
         std::vector<QuantLib::InterestRate> coupons{couponRate};
-        auto RATE = priceGetter(params.at("RATE"), params.at("RATETICKER"));
+
+        /* price */
+        const json& rate = marketConfig.at("rate");
+        auto RATE = priceGetter(rate.at("value"), rate.at("ticker"));
 
         QuantLib::Schedule schedule =
             QuantLib::MakeSchedule().from(startDate).to(endDate).withTenor(tenor).withFrequency(frequency).withCalendar(calendar).withConvention(
@@ -75,7 +60,7 @@ namespace QuantLibParser {
 
         QuantLib::FixedRateBond bond(settlementDays, faceAmount, schedule, coupons);
         boost::shared_ptr<QuantLib::SimpleQuote> cleanPrice(boost::make_shared<SimpleQuote>(
-            bond.cleanPrice(RATE->value(), irrDayCounter, QuantLib::Compounding::Compounded, QuantLib::Frequency::Annual)));
+            bond.cleanPrice(RATE->value(), yieldDayCounter, QuantLib::Compounding::Compounded, QuantLib::Frequency::Annual)));
         QuantLib::Handle<QuantLib::Quote> handlePrice(cleanPrice);
 
         return FixedRateBondHelper(handlePrice, settlementDays, faceAmount, schedule, std::vector<double>{coupon}, couponDayCounter);
