@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "interestrate.schema.json",
+    "description": "Interest rate",
+    "type": "object",
+    "properties": {
+        "value":{
+            "description": "Interest rate value",
+            "type": "number"
+        },
+        "dayCounter":{
+            "$ref": "common.schema.json#/definitions/dayCounter"
+        },
+        "compounding":{
+            "$ref": "common.schema.json#/definitions/compounding"
+        },
+        "frequency":{
+            "$ref": "common.schema.json#/definitions/frequency"
+        }        
+    },
+    "required": ["value"]
+}

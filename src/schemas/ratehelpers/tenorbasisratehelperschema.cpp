@@ -4,28 +4,12 @@
 namespace QuantLibParser {
     template <>
     void Schema<QuantExt::TenorBasisSwapHelper>::initSchema() {
-        json base = R"({
-            "title": "Tenor Basis Swap Rate Helper Schema",
-            "properties": {},
-            "required": ["TYPE", "SPREAD", "SPREADTICKER", "SHORTINDEX", "LONGINDEX", "TENOR"]
-        })"_json;
-
-        base["properties"]["SPREAD"]           = priceSchema;
-        base["properties"]["SPREADTICKER"]     = tickerSchema;
-        base["properties"]["SHORTINDEX"]       = curveNameSchema;
-        base["properties"]["LONGINDEX"]        = curveNameSchema;
-        base["properties"]["TENOR"]            = tenorSchema;
-        base["properties"]["SPREADONSHORT"]    = eomSchema;
-        base["properties"]["SHORTPAYTENOR"]    = tenorSchema;
-        base["properties"]["TYPE"]             = rateHelperTypeSchema;
-        base["properties"]["DISCOUNTINGCURVE"] = curveNameSchema;
-
-        mySchema_ = base;
+        mySchema_ = readJSONFile("tenorbasis.ratehelperschema.json");
     }
 
     template <>
     void Schema<QuantExt::TenorBasisSwapHelper>::initDefaultValues() {
-        myDefaultValues_["SPREADONSHORT"] = true;
+        myDefaultValues_["helperConfig"]["spreadOnShort"] = true;
     }
 
     template <>
@@ -33,35 +17,38 @@ namespace QuantLibParser {
     QuantExt::TenorBasisSwapHelper Schema<QuantExt::TenorBasisSwapHelper>::makeObj(const json& params, PriceGetter& priceGetter,
                                                                                    IndexGetter& indexGetter, CurveGetter& curveGetter) {
         json data = setDefaultValues(params);
-        validate(data);
-        
-        auto discountCurve = data.find("DISCOUNTINGCURVE") != data.end() ? curveGetter(data.at("DISCOUNTINGCURVE")) :
-                                                                           QuantLib::RelinkableHandle<QuantLib::YieldTermStructure>();
-        auto shortIndex    = indexGetter(params.at("SHORTINDEX"));
-        auto longIndex     = indexGetter(params.at("LONGINDEX"));
+        validate(params);
+        const json& helperConfig = data.at("helperConfig");
+        const json& marketConfig = data.at("marketConfig");
+
+        auto discountCurve = helperConfig.find("discountCurve") != helperConfig.end() ? curveGetter(data.at("discountCurve")) :
+                                                                                        QuantLib::RelinkableHandle<QuantLib::YieldTermStructure>();
+        auto shortIndex    = indexGetter(helperConfig.at("shortIndex"));
+        auto longIndex     = indexGetter(helperConfig.at("longIndex"));
 
         /*check if any of the curves can be build, otherwise fail*/
         if (shortIndex->forwardingTermStructure().empty() && longIndex->forwardingTermStructure().empty()) {
-            auto handle = curveGetter(data.at("SHORTINDEX"));
+            auto handle = curveGetter(helperConfig.at("shortIndex"));
             if (handle.empty()) {
-                handle    = curveGetter(data.at("LONGINDEX"));
-                longIndex = indexGetter(data.at("LONGINDEX"));
+                handle    = curveGetter(helperConfig.at("longIndex"));
+                longIndex = indexGetter(helperConfig.at("longIndex"));
             } else {
-                shortIndex = indexGetter(data.at("SHORTINDEX"));
+                shortIndex = indexGetter(helperConfig.at("shortIndex"));
             }
         }
-        QuantLib::Period tenor = parse<QuantLib::Period>(data.at("TENOR"));
+        QuantLib::Period tenor = parse<QuantLib::Period>(helperConfig.at("tenor"));
 
-        QuantLib::Period shortPayTenor = data.find("SHORTPAYTENOR") != data.end() ? parse<QuantLib::Period>(data.at("SHORTPAYTENOR")) : tenor;
+        QuantLib::Period shortPayTenor =
+            helperConfig.find("shortPayTenor") != helperConfig.end() ? parse<QuantLib::Period>(helperConfig.at("shortPayTenor")) : tenor;
 
-        bool spreadOnShort = data.at("SPREADONSHORT");
+        bool spreadOnShort = helperConfig.at("spreadOnShort");
 
-        double spread = data.at("SPREAD");
+        double spread = marketConfig.at("spread").at("value");
         boost::shared_ptr<QuantLib::Quote> spreadPtr(new QuantLib::SimpleQuote(spread));
         QuantLib::Handle<QuantLib::Quote> spreadQuote(spreadPtr);
 
         QuantLib::Period sortPayTenor =
-            data.find("SHORTPAYTENOR") != data.end() ? parse<QuantLib::Period>(data.at("SHORTPAYTENOR")) : QuantLib::Period();
+            helperConfig.find("shortPayTenor") != helperConfig.end() ? parse<QuantLib::Period>(helperConfig.at("shortPayTenor")) : QuantLib::Period();
 
         return QuantExt::TenorBasisSwapHelper(spreadQuote, tenor, longIndex, shortIndex, sortPayTenor, discountCurve, spreadOnShort);
     }

@@ -6,36 +6,13 @@ namespace QuantLibParser {
 
     template <>
     void Schema<QuantLib::DiscountCurve>::initSchema() {
-        json base = R"({
-            "title": "Discount Curve Schema",
-            "properties": {},			
-            "required": ["NODES"]
-        })"_json;
-
-        json nodes = R"({
-			"type": "array",
-			"items": {
-				"type": "object",
-				"properties": {
-					"DATE": {},
-					"VALUE": {}
-				},
-				"required":["DATE","VALUE"]
-			}
-		})"_json;
-
-        nodes["items"]["properties"]["DATE"]      = dateSchema;
-        nodes["items"]["properties"]["VALUE"]     = priceSchema;
-        base["properties"]["NODES"]               = nodes;
-        base["properties"]["ENABLEEXTRAPOLATION"] = enableExtrapolationSchema;
-
-        mySchema_ = base;
+        mySchema_ = readJSONFile("discountcurve.schema.json");
     };
 
     template <>
     void Schema<QuantLib::DiscountCurve>::initDefaultValues() {
-        myDefaultValues_["ENABLEEXTRAPOLATION"] = true;
-        myDefaultValues_["DAYCOUNTER"]          = "ACT360";
+        myDefaultValues_["enableExtrapolation"] = true;
+        myDefaultValues_["dayCounter"]          = "ACT360";
     };
 
     template <>
@@ -44,16 +21,16 @@ namespace QuantLibParser {
         json data = setDefaultValues(params);
         validate(data);
 
-        const json& nodes = data.at("NODES");
+        const json& nodes = data.at("nodes");
         std::vector<QuantLib::Date> dates;
         std::vector<double> dfs;
         for (const auto& node : nodes) {
-            dates.push_back(parse<QuantLib::Date>(node.at("DATE")));
-            dfs.push_back(node.at("VALUE"));
+            dates.push_back(parse<QuantLib::Date>(node.at("date")));
+            dfs.push_back(node.at("value"));
         }
-        QuantLib::DayCounter dayCounter = parse<QuantLib::DayCounter>(data.at("DAYCOUNTER"));
+        QuantLib::DayCounter dayCounter = parse<QuantLib::DayCounter>(data.at("dayCounter"));
 
-        bool enableExtrapolation = data.at("ENABLEEXTRAPOLATION");
+        bool enableExtrapolation = data.at("enableExtrapolation");
         QuantLib::DiscountCurve curve(dates, dfs, dayCounter);
 
         curve.enableExtrapolation(enableExtrapolation);

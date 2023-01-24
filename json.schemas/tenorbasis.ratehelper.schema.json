@@ -1,47 +1,41 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "bond.ratehelper.schema.json",
+    "$id": "tenorbasis.ratehelper.schema.json",
     "$ref": "ratehelper.schema.json",
     "definitions": {
         "helperConfig": {
             "type": "object",
             "properties": {
+                "spreadOnShortIndex": {
+                    "type": "boolean"
+                },
+                "shortIndex": {
+                    "type": "string"
+                },
+                "longIndex": {
+                    "type": "string"
+                },
+                "discountingCurve": {
+                    "$ref": "common.schema.json#/definitions/discountingCurve"
+                },
                 "tenor": {
                     "$ref": "common.schema.json#/definitions/tenor"
                 },
-                "couponDayCounter": {
-                    "$ref": "common.schema.json#/definitions/dayCounter"
-                },
-                "couponRate": {
-                    "type": "number"
-                },
-                "yieldDayCounter": {
-                    "$ref": "common.schema.json#/definitions/dayCounter"
-                },
-                "calendar": {
-                    "$ref": "common.schema.json#/definitions/calendar"
-                },
-                "paymentFrequency": {
-                    "$ref": "common.schema.json#/definitions/frequency"
-                },
-                "settlementDays": {
-                    "$ref": "common.schema.json#/definitions/settlementDays"
-                },
-                "startDate": {
-                    "$ref": "common.schema.json#/definitions/date"
-                },
-                "endDate": {
-                    "$ref": "common.schema.json#/definitions/date"
+                "shortPayTenor": {
+                    "type": "boolean"
                 }
             },
             "required": [
-                "tenor"
+                "tenor",
+                "shortIndex",
+                "longIndex",
+                "spreadOnShortIndex"
             ]
         },
         "marketConfig": {
             "type": "object",
             "properties": {
-                "rate": {
+                "spread": {
                     "$ref": "common.schema.json#/definitions/marketQuote"
                 }
             },
@@ -53,14 +47,14 @@
     "if": {
         "properties": {
             "helperType": {
-                "const": "Bond"
+                "const": "TenorBasis"
             }
         }
     },
     "then": {
         "properties": {
             "helperType": {
-                "const": "Bond"
+                "const": "TenorBasis"
             },
             "helperConfig": {
                 "$ref": "#/definitions/helperConfig"

@@ -12,26 +12,13 @@
 namespace QuantLibParser {
     template <>
     void Schema<QuantLib::PiecewiseYieldCurve<QuantLib::Discount, QuantLib::LogLinear>>::initSchema() {
-        json base = R"({
-            "title": "Bootstrap Curve Schema",
-            "properties": {},			
-            "required": ["RATEHELPERS"]
-        })"_json;
-
-        json ratehelpers = R"({
-			"type": "array"			
-		})"_json;
-
-        base["properties"]["ENABLEEXTRAPOLATION"] = enableExtrapolationSchema;
-        base["properties"]["RATEHELPERS"]         = ratehelpers;
-        base["properties"]["DAYCOUNTER"]          = dayCounterSchema;
-        mySchema_                                 = base;
+        mySchema_ = readJSONFile("bootstrapcurve.schema.json");
     }
 
     template <>
     void Schema<QuantLib::PiecewiseYieldCurve<QuantLib::Discount, QuantLib::LogLinear>>::initDefaultValues() {
-        myDefaultValues_["ENABLEEXTRAPOLATION"] = true;
-        myDefaultValues_["DAYCOUNTER"]          = "ACT360";
+        myDefaultValues_["enableExtrapolation"] = true;
+        myDefaultValues_["dayCounter"]          = "Act360";
     }
 
 }  // namespace QuantLibParser

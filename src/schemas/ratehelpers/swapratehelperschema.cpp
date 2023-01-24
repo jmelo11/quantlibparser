@@ -5,7 +5,7 @@
 namespace QuantLibParser {
     template <>
     void Schema<QuantLib::SwapRateHelper>::initSchema() {
-        mySchema_ = readJSONFile("swapratehelper.schema.json");
+        mySchema_ = readJSONFile("swap.ratehelper.schema.json");
     }
 
     template <>
@@ -32,7 +32,7 @@ namespace QuantLibParser {
         QuantLib::DayCounter dayCounter            = parse<QuantLib::DayCounter>(helperConfig.at("dayCounter"));
         QuantLib::Calendar calendar                = parse<QuantLib::Calendar>(helperConfig.at("calendar"));
         QuantLib::BusinessDayConvention convention = parse<QuantLib::BusinessDayConvention>(helperConfig.at("convention"));
-        QuantLib::Frequency frequency              = parse<QuantLib::Frequency>(helperConfig.at("paymentFrequency"));
+        QuantLib::Frequency frequency              = parse<QuantLib::Frequency>(helperConfig.at("fixedLegFrequency"));
         QuantLib::Period tenor                     = parse<QuantLib::Period>(helperConfig.at("tenor"));
         QuantLib::Period fwdStart                  = parse<QuantLib::Period>(helperConfig.at("fwdStart"));
         int settlementDays                         = helperConfig.at("settlementDays");

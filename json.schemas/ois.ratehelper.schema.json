@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "xccyratehelper.schema.json",
+    "$id": "ois.ratehelper.schema.json",
     "$ref": "ratehelper.schema.json",
     "definitions": {
         "helperConfig": {
@@ -23,7 +23,7 @@
                 },
                 "endOfMonth": {
                     "$ref": "common.schema.json#/definitions/endOfMonth"
-                },                
+                },
                 "convention": {
                     "$ref": "common.schema.json#/definitions/convention"
                 },
@@ -35,7 +35,13 @@
                 },
                 "fwdStart": {
                     "$ref": "common.schema.json#/definitions/tenor"
-                }
+                },
+                "telescopicValueDates": {
+                    "$ref": "common.schema.json#/definitions/telescopicValueDates"
+                },
+                "fixedLegFrequency":{
+                    "$ref": "common.schema.json#/definitions/frequency"
+                },
             },
             "required": [
                 "tenor"

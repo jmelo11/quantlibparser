@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "bootstrapcurve.schema.json",
+    "description": "BootstrapCurve schema",
+    "type": "object",
+    "properties": {
+        "rateHelpers":{
+            "type": "array",
+            "items": [
+                {
+                    "$ref": "ratehelper.schema.json"
+                }
+            ],
+            "minItems": 2
+        },
+        "dayCounter":{
+            "$ref": "common.schema.json/#/definitions/dayCounter"
+        },
+        "enableExtrapolation":{
+            "type": "boolean"
+        }
+    }
+
+}

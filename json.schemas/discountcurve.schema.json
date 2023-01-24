@@ -1,0 +1,36 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "discountcurve.schema.json",
+    "description": "Discount curve schema",
+    "type": "object",
+    "properties": {
+        "enableExtrapolation": {
+            "type": "boolean"
+        },
+        "dayCounter": {
+            "$ref": "common.schema.json#/definitions/dayCounter"
+        },
+        "nodes": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "date": {
+                        "$ref": "common.schema.json#/definitions/date"
+                    },
+                    "value": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "date",
+                    "value"
+                ]
+            },
+            "minItems": 2
+        }
+    },
+    "required": [
+        "nodes"
+    ]
+}

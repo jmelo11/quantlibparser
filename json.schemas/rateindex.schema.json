@@ -1,0 +1,36 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "rateindex.schema.json",
+    "description": "Rate index schema",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "calendar": {
+            "$ref": "common.schema.json#/definitions/calendar"
+        },
+        "currency": {
+            "$ref": "common.schema.json#/definitions/currency"
+        },
+        "dayCounter": {
+            "$ref": "common.schema.json#/definitions/dayCounter"
+        },
+        "endOfMonth": {
+            "type": "boolean"
+        },
+        "convention": {
+            "$ref": "common.schema.json#/definitions/convention"
+        },
+        "tenor": {
+            "$ref": "common.schema.json#/definitions/tenor"
+        },
+        "settlementDays": {
+            "type": "integer"
+        }
+    },
+    "required": [
+        "name",
+        "currency"
+    ]
+}

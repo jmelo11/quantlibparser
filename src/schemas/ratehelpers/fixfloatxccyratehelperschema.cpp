@@ -4,41 +4,19 @@
 namespace QuantLibParser {
     template <>
     void Schema<QuantExt::CrossCcyFixFloatSwapHelper>::initSchema() {
-        json base = R"({
-            "title": "Xccy Rate Helper Schema",
-            "properties": {},
-            "required": ["TYPE", "RATE", "RATETICKER", "FXSPOT", "FXSPOTTICKER", "TENOR", "CURRENCY", "INDEX"]
-        })"_json;
-
-        base["properties"]["DAYCOUNTER"]       = dayCounterSchema;
-        base["properties"]["CALENDAR"]         = calendarSchema;
-        base["properties"]["CONVENTION"]       = conventionSchema;
-        base["properties"]["ENDOFMONTH"]       = eomSchema;
-        base["properties"]["FREQUENCY"]        = frequencySchema;
-        base["properties"]["SETTLEMENTDAYS"]   = fixingDaysSchema;
-        base["properties"]["SPREAD"]           = priceSchema;
-        base["properties"]["DISCOUNTINGCURVE"] = curveNameSchema;
-        base["properties"]["RATE"]             = priceSchema;
-        base["properties"]["RATETICKER"]       = tickerSchema;
-        base["properties"]["FXSPOT"]           = priceSchema;
-        base["properties"]["FXSPOTTICKER"]     = tickerSchema;
-        base["properties"]["INDEX"]            = curveNameSchema;
-        base["properties"]["CURRENCY"]         = currencySchema;
-        base["properties"]["TYPE"]             = rateHelperTypeSchema;
-        base["properties"]["TENOR"]            = tenorSchema;
-
-        mySchema_ = base;
+        mySchema_ = readJSONFile("xccy.ratehelper.schema.json");
     }
 
     template <>
     void Schema<QuantExt::CrossCcyFixFloatSwapHelper>::initDefaultValues() {
-        myDefaultValues_["DAYCOUNTER"]     = "ACT360";
-        myDefaultValues_["CALENDAR"]       = "NULLCALENDAR";
-        myDefaultValues_["CONVENTION"]     = "UNADJUSTED";
-        myDefaultValues_["SETTLEMENTDAYS"] = 0;
-        myDefaultValues_["ENDOFMONTH"]     = false;
-        myDefaultValues_["FREQUENCY"]      = "SEMIANNUAL";
-        myDefaultValues_["SPREAD"]         = 0.0;
+        myDefaultValues_["helperConfig"]["dayCounter"]        = "Act360";
+        myDefaultValues_["helperConfig"]["calendar"]          = "NullCalendar";
+        myDefaultValues_["helperConfig"]["convention"]        = "Unadjusted";
+        myDefaultValues_["helperConfig"]["settlementDays"]    = 0;
+        myDefaultValues_["helperConfig"]["endOfMonth"]        = false;
+        myDefaultValues_["helperConfig"]["fixedLegFrequency"] = "SemiAnnual";
+
+        myDefaultValues_["marketConfig"]["spread"]["value"] = 0.0;
     }
 
     template <>
@@ -46,27 +24,30 @@ namespace QuantLibParser {
     QuantExt::CrossCcyFixFloatSwapHelper Schema<QuantExt::CrossCcyFixFloatSwapHelper>::makeObj(const json& params, PriceGetter& priceGetter,
                                                                                                IndexGetter& indexGetter, CurveGetter& curveGetter) {
         json data = setDefaultValues(params);
-        validate(data);
+        validate(params);
+        const json& helperConfig = data.at("helperConfig");
+        const json& marketConfig = data.at("marketConfig");
 
-        QuantLib::DayCounter dayCounter            = parse<QuantLib::DayCounter>(data.at("DAYCOUNTER"));
-        QuantLib::Calendar calendar                = parse<QuantLib::Calendar>(data.at("CALENDAR"));
-        QuantLib::BusinessDayConvention convention = parse<QuantLib::BusinessDayConvention>(data.at("CONVENTION"));
-        bool endOfMonth                            = data.at("ENDOFMONTH");
-        int settlementDays                         = data.at("SETTLEMENTDAYS");
-        QuantLib::Period tenor                     = parse<QuantLib::Period>(data.at("TENOR"));
-        QuantLib::Frequency frequency              = parse<QuantLib::Frequency>(data.at("FREQUENCY"));
-        QuantLib::Currency currency                = parse<QuantLib::Currency>(data.at("CURRENCY"));
+        QuantLib::DayCounter dayCounter            = parse<QuantLib::DayCounter>(helperConfig.at("dayCounter"));
+        QuantLib::Calendar calendar                = parse<QuantLib::Calendar>(helperConfig.at("calendar"));
+        QuantLib::BusinessDayConvention convention = parse<QuantLib::BusinessDayConvention>(helperConfig.at("convention"));
+        bool endOfMonth                            = helperConfig.at("endOfMOnth");
+        int settlementDays                         = helperConfig.at("settlementDays");
+        QuantLib::Period tenor                     = parse<QuantLib::Period>(helperConfig.at("tenor"));
+        QuantLib::Frequency frequency              = parse<QuantLib::Frequency>(helperConfig.at("fixedLegFrequency"));
+        QuantLib::Currency currency                = parse<QuantLib::Currency>(helperConfig.at("fixedLegCurrency"));
 
-        double spread  = data.at("SPREAD");
+        double spread  = marketConfig.at("spread").at("value");
         auto spreadPtr = ext::make_shared<QuantLib::SimpleQuote>(spread);
         QuantLib::Handle<QuantLib::Quote> spreadQuote(spreadPtr);
 
-        bool hasDiscountCurve = data.find("DISCOUNTINGCURVE") != data.end();
-        auto discountCurve = hasDiscountCurve ? curveGetter(data.at("DISCOUNTINGCURVE")) : QuantLib::RelinkableHandle<QuantLib::YieldTermStructure>();
+        bool hasDiscountCurve = helperConfig.find("discountCurve") != helperConfig.end();
+        auto discountCurve =
+            hasDiscountCurve ? curveGetter(helperConfig.at("discountCurve")) : QuantLib::RelinkableHandle<QuantLib::YieldTermStructure>();
 
-        auto rate   = priceGetter(data.at("RATE"), data.at("RATETICKER"));
-        auto fxSpot = priceGetter(data.at("FXSPOT"), data.at("FXSPOTTICKER"));
-        auto index  = indexGetter(data.at("INDEX"));
+        auto rate   = priceGetter(marketConfig.at("rate").at("value"), marketConfig.at("rate").at("ticker"));
+        auto fxSpot = priceGetter(marketConfig.at("fxSpot").at("value"), marketConfig.at("rate").at("ticker"));
+        auto index  = indexGetter(helperConfig.at("index"));
 
         return QuantExt::CrossCcyFixFloatSwapHelper(rate, fxSpot, settlementDays, calendar, convention, tenor, currency, frequency, convention,
                                                     dayCounter, index, discountCurve, spreadQuote, endOfMonth);

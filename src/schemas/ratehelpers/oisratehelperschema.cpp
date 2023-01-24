@@ -32,7 +32,7 @@ namespace QuantLibParser {
         QuantLib::DayCounter dayCounter            = parse<QuantLib::DayCounter>(helperConfig.at("dayCounter"));
         QuantLib::Calendar calendar                = parse<QuantLib::Calendar>(helperConfig.at("calendar"));
         QuantLib::BusinessDayConvention convention = parse<QuantLib::BusinessDayConvention>(helperConfig.at("convention"));
-        QuantLib::Frequency frequency              = parse<QuantLib::Frequency>(helperConfig.at("paymentFrequency"));
+        QuantLib::Frequency frequency              = parse<QuantLib::Frequency>(helperConfig.at("fixedLegFrequency"));
         QuantLib::Period tenor                     = parse<QuantLib::Period>(helperConfig.at("tenor"));
         int settlementDays                         = helperConfig.at("settlementDays");
         int paymentLag                             = helperConfig.at("paymentLag");
@@ -49,7 +49,7 @@ namespace QuantLibParser {
         auto index    = indexGetter(helperConfig.at("index"));
         auto indexPtr = boost::dynamic_pointer_cast<QuantLib::OvernightIndex>(index);
 
-        return QuantLib::OISRateHelper(settlementDays, tenor, mktRate, indexPtr, discountCurve, telescopicValueDates, paymentLag, convention, frequency,
-                                       calendar, fwdStart, spread);
+        return QuantLib::OISRateHelper(settlementDays, tenor, mktRate, indexPtr, discountCurve, telescopicValueDates, paymentLag, convention,
+                                       frequency, calendar, fwdStart, spread);
     }
 }  // namespace QuantLibParser

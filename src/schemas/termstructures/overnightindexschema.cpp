@@ -6,26 +6,14 @@ namespace QuantLibParser {
 
     template <>
     void Schema<QuantLib::OvernightIndex>::initSchema() {
-        json base = R"({
-            "title": "Overnight Index Schema",
-            "properties": {},			
-            "required": ["NAME","DAYCOUNTER","CURRENCY","CALENDAR"]
-        })"_json;
-
-        base["properties"]["NAME"]           = curveNameSchema;
-        base["properties"]["SETTLEMENTDAYS"] = fixingDaysSchema;
-        base["properties"]["DAYCOUNTER"]     = dayCounterSchema;
-        base["properties"]["CURRENCY"]       = currencySchema;
-        base["properties"]["CALENDAR"]       = calendarSchema;
-
-        mySchema_ = base;
+        mySchema_ = readJSONFile("rateindex.schema.json");
     };
 
     template <>
     void Schema<QuantLib::OvernightIndex>::initDefaultValues() {
-        myDefaultValues_["NAME"]           = "ACT360";
-        myDefaultValues_["CALENDAR"]       = "NULLCALENDAR";
-        myDefaultValues_["SETTLEMENTDAYS"] = 0;
+        myDefaultValues_["dayCounter"]     = "Act360";
+        myDefaultValues_["calendar"]       = "NullCalendar";
+        myDefaultValues_["settlementDays"] = 0;
     };
 
     template <>
@@ -34,12 +22,12 @@ namespace QuantLibParser {
         json data = setDefaultValues(params);
         validate(data);
 
-        QuantLib::Currency currency     = parse<QuantLib::Currency>(data.at("CURRENCY"));
-        QuantLib::Calendar calendar     = parse<QuantLib::Calendar>(data.at("CALENDAR"));
-        QuantLib::DayCounter dayCounter = parse<QuantLib::DayCounter>(data.at("DAYCOUNTER"));
-        int settlementDays              = data.at("SETTLEMENTDAYS");
+        QuantLib::Currency currency     = parse<QuantLib::Currency>(data.at("currency"));
+        QuantLib::Calendar calendar     = parse<QuantLib::Calendar>(data.at("calendar"));
+        QuantLib::DayCounter dayCounter = parse<QuantLib::DayCounter>(data.at("dayCounter"));
+        int settlementDays              = data.at("settlementDays");
 
-        auto curve = curveGetter(data.at("NAME"));
-        return QuantLib::OvernightIndex(data.at("NAME"), settlementDays, currency, calendar, dayCounter, curve);
+        auto curve = curveGetter(data.at("name"));
+        return QuantLib::OvernightIndex(data.at("name"), settlementDays, currency, calendar, dayCounter, curve);
     };
 }  // namespace QuantLibParser

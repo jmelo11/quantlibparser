@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "swapratehelper.schema.json",
+    "$id": "xccy.ratehelper.schema.json",
     "$ref": "ratehelper.schema.json",
     "definitions": {
         "helperConfig": {
@@ -32,10 +32,18 @@
                 },
                 "fwdStart": {
                     "$ref": "common.schema.json#/definitions/tenor"
+                },
+                "fixedLegFrequency": {
+                    "$ref": "common.schema.json#/definitions/frequency"
+                },
+                "fixedLegCurrency": {
+                    "$ref": "common.schema.json#/definitions/currency"
                 }
             },
             "required": [
-                "tenor"
+                "tenor",
+                "fixedLegCurrency",
+                "index"
             ]
         },
         "marketConfig": {
