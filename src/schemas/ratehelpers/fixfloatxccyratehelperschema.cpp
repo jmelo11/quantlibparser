@@ -14,9 +14,8 @@ namespace QuantLibParser {
         myDefaultValues_["helperConfig"]["convention"]        = "Unadjusted";
         myDefaultValues_["helperConfig"]["settlementDays"]    = 0;
         myDefaultValues_["helperConfig"]["endOfMonth"]        = false;
-        myDefaultValues_["helperConfig"]["fixedLegFrequency"] = "SemiAnnual";
+        myDefaultValues_["helperConfig"]["fixedLegFrequency"] = "Semiannual";
 
-        myDefaultValues_["marketConfig"]["spread"]["value"] = 0.0;
     }
 
     template <>
@@ -24,14 +23,14 @@ namespace QuantLibParser {
     QuantExt::CrossCcyFixFloatSwapHelper Schema<QuantExt::CrossCcyFixFloatSwapHelper>::makeObj(const json& params, PriceGetter& priceGetter,
                                                                                                IndexGetter& indexGetter, CurveGetter& curveGetter) {
         json data = setDefaultValues(params);
-        validate(params);
+        validate(data);
         const json& helperConfig = data.at("helperConfig");
         const json& marketConfig = data.at("marketConfig");
 
         QuantLib::DayCounter dayCounter            = parse<QuantLib::DayCounter>(helperConfig.at("dayCounter"));
         QuantLib::Calendar calendar                = parse<QuantLib::Calendar>(helperConfig.at("calendar"));
         QuantLib::BusinessDayConvention convention = parse<QuantLib::BusinessDayConvention>(helperConfig.at("convention"));
-        bool endOfMonth                            = helperConfig.at("endOfMOnth");
+        bool endOfMonth                            = helperConfig.at("endOfMonth");
         int settlementDays                         = helperConfig.at("settlementDays");
         QuantLib::Period tenor                     = parse<QuantLib::Period>(helperConfig.at("tenor"));
         QuantLib::Frequency frequency              = parse<QuantLib::Frequency>(helperConfig.at("fixedLegFrequency"));

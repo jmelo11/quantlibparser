@@ -9,11 +9,11 @@ namespace QuantLibParser {
 
     template <>
     void Schema<QuantExt::CrossCcyBasisSwapHelper>::initDefaultValues() {
-        myDefaultValues_["CALENDAR"]       = "NULLCALENDAR";
-        myDefaultValues_["CONVENTION"]     = "MODIFIEDFOLLOWING";
-        myDefaultValues_["ENDOFMONTH"]     = false;
-        myDefaultValues_["FLATISDOMESTIC"] = true;
-        myDefaultValues_["SETTLEMENTDAYS"] = 0;
+        myDefaultValues_["helperConfig"]["calendar"]       = "NullCalendar";
+        myDefaultValues_["helperConfig"]["convention"]     = "ModifiedFollowing";
+        myDefaultValues_["helperConfig"]["endOfMonth"]     = false;
+        myDefaultValues_["helperConfig"]["flatIsDomestic"] = true;
+        myDefaultValues_["helperConfig"]["settlementDays"] = 0;
     }
 
     template <>
@@ -21,7 +21,7 @@ namespace QuantLibParser {
     QuantExt::CrossCcyBasisSwapHelper Schema<QuantExt::CrossCcyBasisSwapHelper>::makeObj(const json& params, PriceGetter& priceGetter,
                                                                                          IndexGetter& indexGetter, CurveGetter& curveGetter) {
         json data = setDefaultValues(params);
-        validate(params);
+        validate(data);
         const json& helperConfig = data.at("helperConfig");
         const json& marketConfig = data.at("marketConfig");
 

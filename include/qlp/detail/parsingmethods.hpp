@@ -1,7 +1,6 @@
 #ifndef E4E9B4BF_865E_4019_95EB_14FB177F2231
 #define E4E9B4BF_865E_4019_95EB_14FB177F2231
 
-#include <qlp/detail/macros.hpp>
 #include <ql/currencies/all.hpp>
 #include <ql/indexes/all.hpp>
 #include <ql/indexes/iborindex.hpp>
@@ -11,51 +10,40 @@
 #include <ql/time/daycounters/actual365fixed.hpp>
 #include <ql/time/daycounters/thirty360.hpp>
 #include <ql/utilities/dataparsers.hpp>
+#include <qlp/detail/macros.hpp>
 
 namespace QuantLibParser {
     using namespace QuantLib;
 
     SERIALIZE_ENUM_WITH_CONVERSIONS(Currencies, (CLP)(CLF)(USD)(EUR))
-    SERIALIZE_ENUM_WITH_CONVERSIONS(Compoundings, (SIMPLE)(COMPOUNDED)(CONTINUOUS))
-    SERIALIZE_ENUM_WITH_CONVERSIONS(DayCounters, (ACT360)(ACT365)(THIRTY360))
-    SERIALIZE_ENUM_WITH_CONVERSIONS(Calendars, (CHILE)(NULLCALENDAR)(USA)(JOINT))
-    SERIALIZE_ENUM_WITH_CONVERSIONS(TimeUnits, (DAYS)(WEEKS)(MONTHS)(YEARS))
-    SERIALIZE_ENUM_WITH_CONVERSIONS(BDConventions, (FOLLOWING)(UNADJUSTED)(MODIFIEDFOLLOWING))
-    SERIALIZE_ENUM_WITH_CONVERSIONS(Frequencies, (ONCE)(ANNUAL)(SEMIANNUAL)(MONTHLY)(QUARTERLY)(NOFREQUENCY))
+    SERIALIZE_ENUM_WITH_CONVERSIONS(Compoundings, (Simple)(Compounded)(Continuous))
+    SERIALIZE_ENUM_WITH_CONVERSIONS(DayCounters, (Act360)(Act365)(Thirty360))
+    SERIALIZE_ENUM_WITH_CONVERSIONS(Calendars, (Chile)(NullCalendar)(UnitedStates)(Joint))
+    SERIALIZE_ENUM_WITH_CONVERSIONS(TimeUnits, (Days)(Weeks)(Months)(Years))
+    SERIALIZE_ENUM_WITH_CONVERSIONS(BDConventions, (Following)(Unadjusted)(ModifiedFollowing))
+    SERIALIZE_ENUM_WITH_CONVERSIONS(Frequencies, (Once)(Annual)(Semiannual)(Monthly)(Quarterly)(NoFrequency))
 
     enum DateFormat { MIXED, SLASH, HYPHEN };
 
-    inline std::string parseDate(const Date& date, DateFormat format = DateFormat::MIXED) {
+
+    /***
+     * @brief Parses a string to a date in ISO format
+     * @param date String to parse
+     * @return Date
+     */    
+    inline std::string parseDate(const Date& date) {
         std::string day   = date.dayOfMonth() < 10 ? "0" + std::to_string(date.dayOfMonth()) : std::to_string(date.dayOfMonth());
         std::string month = date.month() < 10 ? "0" + std::to_string(date.month()) : std::to_string(date.month());
-        switch (format) {
-            case MIXED:
-                return day + month + std::to_string(date.year());
-            case SLASH:
-                return day + "/" + month + "/" + std::to_string(date.year());
-            case HYPHEN:
-                return day + "-" + month + "-" + std::to_string(date.year());
-            default:
-                return day + month + std::to_string(date.year());
-        }
-    };
+        return std::to_string(date.year()) + "-" + month + "-" + day;
+    };  
 
-    inline Date parseDate(const std::string& date, DateFormat format = DateFormat::MIXED) {
-        int day, month, year;
-        if (format == DateFormat::MIXED) {
-            day   = std::stoi(date.substr(0, 2));
-            month = std::stoi(date.substr(2, 2));
-            year  = std::stoi(date.substr(4, 4));
-        } else if (format == DateFormat::HYPHEN || format == DateFormat::SLASH) {
-            day   = std::stoi(date.substr(0, 2));
-            month = std::stoi(date.substr(2, 2));
-            year  = std::stoi(date.substr(4, 4));
-        } else {
-            throw std::runtime_error("Unknown date format");
-        }
-        try {
-            return Date(day, (Month)month, year);
-        } catch (std::exception&) { throw std::runtime_error("Invalid date: " + date); }
+    /***
+     * @brief Parses a string to a date ISO format
+     * @param date String to parse
+     * @return Date
+     */
+    inline Date parseDate(const std::string& date) {
+        return DateParser::parseISO(date);
     };
 
     inline Currency parseCurrency(const std::string& currency) {
@@ -73,30 +61,34 @@ namespace QuantLibParser {
         }
     };
 
-    inline std::string parseCurrency(const Currency& currency) { return currency.name(); };
+    inline std::string parseCurrency(const Currency& currency) {
+        return currency.name();
+    };
 
     inline DayCounter parseDayCounter(const std::string& dayCounter) {
         switch (map_DayCounters.at(dayCounter)) {
-            case ACT360:
+            case Act360:
                 return Actual360();
-            case ACT365:
+            case Act365:
                 return Actual365Fixed();
-            case THIRTY360:
-                return Thirty360(Thirty360::BondBasis);
+            case Thirty360:
+                return QuantLib::Thirty360(Thirty360::BondBasis);
             default:
                 throw std::runtime_error("Unknown day counter:" + dayCounter);
         }
     };
 
-    inline std::string parseDayCounter(DayCounter& dayCounter) { return dayCounter.name(); };
+    inline std::string parseDayCounter(DayCounter& dayCounter) {
+        return dayCounter.name();
+    };
 
     inline Compounding parseCompounding(const std::string& compounding) {
         switch (map_Compoundings.at(compounding)) {
-            case SIMPLE:
+            case Simple:
                 return Compounding::Simple;
-            case COMPOUNDED:
+            case Compounded:
                 return Compounding::Compounded;
-            case CONTINUOUS:
+            case Continuous:
                 return Compounding::Continuous;
             default:
                 throw std::runtime_error("Unknown compounding:" + compounding);
@@ -106,9 +98,9 @@ namespace QuantLibParser {
     inline std::string parseCompounding(Compounding& compounding) {
         switch (compounding) {
             case Compounding::Simple:
-                return "SIMPLE";
+                return "Simple";
             case Compounding::Compounded:
-                return "COMPOUNDED";
+                return "Compounded";
             default:
                 throw std::runtime_error("Unknown compounding");
         }
@@ -116,17 +108,17 @@ namespace QuantLibParser {
 
     inline Frequency parseFrequency(const std::string& frequency) {
         switch (map_Frequencies.at(frequency)) {
-            case ANNUAL:
+            case Annual:
                 return Frequency::Annual;
-            case SEMIANNUAL:
+            case Semiannual:
                 return Frequency::Semiannual;
-            case MONTHLY:
+            case Monthly:
                 return Frequency::Monthly;
-            case QUARTERLY:
+            case Quarterly:
                 return Frequency::Quarterly;
-            case ONCE:
+            case Once:
                 return Frequency::Once;
-            case NOFREQUENCY:
+            case NoFrequency:
                 return Frequency::NoFrequency;
             default:
                 throw std::runtime_error("Unknown frequency:" + frequency);
@@ -136,33 +128,37 @@ namespace QuantLibParser {
     inline std::string parseFrequency(Frequency& frequency) {
         switch (frequency) {
             case Frequency::Annual:
-                return "ANNUAL";
+                return "Annual";
             case Frequency::Semiannual:
-                return "SEMIANNUAL";
+                return "Semiannual";
             case Frequency::Monthly:
-                return "MONTHLY";
+                return "Monthly";
             case Frequency::Quarterly:
-                return "QUARTERLY";
+                return "Quarterly";
             case Frequency::Once:
-                return "ONCE";
+                return "Once";
             default:
                 throw std::runtime_error("Unknown frequency");
         }
     };
 
-    inline Period parsePeriod(const std::string& period) { return PeriodParser::parse(period); }
+    inline Period parsePeriod(const std::string& period) {
+        return PeriodParser::parse(period);
+    }
 
-    inline std::string parsePeriod(const Period& period) { return std::to_string(period.length()) + std::to_string(period.units()); }
+    inline std::string parsePeriod(const Period& period) {
+        return std::to_string(period.length()) + std::to_string(period.units());
+    }
 
     inline TimeUnit parseTimeUnit(const std::string& timeUnit) {
         switch (map_TimeUnits.at(timeUnit)) {
-            case DAYS:
+            case Days:
                 return TimeUnit::Days;
-            case WEEKS:
+            case Weeks:
                 return TimeUnit::Weeks;
-            case MONTHS:
+            case Months:
                 return TimeUnit::Months;
-            case YEARS:
+            case Years:
                 return TimeUnit::Years;
             default:
                 throw std::runtime_error("Unknown timeunit:" + timeUnit);
@@ -171,28 +167,30 @@ namespace QuantLibParser {
 
     inline Calendar parseCalendar(const std::string& calendar) {
         switch (map_Calendars.at(calendar)) {
-            case USA:
-                return UnitedStates(UnitedStates::Market::Settlement);
-            case CHILE:
-                return Chile();
-            case NULLCALENDAR:
-                return NullCalendar();
-            case JOINT:
-                return JointCalendar(Chile(), UnitedStates(UnitedStates::Market::Settlement));
+            case UnitedStates:
+                return QuantLib::UnitedStates(UnitedStates::Market::Settlement);
+            case Chile:
+                return QuantLib::Chile();
+            case NullCalendar:
+                return QuantLib::NullCalendar();
+            case Joint:
+                return JointCalendar(QuantLib::Chile(), QuantLib::UnitedStates(UnitedStates::Market::Settlement));
             default:
                 throw std::runtime_error("Unknown calendar: " + calendar);
         }
     }
 
-    inline std::string parseCalendar(Calendar& calendar) { return calendar.name(); }
+    inline std::string parseCalendar(Calendar& calendar) {
+        return calendar.name();
+    }
 
     inline BusinessDayConvention parseBusinessDayConvention(const std::string& convention) {
         switch (map_BDConventions.at(convention)) {
-            case FOLLOWING:
+            case Following:
                 return BusinessDayConvention::Following;
-            case MODIFIEDFOLLOWING:
+            case ModifiedFollowing:
                 return BusinessDayConvention::ModifiedFollowing;
-            case UNADJUSTED:
+            case Unadjusted:
                 return BusinessDayConvention::Unadjusted;
             default:
                 throw std::runtime_error("Unknown convention: " + convention);

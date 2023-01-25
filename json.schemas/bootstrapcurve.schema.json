@@ -4,21 +4,18 @@
     "description": "BootstrapCurve schema",
     "type": "object",
     "properties": {
-        "rateHelpers":{
+        "rateHelpers": {
             "type": "array",
-            "items": [
-                {
-                    "$ref": "ratehelper.schema.json"
-                }
-            ],
+            "items": {
+                "$ref": "ratehelper.schema.json"
+            },
             "minItems": 2
         },
-        "dayCounter":{
-            "$ref": "common.schema.json/#/definitions/dayCounter"
+        "dayCounter": {
+            "$ref": "common.schema.json#/definitions/dayCounter"
         },
-        "enableExtrapolation":{
+        "enableExtrapolation": {
             "type": "boolean"
         }
     }
-
 }

@@ -26,11 +26,9 @@ using namespace QuantLib;
 using namespace QuantExt;
 using namespace std;
 
-struct CommonSchemas {};
-
 PYBIND11_MODULE(QuantLibParser, m) {
     m.doc() = "quantlibparser for python";  // optional module docstring
-
+    
     // Rate Helpers
     SchemaWithoutMaker(FixedRateBondHelper);
     SchemaWithoutMaker(DepositRateHelper);
@@ -48,19 +46,6 @@ PYBIND11_MODULE(QuantLibParser, m) {
     SchemaWithoutMaker(BootstrapCurve);
     SchemaWithoutMaker(IborIndex);
     SchemaWithoutMaker(OvernightIndex);
-
-    // common schemas
-    py::module_ common                  = m.def_submodule("CommonSchemas", "common schemas");
-    common.attr("RateHelperTypeSchema") = &rateHelperTypeSchema;
-    common.attr("IndexTypeSchemas")     = &indexTypesSchema;
-    common.attr("DayCounterTypeSchema") = &dayCounterSchema;
-    common.attr("CalendarTypeSchema")   = &calendarSchema;
-    common.attr("CurveTypeSchema")      = &curveTypeSchema;
-    common.attr("ConventionTypeSchema") = &conventionSchema;
-    common.attr("FrequencyTypeSchema")  = &frequencySchema;
-    common.attr("TenorSchema")          = &tenorSchema;
-    common.attr("DateSchema")           = &dateSchema;
-    common.attr("RateSchema")           = &baseRateSchema;
 
     // json validator
 

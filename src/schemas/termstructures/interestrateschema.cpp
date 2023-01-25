@@ -1,9 +1,7 @@
-#ifndef F8125A90_5A12_4F42_96EF_D95C293D3201
-#define F8125A90_5A12_4F42_96EF_D95C293D3201
 
-#include <qlp/schemas/commonschemas.hpp>
-#include <qlp/schemas/termstructures/interestrateschema.hpp>
+
 #include <qlp/parser.hpp>
+#include <qlp/schemas/termstructures/interestrateschema.hpp>
 
 namespace QuantLibParser {
     template <>
@@ -32,5 +30,3 @@ namespace QuantLibParser {
     };
 
 }  // namespace QuantLibParser
-
-#endif /* F8125A90_5A12_4F42_96EF_D95C293D3201 */

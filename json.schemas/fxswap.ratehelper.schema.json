@@ -1,8 +1,10 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
     "$id": "fxswap.ratehelper.schema.json",
-    "$ref": "ratehelper.schema.json",
-    "definitions": {
+    "properties": {
+        "helperType": {
+            "const": "FxSwap"
+        },
         "helperConfig": {
             "type": "object",
             "properties": {
@@ -39,8 +41,7 @@
             },
             "required": [
                 "tenor",
-                "baseCurrencyIsCollateral",
-                "collateralCurve"
+                "baseCurrencyIsCollateral"
             ]
         },
         "marketConfig": {
@@ -59,30 +60,9 @@
             ]
         }
     },
-    "if": {
-        "properties": {
-            "helperType": {
-                "const": "FxSwap"
-            }
-        }
-    },
-    "then": {
-        "properties": {
-            "helperType": {
-                "const": "FxSwap"
-            },
-            "helperConfig": {
-                "$ref": "#/definitions/helperConfig"
-            },
-            "marketConfig": {
-                "$ref": "#/definitions/marketConfig"
-            }
-        },
-        "required": [
-            "helperType",
-            "helperConfig",
-            "marketConfig"
-        ]
-    },
-    "else": false
+    "required": [
+        "helperType",
+        "helperConfig",
+        "marketConfig"
+    ]
 }

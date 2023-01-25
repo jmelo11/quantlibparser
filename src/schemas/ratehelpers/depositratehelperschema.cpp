@@ -4,7 +4,7 @@
 namespace QuantLibParser {
     template <>
     void Schema<QuantLib::DepositRateHelper>::initSchema() {
-        mySchema_ = readJSONFile("depositratehelper.schema.json");
+        mySchema_ = readJSONFile("deposit.ratehelper.schema.json");
     }
 
     template <>
@@ -12,7 +12,7 @@ namespace QuantLibParser {
         myDefaultValues_["helperConfig"]["calendar"]       = "NullCalendar";
         myDefaultValues_["helperConfig"]["convention"]     = "Unadjusted";
         myDefaultValues_["helperConfig"]["dayCounter"]     = "Act360";
-        myDefaultValues_["helperConfig"]["settlementDays"] = 0;       
+        myDefaultValues_["helperConfig"]["settlementDays"] = 0;
         myDefaultValues_["helperConfig"]["endOfMonth"]     = false;
     }
 
@@ -20,7 +20,7 @@ namespace QuantLibParser {
     template <>
     QuantLib::DepositRateHelper Schema<QuantLib::DepositRateHelper>::makeObj(const json& params, PriceGetter& priceGetter) {
         json data = setDefaultValues(params);
-        validate(params);
+        validate(data);
         const json& helperConfig = data.at("helperConfig");
         const json& marketConfig = data.at("marketConfig");
 
@@ -29,13 +29,13 @@ namespace QuantLibParser {
 
         double settlementDays                      = helperConfig.at("settlementDays");
         bool endOfMonth                            = helperConfig.at("endOfMonth");
-        QuantLib::BusinessDayConvention convention = parse<QuantLib::BusinessDayConvention>(data.at("convention"));
+        QuantLib::BusinessDayConvention convention = parse<QuantLib::BusinessDayConvention>(helperConfig.at("convention"));
 
         // non-defaults
-        QuantLib::Period tenor = parse<QuantLib::Period>(data.at("tenor"));
+        QuantLib::Period tenor = parse<QuantLib::Period>(helperConfig.at("tenor"));
 
         const json& rate = marketConfig.at("rate");
-        auto mktRate     = priceGetter(marketConfig.at("value"), marketConfig.at("ticker"));
+        auto mktRate     = priceGetter(rate.at("value"), rate.at("ticker"));
         return DepositRateHelper(mktRate, tenor, settlementDays, calendar, convention, endOfMonth, dayCounter);
     }
 }  // namespace QuantLibParser

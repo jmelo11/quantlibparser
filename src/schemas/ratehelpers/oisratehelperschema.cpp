@@ -5,19 +5,20 @@
 namespace QuantLibParser {
     template <>
     void Schema<QuantLib::OISRateHelper>::initSchema() {
-        mySchema_ = readJSONFile("oisratehelper.schema.json");
+        mySchema_ = readJSONFile("ois.ratehelper.schema.json");
     }
 
     template <>
     void Schema<QuantLib::OISRateHelper>::initDefaultValues() {
-        myDefaultValues_["DAYCOUNTER"]           = "ACT360";
-        myDefaultValues_["CALENDAR"]             = "NULLCALENDAR";
-        myDefaultValues_["CONVENTION"]           = "UNADJUSTED";
-        myDefaultValues_["SPREAD"]               = 0.0;
-        myDefaultValues_["SETTLEMENTDAYS"]       = 0;
-        myDefaultValues_["FWDSTART"]             = "0D";
-        myDefaultValues_["TELESCOPICVALUEDATES"] = true;
-        myDefaultValues_["PAYMENTLAG"]           = 0;
+        myDefaultValues_["helperConfig"]["dayCounter"]           = "Act360";
+        myDefaultValues_["helperConfig"]["calendar"]             = "NullCalendar";
+        myDefaultValues_["helperConfig"]["convention"]           = "Unadjusted";
+        myDefaultValues_["helperConfig"]["spread"]               = 0.0;
+        myDefaultValues_["helperConfig"]["settlementDays"]       = 0;
+        myDefaultValues_["helperConfig"]["fwdStart"]             = "0D";
+        myDefaultValues_["helperConfig"]["telescopicValueDates"] = true;
+        myDefaultValues_["helperConfig"]["paymentLag"]           = 0;
+        myDefaultValues_["helperConfig"]["fixedLegFrequency"]    = "Semiannual";
     }
 
     template <>
@@ -25,7 +26,7 @@ namespace QuantLibParser {
     QuantLib::OISRateHelper Schema<QuantLib::OISRateHelper>::makeObj(const json& params, PriceGetter& priceGetter, IndexGetter& indexGetter,
                                                                      CurveGetter& curveGetter) {
         json data = setDefaultValues(params);
-        validate(params);
+        validate(data);
         const json& helperConfig = data.at("helperConfig");
         const json& marketConfig = data.at("marketConfig");
 
@@ -40,7 +41,7 @@ namespace QuantLibParser {
 
         QuantLib::Period fwdStart = parse<QuantLib::Period>(helperConfig.at("fwdStart"));
 
-        auto discountCurve = data.find("discountCurve") != helperConfig.end() ? curveGetter(helperConfig.at("discountCurve")) :
+        auto discountCurve = helperConfig.find("discountCurve") != helperConfig.end() ? curveGetter(helperConfig.at("discountCurve")) :
                                                                                 QuantLib::RelinkableHandle<QuantLib::YieldTermStructure>();
 
         double spread = marketConfig.at("spread").at("value");

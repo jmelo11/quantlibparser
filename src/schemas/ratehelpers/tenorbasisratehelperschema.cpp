@@ -4,7 +4,7 @@
 namespace QuantLibParser {
     template <>
     void Schema<QuantExt::TenorBasisSwapHelper>::initSchema() {
-        mySchema_ = readJSONFile("tenorbasis.ratehelperschema.json");
+        mySchema_ = readJSONFile("tenorbasis.ratehelper.schema.json");
     }
 
     template <>
@@ -17,7 +17,7 @@ namespace QuantLibParser {
     QuantExt::TenorBasisSwapHelper Schema<QuantExt::TenorBasisSwapHelper>::makeObj(const json& params, PriceGetter& priceGetter,
                                                                                    IndexGetter& indexGetter, CurveGetter& curveGetter) {
         json data = setDefaultValues(params);
-        validate(params);
+        validate(data);
         const json& helperConfig = data.at("helperConfig");
         const json& marketConfig = data.at("marketConfig");
 

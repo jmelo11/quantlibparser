@@ -1,5 +1,3 @@
-
-#include <qlp/schemas/commonschemas.hpp>
 #include <qlp/schemas/termstructures/discountcurveschema.hpp>
 
 namespace QuantLibParser {
@@ -12,7 +10,7 @@ namespace QuantLibParser {
     template <>
     void Schema<QuantLib::DiscountCurve>::initDefaultValues() {
         myDefaultValues_["enableExtrapolation"] = true;
-        myDefaultValues_["dayCounter"]          = "ACT360";
+        myDefaultValues_["dayCounter"]          = "Act360";
     };
 
     template <>

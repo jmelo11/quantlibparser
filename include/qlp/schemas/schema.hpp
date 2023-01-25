@@ -5,11 +5,11 @@
 #include <ql/indexes/iborindex.hpp>
 #include <ql/quote.hpp>
 #include <qlp/schemapath.hpp>
+
 #include <nlohmann/json-schema.hpp>
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
-
 namespace QuantLibParser {
 
     using nlohmann::json;

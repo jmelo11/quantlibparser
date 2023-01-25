@@ -1,8 +1,10 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
     "$id": "bond.ratehelper.schema.json",
-    "$ref": "ratehelper.schema.json",
-    "definitions": {
+    "properties": {
+        "helperType": {
+            "const": "Bond"
+        },
         "helperConfig": {
             "type": "object",
             "properties": {
@@ -50,30 +52,9 @@
             ]
         }
     },
-    "if": {
-        "properties": {
-            "helperType": {
-                "const": "Bond"
-            }
-        }
-    },
-    "then": {
-        "properties": {
-            "helperType": {
-                "const": "Bond"
-            },
-            "helperConfig": {
-                "$ref": "#/definitions/helperConfig"
-            },
-            "marketConfig": {
-                "$ref": "#/definitions/marketConfig"
-            }
-        },
-        "required": [
-            "helperType",
-            "helperConfig",
-            "marketConfig"
-        ]
-    },
-    "else": false
+    "required": [
+        "helperType",
+        "helperConfig",
+        "marketConfig"
+    ]
 }

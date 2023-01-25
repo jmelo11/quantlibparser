@@ -5,25 +5,26 @@
 namespace QuantLibParser {
     template <>
     void Schema<QuantLib::FixedRateBondHelper>::initSchema() {
-        mySchema_ = readJSONFile("bondratehelper.schema.json");
+        mySchema_ = readJSONFile("bond.ratehelper.schema.json");
     };
 
     template <>
     void Schema<QuantLib::FixedRateBondHelper>::initDefaultValues() {
-        myDefaultValues_["helperConfig"]["calendar"] = "NullCalendar";
-        myDefaultValues_["helperConfig"]["convention"] = "Unadjusted";
-        myDefaultValues_["helperConfig"]["paymentFrequency"] = "SemiAnnual";
+        myDefaultValues_["helperConfig"]["calendar"]         = "NullCalendar";
+        myDefaultValues_["helperConfig"]["convention"]       = "Unadjusted";
+        myDefaultValues_["helperConfig"]["paymentFrequency"] = "Semiannual";
         myDefaultValues_["helperConfig"]["couponDayCounter"] = "Thirty360";
-        myDefaultValues_["helperConfig"]["yieldDayCounter"] = "Act360";
-        myDefaultValues_["helperConfig"]["settlementDays"] = 0;        
-        myDefaultValues_["helperConfig"]["couponRate"] = 0.03;
+        myDefaultValues_["helperConfig"]["yieldDayCounter"]  = "Act360";
+        myDefaultValues_["helperConfig"]["settlementDays"]   = 0;
+        myDefaultValues_["helperConfig"]["couponRate"]       = 0.03;
+        myDefaultValues_["helperConfig"]["startDate"]        = parseDate(QuantLib::Settings::instance().evaluationDate());
     };
 
     template <>
     template <>
     QuantLib::FixedRateBondHelper Schema<QuantLib::FixedRateBondHelper>::makeObj(const json& params, PriceGetter& priceGetter) {
         json data = setDefaultValues(params);
-        validate(params);        
+        validate(data);
         const json& helperConfig = data.at("helperConfig");
         const json& marketConfig = data.at("marketConfig");
 
@@ -52,7 +53,7 @@ namespace QuantLibParser {
 
         /* price */
         const json& rate = marketConfig.at("rate");
-        auto RATE = priceGetter(rate.at("value"), rate.at("ticker"));
+        auto RATE        = priceGetter(rate.at("value"), rate.at("ticker"));
 
         QuantLib::Schedule schedule =
             QuantLib::MakeSchedule().from(startDate).to(endDate).withTenor(tenor).withFrequency(frequency).withCalendar(calendar).withConvention(

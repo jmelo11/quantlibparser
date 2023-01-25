@@ -1,8 +1,10 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema",
     "$id": "ois.ratehelper.schema.json",
-    "$ref": "ratehelper.schema.json",
-    "definitions": {
+    "properties": {
+        "helperType": {
+            "const": "OIS"
+        },
         "helperConfig": {
             "type": "object",
             "properties": {
@@ -37,11 +39,11 @@
                     "$ref": "common.schema.json#/definitions/tenor"
                 },
                 "telescopicValueDates": {
-                    "$ref": "common.schema.json#/definitions/telescopicValueDates"
+                    "type": "boolean"
                 },
-                "fixedLegFrequency":{
+                "fixedLegFrequency": {
                     "$ref": "common.schema.json#/definitions/frequency"
-                },
+                }
             },
             "required": [
                 "tenor"
@@ -58,34 +60,14 @@
                 }
             },
             "required": [
-                "rate"
+                "rate",
+                "spread"
             ]
         }
     },
-    "if": {
-        "properties": {
-            "helperType": {
-                "const": "OIS"
-            }
-        }
-    },
-    "then": {
-        "properties": {
-            "helperType": {
-                "const": "OIS"
-            },
-            "helperConfig": {
-                "$ref": "#/definitions/helperConfig"
-            },
-            "marketConfig": {
-                "$ref": "#/definitions/marketConfig"
-            }
-        },
-        "required": [
-            "helperType",
-            "helperConfig",
-            "marketConfig"
-        ]
-    },
-    "else": false
+    "required": [
+        "helperType",
+        "helperConfig",
+        "marketConfig"
+    ]
 }

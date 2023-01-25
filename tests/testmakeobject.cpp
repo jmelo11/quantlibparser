@@ -49,18 +49,14 @@ CurveGetter h = [](const std::string& name) {
 
 TEST(MakeObject, DiscountCurve) {
     json data = R"({   
-        "TYPE": "DISCOUNT",    
-		"NAME": "USD",
-		"DAYCOUNTER": "ACT360",
-		"ENABLEEXTRAPOLATION": true,
-		"NODES": [
+        "nodes": [
 			{
-				"DATE": "01012019",
-				"VALUE": 1.0
+				"date": "2019-01-01",
+				"value": 1.0
 			},
 			{
-				"DATE": "01022019",
-				"VALUE": 0.98
+				"date": "2019-02-01",
+				"value": 0.98
 			}
 		]
 	})"_json;
@@ -73,13 +69,11 @@ TEST(MakeObject, DiscountCurve) {
 }
 
 TEST(MakeObject, FlatForwardCurve) {
-    json data = R"({   
-		"TYPE": "FLATFORWARD",    
-		"NAME": "USD",
-		"DAYCOUNTER": "ACT360",
-		"ENABLEEXTRAPOLATION": true,
-		"REFDATE": "01012019",
-		"RATE": 0.01
+    json data = R"({   		
+		"dayCounter": "Act360",
+		"enableExtrapolation": true,
+		"refDate": "2019-01-01",
+		"rate": 0.01
 	})"_json;
     Schema<QuantLib::FlatForward> curveSchema;
     EXPECT_TRUE(curveSchema.isValid(data));
@@ -93,8 +87,7 @@ TEST(MakeObject, FixedRateBondHelper) {
     json testSchema = R"({
             "helperType": "Bond",
             "helperConfig": {
-                "tenor": "2Y",
-                "calendar": "NullCalendar"                
+                "tenor": "2Y"
             },
             "marketConfig": {
                 "rate": {
@@ -129,21 +122,24 @@ TEST(MakeObject, DepositRateHelper) {
 
 TEST(MakeObject, CrossCcyFixFloatSwapHelper) {
     json testSchema = R"({
-            "RATE": 0.0641,
-            "TENOR": "5Y",
-            "DAYCOUNTER": "ACT360",
-            "CALENDAR": "JOINT",
-            "CONVENTION": "MODIFIEDFOLLOWING",
-            "ENDOFMONTH": false,
-            "FREQUENCY": "SEMIANNUAL",
-            "SETTLEMENTDAYS": 2.0,
-            "DISCOUNTINGCURVE": "SOFR",
-            "INDEX": "SOFR",
-            "FXSPOT": 897.19,
-            "CURRENCY": "CLP",
-            "TYPE": "XCCY",
-            "RATETICKER": ".BASIS5Y INDEX",
-            "FXSPOTTICKER": "CLP CURNCY"        
+            "helperType": "Xccy",
+            "helperConfig": {
+                "tenor": "1Y",
+                "fixedLegCurrency": "CLP",
+                "index": "ICP"
+            },
+            "marketConfig": {
+                "rate": {
+                    "ticker": "XccyTicker",
+                    "value": 0.05
+                },
+                "fxSpot":{
+                    "ticker": "fxSpotTicker", "value": 100
+                },
+                "spread": {
+                    "value": 0.0, "ticker": "spreadTicker"
+                }
+            }                
 		})"_json;
 
     Schema<QuantExt::CrossCcyFixFloatSwapHelper> schema;
@@ -152,18 +148,21 @@ TEST(MakeObject, CrossCcyFixFloatSwapHelper) {
 
 TEST(MakeObject, FxSwapRateHelper) {
     json testSchema = R"({
-            "FXPOINTS": 17.53,
-            "FXSPOT": 897.19,
-            "TENOR": "3M",
-            "CALENDAR": "NULLCALENDAR",
-            "FIXINGDAYS": 0.0,
-            "ENDOFMONTH": false,
-            "BASECURRENCYCOLLATERAL": true,
-            "CONVENTION": "FOLLOWING",
-            "COLLATERALCURVE": "SOFR",
-            "TYPE": "FXSWAP",
-            "FXPOINTSTICKER": "CHN3M ICCH CURNCY",
-            "FXSPOTTICKER": "CLP CURNCY"          
+            "helperType": "FxSwap",
+            "helperConfig": {
+                "tenor": "1Y",
+                "baseCurrencyIsCollateral": false
+            },
+            "marketConfig": {
+                "fxPoints": {
+                    "ticker": "fxPointsTicker",
+                    "value": 5
+                },
+                "fxSpot":{
+                    "value": 100,
+                    "ticker": "fxSpotTicker"
+                }
+            }     
 		})"_json;
 
     Schema<QuantLib::FxSwapRateHelper> schema;
@@ -172,19 +171,21 @@ TEST(MakeObject, FxSwapRateHelper) {
 
 TEST(MakeObject, OISRateHelper) {
     json testSchema = R"({
-            "RATE": 0.024620000000000003,
-            "TENOR": "30Y",
-            "DAYCOUNTER": "ACT360",
-            "CALENDAR": "USA",
-            "CONVENTION": "FOLLOWING",
-            "ENDOFMONTH": true,
-            "FREQUENCY": "ANNUAL",
-            "SETTLEMENTDAYS": 2.0,
-            "PAYMENTLAG": 2.0,
-            "TELESCOPICVALUEDATES": true,
-            "INDEX": "SOFR",
-            "TYPE": "OIS",
-            "RATETICKER": "USOSFR40 CURNCY"
+            "helperType": "OIS",
+            "helperConfig": {
+                "tenor": "1Y",
+                "index": "SOFR"
+            },
+            "marketConfig": {
+                "rate": {
+                    "ticker": "rateTicker",
+                    "value": 0.03
+                },
+                "spread":{
+                    "value": 0.0,
+                    "ticker": "spreadTicker"
+                }                
+            }     
         })"_json;
 
     Schema<QuantLib::OISRateHelper> schema;
@@ -193,33 +194,42 @@ TEST(MakeObject, OISRateHelper) {
 
 TEST(MakeObject, SwapRateHelper) {
     json testSchema = R"({
-            "RATE": 0.02742,
-            "TENOR": "40Y",
-            "DAYCOUNTER": "THIRTY360",
-            "CALENDAR": "USA",
-            "CONVENTION": "MODIFIEDFOLLOWING",
-            "FREQUENCY": "SEMIANNUAL",
-            "SETTLEMENTDAYS": 2.0,
-            "DISCOUNTINGCURVE": "SOFR",
-            "INDEX": "LIBOR3M",
-            "TYPE": "SWAP",
-            "RATETICKER": "USSWAP40 BGN CURNCY"               
-		})"_json;
+            "helperType": "Swap",
+            "helperConfig": {
+                "tenor": "1Y",
+                "index": "SOFR"
+            },
+            "marketConfig": {
+                "rate": {
+                    "ticker": "rateTicker",
+                    "value": 0.03
+                },
+                "spread":{
+                    "value": 0.0,
+                    "ticker": "spreadTicker"
+                }                
+            }     
+        })"_json;
 
-    Schema<QuantLib::OISRateHelper> schema;
+    Schema<QuantLib::SwapRateHelper> schema;
     EXPECT_NO_THROW(schema.makeObj(testSchema, f, sofrIndex, h));
 }
 
 TEST(MakeObject, TenorBasisSwapHelper) {
     json testSchema = R"({
-            "SPREAD": 0.0014,
-            "TENOR": "20Y",
-            "LONGINDEX": "LIBOR1M",
-            "SHORTINDEX": "LIBOR3M",
-            "DISCOUNTINGCURVE": "LIBOR1M",
-            "SPREADONSHORT": true,
-            "TYPE": "TENORBASIS",
-            "SPREADTICKER": "USBA20 BGN CURNCY"
+            "helperType": "TenorBasis",
+            "helperConfig": {
+                "tenor": "1Y",
+                "shortIndex": "LIBOR1M",
+                "longIndex": "LIBOR3M",
+                "spreadOnShort": true
+            },
+            "marketConfig": {                
+                "spread":{
+                    "value": 0.0,
+                    "ticker": "spreadTicker"
+                }                
+            }     
         })"_json;
 
     Schema<QuantExt::TenorBasisSwapHelper> schema;
@@ -227,25 +237,26 @@ TEST(MakeObject, TenorBasisSwapHelper) {
 }
 
 TEST(MakeObject, CrossCcyBasisSwapHelper) {
+
     json testSchema = R"({
-                    "SPREAD": 0.019,
-                    "TENOR": "15Y",
-                    "CALENDAR": "NULLCALENDAR",
-                    "DAYCOUNTER": "ACT360",
-                    "CONVENTION": "UNADJUSTED",
-                    "ENDOFMONTH": true,
-                    "SETTLEMENTDAYS": 1,
-                    "FXSPOT": 800,
-                    "FXSPOTTICKER": "CLP CURNCY",
-                    "FLATISDOMESTIC": true,
-                    "FLATDISCOUNTINGCURVE": "LIBOR1M",
-                    "FLATINDEX": "LIBOR1M",
-                    "SPREADINDEX": "LIBOR3M",
-                    "SPREADTICKER": "LIB6M_MAS_15Y",
-                    "COUPONDAYCOUNTER": "THIRTY360",
-                    "TYPE": "XCCYBASIS",
-                    "RATETICKER": "USD_BOND_15Y"
-    })"_json;
+            "helperType": "XccyBasis",
+            "helperConfig": {
+                "tenor": "1Y",
+                "flatIndex":"LIBOR1M",
+                "spreadIndex": "LIBOR3M",
+                "flatDiscountCurve":"LIBOR1M"
+            },
+            "marketConfig": {                
+                "spread":{
+                    "value": 0.0,
+                    "ticker": "spreadTicker"
+                },
+                "fxSpot":{
+                    "value": 100,
+                    "ticker": "fxSpotTicker"
+                }                
+            }     
+        })"_json;
 
     Schema<QuantExt::CrossCcyBasisSwapHelper> schema;
     EXPECT_NO_THROW(schema.makeObj(testSchema, f, g, h));
@@ -253,12 +264,12 @@ TEST(MakeObject, CrossCcyBasisSwapHelper) {
 
 TEST(MakeObject, IborIndex) {
     json data = R"({
-            "NAME": "LIBOR1M",
-            "TENOR": "1M",
-            "DAYCOUNTER": "ACT360",
-            "CURRENCY": "USD",
-            "SETTLEMENTDAYS": 0.0,
-            "CALENDAR": "USA"
+            "name": "LIBOR1M",
+            "tenor": "1M",
+            "dayCounter": "Act360",
+            "currency": "USD",
+            "settlementDays": 0,
+            "calendar": "UnitedStates"
         })"_json;
 
     Schema<QuantLib::IborIndex> schema;
@@ -267,10 +278,11 @@ TEST(MakeObject, IborIndex) {
 
 TEST(MakeObject, OvernightIndex) {
     json data = R"({
-            "NAME": "LIBOR1M",
-            "DAYCOUNTER": "ACT360",
-            "CURRENCY": "USD",
-            "CALENDAR": "USA"
+            "name": "LIBOR1M",
+            "dayCounter": "Act360",
+            "currency": "USD",
+            "settlementDays": 0,
+            "calendar": "UnitedStates"
         })"_json;
 
     Schema<QuantLib::OvernightIndex> schema;
@@ -279,10 +291,10 @@ TEST(MakeObject, OvernightIndex) {
 
 TEST(MakeObject, InterestRate) {
     json data = R"({
-            "VALUE": 0.01,
-            "DAYCOUNTER": "ACT360",
-            "COMPOUDING": "COMPUNDED",
-            "FREQUENCY": "ANNUAL"
+            "value": 0.01,
+            "dayCounter": "Act360",
+            "compounding": "Compounded",
+            "frequency": "Annual"
         })"_json;
 
     Schema<QuantLib::InterestRate> schema;

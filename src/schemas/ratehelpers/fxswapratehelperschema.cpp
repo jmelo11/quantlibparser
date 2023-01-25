@@ -21,7 +21,7 @@ namespace QuantLibParser {
     template <>
     QuantLib::FxSwapRateHelper Schema<QuantLib::FxSwapRateHelper>::makeObj(const json& params, PriceGetter& priceGetter, CurveGetter& curveGetter) {
         json data = setDefaultValues(params);
-        validate(params);
+        validate(data);
         const json& helperConfig = data.at("helperConfig");
         const json& marketConfig = data.at("marketConfig");
 
@@ -32,7 +32,7 @@ namespace QuantLibParser {
         bool endOfMont                             = helperConfig.at("endOfMonth");
         bool baseCurrencyColateral                 = helperConfig.at("baseCurrencyIsCollateral");
 
-        auto collateralCurve = helperConfig.find("collateralCurve") != data.end() ? curveGetter(helperConfig.at("collateralCurve")) :
+        auto collateralCurve = helperConfig.find("collateralCurve") != helperConfig.end() ? curveGetter(helperConfig.at("collateralCurve")) :
                                                                                     RelinkableHandle<YieldTermStructure>();
 
         // non-defaults

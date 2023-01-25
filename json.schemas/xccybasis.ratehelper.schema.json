@@ -8,7 +8,7 @@
             "properties": {
                 "tenor": {
                     "$ref": "common.schema.json#/definitions/tenor"
-                },                
+                },
                 "calendar": {
                     "$ref": "common.schema.json#/definitions/calendar"
                 },
@@ -33,10 +33,11 @@
                 "spreadIndex": {
                     "$ref": "common.schema.json#/definitions/index"
                 }
-                
             },
             "required": [
-                "tenor"
+                "tenor",
+                "flatIndex",
+                "spreadIndex"
             ]
         },
         "marketConfig": {

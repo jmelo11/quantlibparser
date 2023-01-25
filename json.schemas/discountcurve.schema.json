@@ -12,21 +12,23 @@
         },
         "nodes": {
             "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "date": {
-                        "$ref": "common.schema.json#/definitions/date"
+            "items": 
+                {
+                    "type": "object",
+                    "properties": {
+                        "date": {
+                            "$ref": "common.schema.json#/definitions/date"
+                        },
+                        "value": {
+                            "type": "number"
+                        }
                     },
-                    "value": {
-                        "type": "number"
-                    }
-                },
-                "required": [
-                    "date",
-                    "value"
-                ]
-            },
+                    "required": [
+                        "date",
+                        "value"
+                    ]
+                }
+            ,
             "minItems": 2
         }
     },
