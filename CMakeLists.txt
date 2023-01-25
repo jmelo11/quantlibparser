@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 project(
   QuantLibParser
-  VERSION 1.0.0
+  VERSION 2.0.0
   LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
