@@ -4,6 +4,9 @@
     "description": "BootstrapCurve schema",
     "type": "object",
     "properties": {
+        "curveType": {
+            "const": "Piecewise"
+        },
         "rateHelpers": {
             "type": "array",
             "items": {
@@ -16,6 +19,13 @@
         },
         "enableExtrapolation": {
             "type": "boolean"
+        },
+        "refDate": {
+            "$ref": "common.schema.json#/definitions/date"
         }
-    }
+    },
+    "required": [
+        "curveType",
+        "rateHelpers"
+    ]
 }

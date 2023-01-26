@@ -3,6 +3,6 @@
 
 #include <string>
 
-static const std::string schemaPath = "${SCHEMAPATH}/";
+static const std::string schemaPath = "${QLP_SCHEMAPATH}/";
 
 #endif /* BE79136B_8D28_45D2_8D69_8FADE1DADD9D */

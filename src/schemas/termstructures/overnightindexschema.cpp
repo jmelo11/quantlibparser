@@ -26,7 +26,7 @@ namespace QuantLibParser {
         QuantLib::DayCounter dayCounter = parse<QuantLib::DayCounter>(data.at("dayCounter"));
         int settlementDays              = data.at("settlementDays");
 
-        auto curve = curveGetter(data.at("name"));
-        return QuantLib::OvernightIndex(data.at("name"), settlementDays, currency, calendar, dayCounter, curve);
+        auto curve = curveGetter(data.at("indexName"));
+        return QuantLib::OvernightIndex(data.at("indexName"), settlementDays, currency, calendar, dayCounter, curve);
     };
 }  // namespace QuantLibParser

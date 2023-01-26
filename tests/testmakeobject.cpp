@@ -48,7 +48,8 @@ CurveGetter h = [](const std::string& name) {
 };
 
 TEST(MakeObject, DiscountCurve) {
-    json data = R"({   
+    json data = R"({
+        "curveType": "Discount",   
         "nodes": [
 			{
 				"date": "2019-01-01",
@@ -69,7 +70,8 @@ TEST(MakeObject, DiscountCurve) {
 }
 
 TEST(MakeObject, FlatForwardCurve) {
-    json data = R"({   		
+    json data = R"({   	
+        "curveType": "FlatForward",	
 		"dayCounter": "Act360",
 		"enableExtrapolation": true,
 		"refDate": "2019-01-01",
@@ -237,7 +239,6 @@ TEST(MakeObject, TenorBasisSwapHelper) {
 }
 
 TEST(MakeObject, CrossCcyBasisSwapHelper) {
-
     json testSchema = R"({
             "helperType": "XccyBasis",
             "helperConfig": {
@@ -264,7 +265,8 @@ TEST(MakeObject, CrossCcyBasisSwapHelper) {
 
 TEST(MakeObject, IborIndex) {
     json data = R"({
-            "name": "LIBOR1M",
+            "indexType":"IborIndex",
+            "indexName": "LIBOR1M",
             "tenor": "1M",
             "dayCounter": "Act360",
             "currency": "USD",
@@ -278,7 +280,8 @@ TEST(MakeObject, IborIndex) {
 
 TEST(MakeObject, OvernightIndex) {
     json data = R"({
-            "name": "LIBOR1M",
+            "indexType":"OvernightIndex",
+            "indexName": "LIBOR1M",
             "dayCounter": "Act360",
             "currency": "USD",
             "settlementDays": 0,

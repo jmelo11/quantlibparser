@@ -7,7 +7,8 @@ using namespace QuantLib;
 using namespace QuantLibParser;
 
 TEST(CurveSchemas, DiscountCurve) {
-    json data = R"({   			
+    json data = R"({   
+        "curveType":"Discount",			
 		"nodes": [
 			{
 				"date": "2019-01-01",
@@ -25,6 +26,7 @@ TEST(CurveSchemas, DiscountCurve) {
     EXPECT_NO_THROW(curveSchema.validate(data));
 
     data = R"({
+        "curveType":"Discount",		
 		"dayCounter": "Act360",
 		"enableExtrapolation": true,
 		"nodes": [
@@ -43,6 +45,7 @@ TEST(CurveSchemas, DiscountCurve) {
 
 TEST(CurveSchemas, FlatForwardCurve) {
     json data = R"({   
+        "curveType":"FlatForward",
         "refDate": "2019-02-01",
 		"dayCounter": "Act360",
 		"enableExtrapolation": true,
@@ -54,6 +57,7 @@ TEST(CurveSchemas, FlatForwardCurve) {
 
 TEST(CurveSchemas, BootstrapCurve) {
     json data = R"({
+            "curveType": "Piecewise",
             "dayCounter": "Act360",
             "enableExtrapolation": true,
             "rateHelpers": [
@@ -92,7 +96,8 @@ TEST(CurveSchemas, BootstrapCurve) {
 
 TEST(CurveSchemas, IborIndex) {
     json data = R"({
-            "name": "LIBOR1M",
+            "indexType": "IborIndex",
+            "indexName": "LIBOR1M",
             "tenor": "1M",
             "dayCounter": "Act360",
             "currency": "USD",
@@ -106,7 +111,8 @@ TEST(CurveSchemas, IborIndex) {
 
 TEST(CurveSchemas, OvernightIndex) {
     json data = R"({
-             "name": "LIBOR1M",
+            "indexType": "OvernightIndex",
+            "indexName": "LIBOR1M",
             "tenor": "1M",
             "dayCounter": "Act360",
             "currency": "USD",

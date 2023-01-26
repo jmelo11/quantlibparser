@@ -1,8 +1,0 @@
-{
-    "$schema": "xccy.ratehelper.schema.json",
-    "helperType":"deposit",
-    "helperConfig": {
-        
-    },
-    "marketConfig": {}
-}

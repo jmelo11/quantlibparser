@@ -4,6 +4,9 @@
     "description": "Flat forward curve",
     "type": "object",
     "properties": {
+        "curveType": {
+            "const": "FlatForward"
+        },
         "rate": {
             "type": "number",
             "description": "The flat forward rate"
@@ -25,5 +28,8 @@
             "$ref": "common.schema.json#/definitions/date"
         }
     },
-    "required": ["rate"]
+    "required": [
+        "curveType",
+        "rate"
+    ]
 }

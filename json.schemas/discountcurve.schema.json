@@ -4,6 +4,9 @@
     "description": "Discount curve schema",
     "type": "object",
     "properties": {
+        "curveType": {
+            "const": "Discount"
+        },
         "enableExtrapolation": {
             "type": "boolean"
         },
@@ -12,27 +15,26 @@
         },
         "nodes": {
             "type": "array",
-            "items": 
-                {
-                    "type": "object",
-                    "properties": {
-                        "date": {
-                            "$ref": "common.schema.json#/definitions/date"
-                        },
-                        "value": {
-                            "type": "number"
-                        }
+            "items": {
+                "type": "object",
+                "properties": {
+                    "date": {
+                        "$ref": "common.schema.json#/definitions/date"
                     },
-                    "required": [
-                        "date",
-                        "value"
-                    ]
-                }
-            ,
+                    "value": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "date",
+                    "value"
+                ]
+            },
             "minItems": 2
         }
     },
     "required": [
+        "curveType",
         "nodes"
     ]
 }

@@ -4,7 +4,14 @@
     "description": "Rate index schema",
     "type": "object",
     "properties": {
-        "name": {
+        "indexType": {
+            "type": "string",
+            "enum": [
+                "OvernightIndex",
+                "IborIndex"
+            ]
+        },
+        "indexName": {
             "type": "string"
         },
         "calendar": {
@@ -30,7 +37,8 @@
         }
     },
     "required": [
-        "name",
+        "indexType",
+        "indexName",
         "currency"
     ]
 }

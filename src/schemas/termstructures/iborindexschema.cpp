@@ -30,7 +30,7 @@ namespace QuantLibParser {
         int settlementDays                         = data.at("settlementDays");
         bool endOfMonth                            = data.at("endOfMonth");
 
-        auto curve = curveGetter(data.at("name"));
-        return QuantLib::IborIndex(data.at("name"), tenor, settlementDays, currency, calendar, convention, endOfMonth, dayCounter, curve);
+        auto curve = curveGetter(data.at("indexName"));
+        return QuantLib::IborIndex(data.at("indexName"), tenor, settlementDays, currency, calendar, convention, endOfMonth, dayCounter, curve);
     };
 }  // namespace QuantLibParser
