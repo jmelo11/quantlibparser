@@ -6,8 +6,6 @@ from sys import platform
 
 __version__ = "2.0.0"
 
-BASE_DIR = Path(__file__).absolute().parent.resolve()
-
 include_dirs = []
 library_dirs = []
 libraries = []
@@ -18,7 +16,7 @@ if platform == "win32":
 
     include_dirs += [str(LIB_DIR / 'boost')]
     libraries += ['QuantLib-x64-mt', 'QuantExt-x64-mt',
-                 'QuantLibParser', 'nlohmann_json_schema_validator']
+                  'QuantLibParser', 'nlohmann_json_schema_validator']
 
 else:
     if platform == "linux" or platform == "linux2":
@@ -32,7 +30,7 @@ else:
     library_dirs += [str(LIB_DIR / 'lib')]
 
     libraries += ['QuantLib', 'QuantExt', 'QuantLibParser',
-                 'nlohmann_json_schema_validator']
+                  'nlohmann_json_schema_validator']
 
 extra_compile_args = ['-std=c++20']
 

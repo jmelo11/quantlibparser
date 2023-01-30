@@ -32,16 +32,28 @@
                 "collateralCurve": {
                     "$ref": "common.schema.json#/definitions/discountCurve"
                 },
-                "baseCurrencyIsCollateral": {
+                "baseCurrencyAsCollateral": {
                     "type": "boolean"
                 },
                 "fixingDays": {
                     "$ref": "common.schema.json#/definitions/settlementDays"
                 }
             },
-            "required": [
-                "tenor",
-                "baseCurrencyIsCollateral"
+            "allOf": [
+                {
+                    "if":{
+                        "not":{
+                            "required": [
+                                "tenor", "baseCurrencyAsCollateral"
+                            ]
+                        }
+                    },
+                    "then":{
+                        "required": [                            
+                            "endDate", "baseCurrencyAsCollateral"
+                        ]
+                    }
+                }
             ]
         },
         "marketConfig": {

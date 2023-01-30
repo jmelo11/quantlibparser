@@ -153,7 +153,7 @@ TEST(MakeObject, FxSwapRateHelper) {
             "helperType": "FxSwap",
             "helperConfig": {
                 "tenor": "1Y",
-                "baseCurrencyIsCollateral": false
+                "baseCurrencyAsCollateral": false
             },
             "marketConfig": {
                 "fxPoints": {
@@ -169,7 +169,46 @@ TEST(MakeObject, FxSwapRateHelper) {
 
     Schema<QuantLib::FxSwapRateHelper> schema;
     EXPECT_NO_THROW(schema.makeObj(testSchema, f, h));
-}
+
+    testSchema = R"({
+            "helperType": "FxSwap",
+            "helperConfig": {
+                "endDate": "2025-01-29",
+                "baseCurrencyAsCollateral": false
+            },
+            "marketConfig": {
+                "fxPoints": {
+                    "ticker": "fxPointsTicker",
+                    "value": 5
+                },
+                "fxSpot":{
+                    "value": 100,
+                    "ticker": "fxSpotTicker"
+                }
+            }     
+		})"_json;
+
+    EXPECT_NO_THROW(schema.makeObj(testSchema, f, h));
+
+    testSchema = R"({
+            "helperType": "FxSwap",
+            "helperConfig": {                
+                "baseCurrencyAsCollateral": false
+            },
+            "marketConfig": {
+                "fxPoints": {
+                    "ticker": "fxPointsTicker",
+                    "value": 5
+                },
+                "fxSpot":{
+                    "value": 100,
+                    "ticker": "fxSpotTicker"
+                }
+            }     
+		})"_json;
+
+    EXPECT_ANY_THROW(schema.makeObj(testSchema, f, h));
+}   
 
 TEST(MakeObject, OISRateHelper) {
     json testSchema = R"({

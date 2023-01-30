@@ -1,0 +1,13 @@
+{
+    "$schema": "fxswap.ratehelper.schema.json",
+    "helperConfig": {
+        "baseCurrencyAsCollateral": true,
+        "calendar": "NullCalendar",
+        "collateralCurve": "SOFR",
+        "configDate": "2023-01-28T14:35:19.104000Z",
+        "convention": "Following",
+        "endOfMonth": false,
+        "fixingDays": 0,
+        "tenor":"1W"
+    }
+}

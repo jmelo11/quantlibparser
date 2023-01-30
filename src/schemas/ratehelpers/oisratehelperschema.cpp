@@ -1,5 +1,4 @@
 #include <qlp/parser.hpp>
-#include <qlp/schemas/commonschemas.hpp>
 #include <qlp/schemas/ratehelpers/oisratehelperschema.hpp>
 
 namespace QuantLibParser {

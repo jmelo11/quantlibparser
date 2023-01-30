@@ -30,7 +30,7 @@ namespace QuantLibParser {
         bool endOfMonth                            = helperConfig.at("endOfMonth");
         double fixingDays                          = helperConfig.at("fixingDays");
         bool endOfMont                             = helperConfig.at("endOfMonth");
-        bool baseCurrencyColateral                 = helperConfig.at("baseCurrencyIsCollateral");
+        bool baseCurrencyColateral                 = helperConfig.at("baseCurrencyAsCollateral");
 
         auto collateralCurve = helperConfig.find("collateralCurve") != helperConfig.end() ? curveGetter(helperConfig.at("collateralCurve")) :
                                                                                     RelinkableHandle<YieldTermStructure>();
@@ -45,7 +45,7 @@ namespace QuantLibParser {
             if (days > 0) {
                 tenor = QuantLib::Period(days, QuantLib::TimeUnit::Days);
             } else {
-                throw std::runtime_error("Error processing FxSwapRateHelper: End date must be after today (" + parseDate(startDate) + ").");
+                throw std::runtime_error("Error processing FxSwapRateHelper: End date must be after today (" + parseDate(startDate) + ")");
             }
         } else {
             tenor = parse<QuantLib::Period>(helperConfig.at("tenor"));
