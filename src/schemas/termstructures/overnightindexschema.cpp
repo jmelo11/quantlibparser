@@ -13,6 +13,7 @@ namespace QuantLibParser {
         myDefaultValues_["dayCounter"]     = "Act360";
         myDefaultValues_["calendar"]       = "NullCalendar";
         myDefaultValues_["settlementDays"] = 0;
+        myDefaultValues_["indexName"]      = "DummyIndex";
     };
 
     template <>

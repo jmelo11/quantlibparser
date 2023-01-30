@@ -15,6 +15,7 @@ namespace QuantLibParser {
         myDefaultValues_["convention"]     = "Unadjusted";
         myDefaultValues_["settlementDays"] = 0;
         myDefaultValues_["endOfMonth"]     = false;
+        myDefaultValues_["indexName"]     = "DummyIndex";
     };
 
     template <>
