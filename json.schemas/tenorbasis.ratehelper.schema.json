@@ -17,7 +17,7 @@
                 "longIndex": {
                     "type": "string"
                 },
-                "discountingCurve": {
+                "discountCurve": {
                     "$ref": "common.schema.json#/definitions/discountCurve"
                 },
                 "tenor": {

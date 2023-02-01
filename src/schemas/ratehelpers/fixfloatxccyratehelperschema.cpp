@@ -16,6 +16,8 @@ namespace QuantLibParser {
         myDefaultValues_["helperConfig"]["endOfMonth"]        = false;
         myDefaultValues_["helperConfig"]["fixedLegFrequency"] = "Semiannual";
 
+        myDefaultValues_["marketConfig"]["spread"]["value"] = 0.0;
+        myDefaultValues_["marketConfig"]["spread"]["ticker"] = "null";
     }
 
     template <>

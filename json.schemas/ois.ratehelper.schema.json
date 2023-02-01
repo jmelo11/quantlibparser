@@ -60,8 +60,7 @@
                 }
             },
             "required": [
-                "rate",
-                "spread"
+                "rate"
             ]
         }
     },

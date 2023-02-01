@@ -21,7 +21,7 @@ namespace QuantLibParser {
         const json& helperConfig = data.at("helperConfig");
         const json& marketConfig = data.at("marketConfig");
 
-        auto discountCurve = helperConfig.find("discountCurve") != helperConfig.end() ? curveGetter(data.at("discountCurve")) :
+        auto discountCurve = helperConfig.find("discountCurve") != helperConfig.end() ? curveGetter(helperConfig.at("discountCurve")) :
                                                                                         QuantLib::RelinkableHandle<QuantLib::YieldTermStructure>();
         auto shortIndex    = indexGetter(helperConfig.at("shortIndex"));
         auto longIndex     = indexGetter(helperConfig.at("longIndex"));

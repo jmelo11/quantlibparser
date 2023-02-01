@@ -63,8 +63,7 @@
             },
             "required": [
                 "rate",
-                "fxSpot",
-                "spread"
+                "fxSpot"                
             ]
         }
     },
