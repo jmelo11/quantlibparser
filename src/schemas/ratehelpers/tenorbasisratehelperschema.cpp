@@ -56,9 +56,8 @@ namespace QuantLibParser {
 
         bool spreadOnShort = data.at("SPREADONSHORT");
 
-        double spread = data.at("SPREAD");
-        boost::shared_ptr<QuantLib::Quote> spreadPtr(new QuantLib::SimpleQuote(spread));
-        QuantLib::Handle<QuantLib::Quote> spreadQuote(spreadPtr);
+        auto spreadQuote = priceGetter(data.at("SPREAD"), data.at("SPREADTICKER"));
+        
 
         QuantLib::Period sortPayTenor =
             data.find("SHORTPAYTENOR") != data.end() ? parse<QuantLib::Period>(data.at("SHORTPAYTENOR")) : QuantLib::Period();
