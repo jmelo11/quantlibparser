@@ -43,9 +43,7 @@ namespace QuantLibParser {
 
         bool spreadOnShort = helperConfig.at("spreadOnShort");
 
-        double spread = marketConfig.at("spread").at("value");
-        boost::shared_ptr<QuantLib::Quote> spreadPtr(new QuantLib::SimpleQuote(spread));
-        QuantLib::Handle<QuantLib::Quote> spreadQuote(spreadPtr);
+        auto spreadQuote = priceGetter(marketConfig.at("spread").at("value"), marketConfig.at("spread").at("ticker"));
 
         QuantLib::Period sortPayTenor =
             helperConfig.find("shortPayTenor") != helperConfig.end() ? parse<QuantLib::Period>(helperConfig.at("shortPayTenor")) : QuantLib::Period();
