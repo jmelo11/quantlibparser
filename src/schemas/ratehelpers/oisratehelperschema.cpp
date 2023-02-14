@@ -43,8 +43,7 @@ namespace QuantLibParser {
 
         QuantLib::Period fwdStart = parse<QuantLib::Period>(helperConfig.at("fwdStart"));
 
-        auto discountCurve = helperConfig.find("discountCurve") != helperConfig.end() ? curveGetter(helperConfig.at("discountCurve")) :
-                                                                                QuantLib::RelinkableHandle<QuantLib::YieldTermStructure>();
+        auto discountCurve = helperConfig.find("discountCurve") != helperConfig.end() ? curveGetter(helperConfig.at("discountCurve")) : QuantLib::RelinkableHandle<QuantLib::YieldTermStructure>();
 
         double spread = marketConfig.at("spread").at("value");
         auto rate     = marketConfig.at("rate");

@@ -18,5 +18,5 @@
             "$ref": "common.schema.json#/definitions/frequency"
         }        
     },
-    "required": ["value"]
+    "required": ["value", "dayCounter", "compounding", "frequency"]
 }

@@ -11,7 +11,7 @@
                 "tenor": {
                     "$ref": "common.schema.json#/definitions/tenor"
                 },
-                "spreadOnShortIndex": {
+                "spreadOnShort": {
                     "type": "boolean"
                 },
                 "shortIndex": {
@@ -24,7 +24,7 @@
                     "$ref": "common.schema.json#/definitions/discountCurve"
                 },              
                 "shortPayTenor": {
-                    "type": "boolean"
+                    "$ref": "common.schema.json#/definitions/tenor"
                 }
             },
             "required": [
