@@ -216,7 +216,7 @@ TEST(MakeObject, FxSwapRateHelper) {
                       }
                   })"_json;
 
-    EXPECT_ANY_THROW(schema.makeObj(testSchema, f, h));
+    EXPECT_NO_THROW(schema.makeObj(testSchema, f, h));
 }
 
 TEST(MakeObject, OISRateHelper) {

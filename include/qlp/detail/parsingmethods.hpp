@@ -43,7 +43,12 @@ namespace QuantLibParser {
      * @return Date
      */
     inline Date parseDate(const std::string& date) {
-        return DateParser::parseISO(date);
+        if (date.size()==10) {
+            return DateParser::parseFormatted(date, "%Y-%m-%d");
+        }
+        else{
+            return DateParser::parseFormatted(date, "%Y-%m-%dT%H:%M:%S%F%QZ");
+        }
     };
 
     inline Currency parseCurrency(const std::string& currency) {
