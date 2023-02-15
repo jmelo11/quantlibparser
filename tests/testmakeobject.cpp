@@ -190,25 +190,34 @@ TEST(MakeObject, FxSwapRateHelper) {
 
     EXPECT_NO_THROW(schema.makeObj(testSchema, f, h));
 
-    testSchema = R"({
-            "helperType": "FxSwap",
-            "helperConfig": {                
-                "baseCurrencyAsCollateral": false
-            },
-            "marketConfig": {
-                "fxPoints": {
-                    "ticker": "fxPointsTicker",
-                    "value": 5
-                },
-                "fxSpot":{
-                    "value": 100,
-                    "ticker": "fxSpotTicker"
-                }
-            }     
-		})"_json;
+    testSchema = R"( {
+                      "helperType": "FxSwap",
+                      "helperConfig": {
+                          "calendar": "NullCalendar",
+                          "fixingDays": 0,
+                          "endOfMonth": false,
+                          "baseCurrencyAsCollateral": false,
+                          "convention": "Following",                          
+                          "endDate": "2023-03-09T00:00:00.000Z",
+                          "settlementDays": 0
+                      },
+                      "marketConfig": {
+                          "_id": "63ebd519f6f786e1b8409721",
+                          "createdAt": "2023-02-14T18:38:09.868Z",
+                          "helperId": "63ea64f0d74390dd819e0e3a",
+                          "fxSpot": {
+                              "value": 35368.49,
+                              "ticker": "CLUFUF INDEX"
+                          },
+                          "fxPoints": {
+                              "value": 232.2573,
+                              "ticker": ".NDFUF0M INDEX"
+                          }
+                      }
+                  })"_json;
 
     EXPECT_ANY_THROW(schema.makeObj(testSchema, f, h));
-}   
+}
 
 TEST(MakeObject, OISRateHelper) {
     json testSchema = R"({
